@@ -1,0 +1,45 @@
+# Builds the Windows installers and attaches them to a GitHub Release.
+# Trigger: push a tag like v0.26.0 (creating a release on github.com does this), or run it by hand from the Actions tab.
+# The release is created as a draft so it can be checked before it goes public.
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  windows:
+    permissions:
+      contents: write
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: Install the Tauri CLI
+        run: npm install
+
+      - name: Build installers and publish a draft release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__
+          releaseName: Daybreak Star Map v__VERSION__
+          releaseBody: 'Windows installers are attached below (.exe is the NSIS installer, .msi the Windows Installer package). Both need Windows 10 or 11; the WebView2 runtime is downloaded on first install if it is missing.'
+          releaseDraft: true
+          prerelease: false
