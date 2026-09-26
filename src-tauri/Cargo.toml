@@ -1,6 +1,6 @@
 [package]
 name = "daybreak-star-map"
-version = "0.26.0"
+version = "0.27.0"
 description = "Daybreak Star Map: a GPU-accelerated star map of the Project Daybreak universe"
 authors = ["Faber"]
 license = "MIT"

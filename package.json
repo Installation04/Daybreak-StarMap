@@ -1,6 +1,6 @@
 {
   "name": "daybreak-star-map",
-  "version": "0.26.0",
+  "version": "0.27.0",
   "private": true,
   "description": "Desktop build of the Daybreak Star Map (Tauri 2). The map itself is the static page in app/ and needs no build step.",
   "scripts": {

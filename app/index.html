@@ -592,7 +592,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 <!-- d20: the About sheet -->
 <div class="ov" id="ovAbout" hidden>
  <div class="sheet narrow" role="dialog" aria-modal="true" aria-labelledby="aboutH">
-  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 0.26.0. What it is, and where everything came from</p></div>
+  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 0.27.0. What it is, and where everything came from</p></div>
    <button class="x" id="aboutX" aria-label="Close">&times;</button></div>
   <div class="sb">
 
@@ -606,8 +606,9 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p class="src"><b>Daybreak charts</b>Positions in human and Covenant space follow the three Daybreak charts: the Human Sphere chart (2565), the ONI Project LEVIATHAN Spinward strategic map (2576), the Siakar Expanse chart and the Covenant Sphere heatmap (1,000 ly grid), with the Halo Array placed as on the Daybreak galaxy map ("The Milky Way / Project LEVIATHAN", Tacitus, 2021). Where a chart and a wiki page disagree, the map follows the chart.</p>
 
    <h3>Star and deep sky data</h3>
-   <p class="src"><b>Augmented Tycho-HYG (AT-HYG) v4.0</b>By David Nash (astronexus), <a href="https://codeberg.org/astronexus/athyg" target="_blank" rel="noopener noreferrer">codeberg.org/astronexus/athyg</a>, CC BY-SA 4.0. 354,212 of the 634,031 stars in the field, the named-star list and the HIP, HD, HR, Gliese, Bayer, Flamsteed, Tycho-2 and Gaia DR3 designations come from it. AT-HYG is itself compiled from Hipparcos and Tycho-2 (ESA), Gaia DR3, the Henry Draper catalogue, the Yale Bright Star Catalogue, the Gliese-Jahreiss catalogue and the IAU star names. The Hipparcos distance switch in Settings uses the HYG parallaxes carried in the same catalogue.</p>
+   <p class="src"><b>Augmented Tycho-HYG (AT-HYG) v4.0</b>By David Nash (astronexus), <a href="https://codeberg.org/astronexus/athyg" target="_blank" rel="noopener noreferrer">codeberg.org/astronexus/athyg</a>, CC BY-SA 4.0. 354,212 of the 1,347,197 stars in the field, the named-star list and the HIP, HD, HR, Gliese, Bayer, Flamsteed, Tycho-2 and Gaia DR3 designations come from it. AT-HYG is itself compiled from Hipparcos and Tycho-2 (ESA), Gaia DR3, the Henry Draper catalogue, the Yale Bright Star Catalogue, the Gliese-Jahreiss catalogue and the IAU star names. The Hipparcos distance switch in Settings uses the HYG parallaxes carried in the same catalogue.</p>
    <p class="src"><b>Gaia Catalogue of Nearby Stars (GCNS)</b>Gaia Collaboration, Smart, R. L., et al. 2021, A&amp;A, 649, A6, "Gaia Early Data Release 3: The Gaia Catalogue of Nearby Stars", via the CDS VizieR catalogue <a href="https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/649/A6" target="_blank" rel="noopener noreferrer">J/A+A/649/A6</a>. The 279,819 faint stars and brown dwarfs within 100 pc that AT-HYG does not carry, with their Gaia EDR3, 2MASS and CATWISE names, come from it. The 863 brown dwarfs (767 typed by SIMBAD, 96 candidates by colour and absolute magnitude) are drawn and typed as such.</p>
+   <p class="src"><b>Gaia DR3 shell</b>Gaia Collaboration, Vallenari, A., et al. 2023, A&amp;A, 674, A1, "Gaia Data Release 3: Summary of the content and survey properties", queried from the <a href="https://gea.esac.esa.int/archive/" target="_blank" rel="noopener noreferrer">ESA Gaia Archive</a>. The 713,166 stars between 100 and 200 pc (326 to 652 ly) brighter than G = 16, with parallax over error above 5, that neither AT-HYG nor GCNS carries. Each is placed by its Gaia DR3 parallax; V is derived from G and BP-RP by a fit on the stars the catalogues share; they carry their Gaia DR3 source id and no other designation.</p>
    <p class="src"><b>SIMBAD</b>This research has made use of the SIMBAD database, operated at CDS, Strasbourg, France (Wenger, M., et al. 2000, A&amp;AS, 143, 9). Every other identifier a star carries, its object type, and the adopted parallax that places each star within 100 pc come from a SIMBAD extract taken on 23 September 2026.</p>
    <p class="src"><b>2MASS and CATWISE</b>Names from the Two Micron All Sky Survey (Skrutskie, M. F., et al. 2006, AJ, 131, 1163) and CATWISE2020 (Marocco, F., et al. 2021, ApJS, 253, 8), as carried by GCNS.</p>
    <p class="src"><b>Gaia</b>This work has made use of data from the European Space Agency (ESA) mission <a href="https://www.cosmos.esa.int/gaia" target="_blank" rel="noopener noreferrer">Gaia</a>, processed by the <a href="https://www.cosmos.esa.int/web/gaia/dpac/consortium" target="_blank" rel="noopener noreferrer">Gaia Data Processing and Analysis Consortium</a> (DPAC). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the Gaia Multilateral Agreement.</p>
@@ -648,7 +649,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <h3>What you're looking at</h3>
    <p>The Milky Way from outside, about 100,000 light years corner to corner, with Project Daybreak laid over the top of it.</p>
    <p>One unit here is one light year. The bright smear in the middle is the galactic core. Sol is the small yellow dot 26,000 light years out on a spiral arm.</p>
-   <p>Two spheres sit on that galaxy. The Human Sphere is 484 systems from the 2565 chart and Daybreak's own Human Sphere page, each one placed on the real star it names where a catalogue star can be tied to it. The Covenant Sphere is 690 systems read off the Covenant worlds table, the two strategic charts and the Covenant Sphere heatmap. Everything else on screen came out of the star catalogues: 634,031 stars in the field, 9,843 of them named, and every one of them can be clicked, plus the nebulae, the clusters and the small galaxies orbiting ours.</p>
+   <p>Two spheres sit on that galaxy. The Human Sphere is 484 systems from the 2565 chart and Daybreak's own Human Sphere page, each one placed on the real star it names where a catalogue star can be tied to it. The Covenant Sphere is 690 systems read off the Covenant worlds table, the two strategic charts and the Covenant Sphere heatmap. Everything else on screen came out of the star catalogues: 1,347,197 stars in the field (713,166 of them a Gaia DR3 shell out to 200 pc), 9,843 of them named, and every one of them can be clicked, plus the nebulae, the clusters and the small galaxies orbiting ours.</p>
    <figure><img src="help/overview.webp" width="1500" height="943" loading="lazy" decoding="async" alt="The Milky Way seen from outside, with the Halo Array installations and the hatched estimated regions marked across the disc"><figcaption>The galaxy view as it loads, with the Array and the estimated regions marked.</figcaption></figure>
 
    <h3>Moving around</h3>
@@ -6064,25 +6065,47 @@ function buildLocalGroup(satObjs){
   return lgObjs;
 }
 
-// ---------- real star catalogue (v7, rebuilt d21): AT-HYG 4.0 plus the Gaia Catalogue of Nearby Stars, 634,031 stars in stars.wasm ----------
+// ---------- real star catalogue (v7, rebuilt d21; d27 adds the Gaia DR3 shell): AT-HYG 4.0 plus the Gaia Catalogue of Nearby Stars, 634,031 stars in stars.wasm, then 713,166 shell stars in gaia.wasm and gaia2.wasm ----------
 // Record: f32 x,y,z (world ly) · f32 absolute magnitude · u8 r,g,b · u8 placement source · u32 HIP. All Hipparcos stars are kept (needed for
 // the constellation lines), every star within 1,000 ly brighter than M=3.65, every star out to 15,000 ly brighter than M=-0.35, every AT-HYG
 // star within 100 pc whatever its magnitude, and every GCNS star within 100 pc that AT-HYG does not carry, brown dwarfs included from d22.
 // Placement source: 1 Gaia DR3 · 2 Gaia DR2 · 3 Hipparcos · 4 Gliese · 5 GCNS (Gaia EDR3) · 6 other SIMBAD-adopted · 7 held at the d20
-// position · 8 pinned to the Daybreak chart · 9 other AT-HYG. Line i of starids.wasm is the identifier record of point i.
-const STAR_FILES = ['stars.wasm', 'stars2.wasm'], STARID_FILES = ['starids.wasm', 'starids2.wasm'];
+// position · 8 pinned to the Daybreak chart · 9 other AT-HYG · 10 Gaia DR3 shell. Line i of starids.wasm is the identifier record of point i.
+// d27: gaia.wasm and gaia2.wasm (one table in two parts, joined on load) hold the Gaia DR3 shell (100 to 200 pc, G < 16, parallax over error > 5, minus everything the field already carries),
+// 32 bytes a record: f32 x,y,z · f32 absolute V (from G and BP-RP) · u8 r,g,b · u8 source (10) · i16 BP-RP ×1000 (-9999 = none) ·
+// i16 G ×1000 · u64 Gaia DR3 source id. Records are sorted by source id so a bare id can be found by bisection. The shell points are
+// appended to the same buffers as the field, so picking, the stopover search and the layer toggle see one field; they have no
+// starids line, so the panel shows the Gaia id and the photometry carried in the record.
+const STAR_FILES = ['stars.wasm', 'stars2.wasm'], STARID_FILES = ['starids.wasm', 'starids2.wasm'], GAIA_FILES = ['gaia.wasm', 'gaia2.wasm'];
 const HIP_POS = new Map(); let realStarsLoaded = false, realStarCount = 0, HIP_OF = null;
-const STAR_SRC_NAME = ['', 'Gaia DR3', 'Gaia DR2', 'Hipparcos', 'Gliese-Jahreiss', 'Gaia EDR3 (GCNS)', 'SIMBAD-adopted parallax', 'AT-HYG 3.2 (held)', 'Daybreak chart (pinned)', 'AT-HYG'];
+let fieldBase = 0, GAIA_ID = null, GAIA_BPRP = null, GAIA_G = null;   // d27: shell points are indices fieldBase and up
+const STAR_SRC_NAME = ['', 'Gaia DR3', 'Gaia DR2', 'Hipparcos', 'Gliese-Jahreiss', 'Gaia EDR3 (GCNS)', 'SIMBAD-adopted parallax', 'AT-HYG 3.2 (held)', 'Daybreak chart (pinned)', 'AT-HYG', 'Gaia DR3'];
 async function loadRealStars(){
   let buf;
   // d21: two parts, each under the host's per-file limit; the records simply continue from one file into the next
   try { const parts = []; for (const f of STAR_FILES){ const r = await fetch(f); if (!r.ok) throw new Error(f + ' ' + r.status); parts.push(await r.arrayBuffer()); }
     const tot = parts.reduce((a, b) => a + b.byteLength, 0), u = new Uint8Array(tot); let off = 0; for (const b of parts){ u.set(new Uint8Array(b), off); off += b.byteLength; } buf = u.buffer; }
   catch(e){ console.warn('stars.wasm unavailable, keeping the procedural field only', e); return false; }
-  const N = Math.floor(buf.byteLength/24), dv = new DataView(buf);
+  // d27: the shell. Optional: if gaia.wasm is missing the field is simply the d21 field.
+  let gbuf = null;
+  try { const parts = []; for (const f of GAIA_FILES){ const r = await fetch(f); if (!r.ok) throw new Error(f + ' ' + r.status); parts.push(await r.arrayBuffer()); }
+    const tot = parts.reduce((a, b) => a + b.byteLength, 0), u = new Uint8Array(tot); let off = 0; for (const b of parts){ u.set(new Uint8Array(b), off); off += b.byteLength; } gbuf = u.buffer; }
+  catch(e){ console.warn('gaia.wasm unavailable, the field stops at the d21 catalogue', e); }
+  const NB = Math.floor(buf.byteLength/24), NS = gbuf ? Math.floor(gbuf.byteLength/32) : 0, N = NB + NS, dv = new DataView(buf);
+  fieldBase = NB;
   const pos = new Float32Array(N*3), col = new Float32Array(N*3), sz = new Float32Array(N), Mv = new Float32Array(N), srcv = new Uint8Array(N);
   HIP_OF = new Uint32Array(N);
-  for (let i=0;i<N;i++){
+  if (NS){
+    const g = new DataView(gbuf); GAIA_ID = new BigUint64Array(NS); GAIA_BPRP = new Int16Array(NS); GAIA_G = new Int16Array(NS);
+    for (let k=0;k<NS;k++){
+      const o = k*32, i = NB + k, M = g.getFloat32(o+12,true);
+      pos[i*3]=g.getFloat32(o,true); pos[i*3+1]=g.getFloat32(o+4,true); pos[i*3+2]=g.getFloat32(o+8,true); Mv[i] = M; srcv[i] = g.getUint8(o+19);
+      col[i*3]=g.getUint8(o+16)/255; col[i*3+1]=g.getUint8(o+17)/255; col[i*3+2]=g.getUint8(o+18)/255;
+      sz[i] = Math.min(60, Math.pow(10, -0.1*M));
+      GAIA_BPRP[k] = g.getInt16(o+20,true); GAIA_G[k] = g.getInt16(o+22,true); GAIA_ID[k] = g.getBigUint64(o+24,true);
+    }
+  }
+  for (let i=0;i<NB;i++){
     const o = i*24, x = dv.getFloat32(o,true), y = dv.getFloat32(o+4,true), z = dv.getFloat32(o+8,true), M = dv.getFloat32(o+12,true);
     pos[i*3]=x; pos[i*3+1]=y; pos[i*3+2]=z; Mv[i] = M; srcv[i] = dv.getUint8(o+19);
     col[i*3]=dv.getUint8(o+16)/255; col[i*3+1]=dv.getUint8(o+17)/255; col[i*3+2]=dv.getUint8(o+18)/255;
@@ -6091,6 +6114,13 @@ async function loadRealStars(){
   }
   const p = makePoints(pos, col, sz, {tex:TEX_STAR, opacity:STAR.gain, order:2, star:true}); scene.add(p); layers.stars.push(p);
   p.userData.pos = pos; p.userData.M = Mv; p.userData.src = srcv; realStarsLoaded = true; realStarCount = N; return p;
+}
+// d27: the point index of a shell star by its Gaia DR3 source id (bisection over the sorted id table), or -1
+function gaiaFind(idStr){
+  if (!GAIA_ID || !/^\d{1,20}$/.test(idStr)) return -1;
+  const v = BigInt(idStr); let lo = 0, hi = GAIA_ID.length - 1;
+  while (lo <= hi){ const m = (lo + hi) >> 1, x = GAIA_ID[m]; if (x === v) return fieldBase + m; if (x < v) lo = m + 1; else hi = m - 1; }
+  return -1;
 }
 // ---------- d21: catalogue identifiers, one record per field star ----------
 // starids.wasm is gzip text (the .wasm extension is only so the host serves it unchanged): a header line, then one
@@ -6107,7 +6137,7 @@ async function loadStarIds(){
     const off = []; let p = text.indexOf('\n') + 1;
     while (p > 0 && p < text.length){ off.push(p); const q = text.indexOf('\n', p); if (q < 0) break; p = q + 1; }
     SID.text = text; SID.off = new Uint32Array(off); SID.ready = true;
-    if (typeof realStarCount !== 'undefined' && realStarCount && off.length !== realStarCount) console.warn('starids.wasm has '+off.length+' records for '+realStarCount+' stars');
+    if (typeof fieldBase !== 'undefined' && fieldBase && off.length !== fieldBase) console.warn('starids.wasm has '+off.length+' records for '+fieldBase+' stars');
   } catch(e){ console.warn('starids.wasm unavailable; field stars will show HIP numbers only', e); }
 }
 function starIdRec(i){
@@ -6142,7 +6172,9 @@ const FOBJ = new Map();
 const OTYPE_NAME = { 'PM*':'high proper-motion star', 'LM*':'low-mass star', 'WD*':'white dwarf', 'WD?':'white dwarf candidate', 'SB*':'spectroscopic binary', '**':'double or multiple star', 'Em*':'emission-line star', 'V*':'variable star', 'EB*':'eclipsing binary', 'BY*':'BY Draconis variable', 'RS*':'RS CVn variable', 'Pe*':'chemically peculiar star', 'Er*':'eruptive variable', 'TT*':'T Tauri star', 'Y*?':'young stellar object candidate', 'Y*O':'young stellar object', 'dS*':'delta Scuti variable', 'RG*':'red giant', 'Or*':'Orion variable', 'gD*':'gamma Doradus variable', 'a2*':'alpha2 CVn variable', 'CV*':'cataclysmic variable', 'BD*':'brown dwarf', 'BD?':'brown dwarf candidate', 'LP*':'long-period variable', 'Mi*':'Mira variable', 'RR*':'RR Lyrae variable', 'HB*':'horizontal-branch star', 'Ro*':'rotating variable', 'Pu*':'pulsating variable', 'MS*':'main-sequence star', 'HS*':'hot subdwarf', 'Ce*':'Cepheid', 'El*':'ellipsoidal variable', 'sg*':'evolved supergiant', 's*b':'blue supergiant', 's*r':'red supergiant', 'AB*':'asymptotic giant branch star', 'Be*':'Be star', 'Ae*':'Herbig Ae/Be star', 'S*':'S star', 'C*':'carbon star', 'pA*':'post-AGB star', 'HV*':'high-velocity star', 'Pl':'planet', '*':'star' };
 function fieldName(i, r){
   if (r){ if (r.proper) return r.proper; if (r.bayer) return r.bayer; if (r.flam) return r.flam; if (r.gl) return r.gl; if (r.hd) return r.hd; if (r.hip) return r.hip; if (r.simbad) return r.simbad; if (r.tyc) return r.tyc; if (r.gaia) return r.gaia; if (r.tm) return r.tm; }
-  const hp = HIP_OF ? HIP_OF[i] : 0; return hp ? 'HIP ' + hp : 'Catalogue star ' + i;
+  const hp = HIP_OF ? HIP_OF[i] : 0; if (hp) return 'HIP ' + hp;
+  if (GAIA_ID && i >= fieldBase) return 'Gaia DR3 ' + GAIA_ID[i - fieldBase];   // d27: a shell star is known by its Gaia id
+  return 'Catalogue star ' + i;
 }
 // the field object for point i. A point that carries a named-list star (by HIP) hands over to that object, so a click
 // on the dot under Sirius or under a Daybreak system selects the object the map already knows.
@@ -6159,12 +6191,12 @@ function fieldObj(i){
   const alt = r ? [r.proper && r.bayer ? r.bayer : '', r.proper && !r.bayer && r.flam ? r.flam : ''].filter(Boolean)[0] || '' : '';
   const ot = r && r.otype ? (OTYPE_NAME[r.otype] || r.otype) : 'star';
   o = { id:'fs-'+i, name:nm, alt, hip:hp, pos:p, kind:'field', field:true, dSol:p.distanceTo(SUN), fidx:i, rec:r,
-    type:'Star \u00b7 catalogue', desig:'Catalogue star' + (r && r.spect ? ' \u00b7 ' + r.spect : '') + (r && r.otype && r.otype !== '*' ? ' \u00b7 ' + ot : '') + (hp ? ' \u00b7 HIP ' + hp : '') };
+    type:'Star \u00b7 catalogue', desig:'Catalogue star' + (r && r.spect ? ' \u00b7 ' + r.spect : '') + (r && r.otype && r.otype !== '*' ? ' \u00b7 ' + ot : '') + (hp ? ' \u00b7 HIP ' + hp : '') + (i >= fieldBase ? ' \u00b7 Gaia DR3 shell' : '') };
   FOBJ.set(i, o); return o;
 }
 function objById(id){ const o = objects.find(x => x.id === id); if (o) return o; const m = /^fs-(\d+)$/.exec(id); return (m && realStarsLoaded) ? fieldObjOrNamed(+m[1]) : null; }
 // pick the field star nearest the click, within px pixels; brighter stars win a near tie. One pass over the whole
-// field per click, about 10 ms for 634,031 points, and nothing per frame.
+// field per click, about 10 ms for 634,031 points (d27: 1,347,197 with the shell), and nothing per frame.
 const _vpm = new THREE.Matrix4();
 function pickField(cx, cy, px){
   if (!realStarsLoaded || !realPts.visible) return -1;
@@ -6185,23 +6217,32 @@ function pickField(cx, cy, px){
 function fieldPara(o){
   const r = o.rec, src = realPts.userData.src[o.fidx], sn = STAR_SRC_NAME[src] || 'catalogue';
   const what = r && r.otype ? (OTYPE_NAME[r.otype] || 'star') : 'star';
-  const how = src === 5 ? 'It is one of the faint nearby stars added from the Gaia Catalogue of Nearby Stars; the position is the GCNS median distance from the Gaia EDR3 parallax.'
+  const how = src === 10 ? 'It is one of the stars of the Gaia DR3 shell: the stars between 100 and 200 pc brighter than G 16 that AT-HYG and GCNS do not carry. The position is from its Gaia DR3 parallax; V is derived from G and BP-RP, and it carries no designation beyond its Gaia source id.'
+    : src === 5 ? 'It is one of the faint nearby stars added from the Gaia Catalogue of Nearby Stars; the position is the GCNS median distance from the Gaia EDR3 parallax.'
     : src === 8 ? 'It carries a Daybreak system, so it is held at the chart position.'
     : src === 7 ? 'AT-HYG 4.0 and 3.2 disagree by more than a factor of two on its distance, so the d20 position is kept.'
     : 'Position from the ' + sn + ' parallax' + (src === 6 || src === 1 || src === 2 || src === 3 ? ', the measurement SIMBAD currently adopts for this object' : '') + '.';
-  return '<p>Real ' + what + (r && r.spect ? ', spectral type ' + esc(r.spect) : '') + (r && r.simbad && r.simbad !== o.name ? ', ' + esc(r.simbad) + ' in SIMBAD' : '') + '. ' + how + (!SID.ready ? ' The identifier table has not loaded, so only the HIP number is shown.' : '') + '</p>';
+  return '<p>Real ' + what + (r && r.spect ? ', spectral type ' + esc(r.spect) : '') + (r && r.simbad && r.simbad !== o.name ? ', ' + esc(r.simbad) + ' in SIMBAD' : '') + '. ' + how + (!SID.ready && src !== 10 ? ' The identifier table has not loaded, so only the HIP number is shown.' : '') + '</p>';
 }
 function fieldRows(o){
   const r = o.rec, src = realPts.userData.src[o.fidx];
   let h = '';
   if (r && r.vmag) h += `<div><span class="k">Apparent mag</span><span class="v">${esc(r.vmag)}</span></div>`;
+  if (src === 10 && GAIA_G){   // d27: a shell star carries G and BP-RP in its record; V is derived, as the absolute magnitude is
+    const k = o.fidx - fieldBase, V = realPts.userData.M[o.fidx] + 5*Math.log10(Math.max(1e-6, o.dSol/LY_PER_PC)) - 5;
+    h += `<div><span class="k">Apparent mag</span><span class="v">${V.toFixed(2)} <small>V, from G</small></span></div>`;
+    h += `<div><span class="k">Gaia G</span><span class="v">${(GAIA_G[k]/1000).toFixed(2)}</span></div>`;
+    if (GAIA_BPRP[k] > -9000) h += `<div><span class="k">Colour BP\u2212RP</span><span class="v">${(GAIA_BPRP[k]/1000).toFixed(2)}</span></div>`;
+  }
   h += `<div><span class="k">Absolute mag</span><span class="v">${realPts.userData.M[o.fidx].toFixed(2)}</span></div>`;
   h += `<div><span class="k">Placed by</span><span class="v">${STAR_SRC_NAME[src] || 'catalogue'}</span></div>`;
   if (r && r.con) h += `<div><span class="k">Constellation</span><span class="v">${esc(r.con)}</span></div>`;
   return h;
 }
 function fieldDesigRows(o){
-  const r = o.rec; if (!r) return o.hip ? `</div><div class="onmap">Catalogue designations</div><div class="kv"><div><span class="k">Hipparcos</span><span class="v">HIP ${o.hip}</span></div>` : '';
+  const r = o.rec;
+  if (!r && GAIA_ID && o.fidx >= fieldBase) return `</div><div class="onmap">Catalogue designations</div><div class="kv"><div><span class="k">Gaia DR3</span><span class="v" style="font-size:10.5px">${GAIA_ID[o.fidx - fieldBase]}</span></div>`;   // d27
+  if (!r) return o.hip ? `</div><div class="onmap">Catalogue designations</div><div class="kv"><div><span class="k">Hipparcos</span><span class="v">HIP ${o.hip}</span></div>` : '';
   const L = [['Hipparcos', r.hip], ['Henry Draper', r.hd], ['Bright Star', r.hr], ['Gliese', r.gl], ['Bayer', r.bayer], ['Flamsteed', r.flam], ['Tycho-2', r.tyc], ['Gaia DR3', r.gaia], ['2MASS', r.tm], ['CATWISE', r.wise], ['SIMBAD', r.simbad], ['Spectral type', r.spect], ['Object type', r.otype ? (OTYPE_NAME[r.otype] || r.otype) : '']];
   const rows = [];
   for (const [k, v] of L) if (v) rows.push(`<div><span class="k">${k}</span><span class="v" style="font-size:${v.length > 16 ? '10.5' : '12'}px;white-space:normal">${esc(v)}</span></div>`);
@@ -8347,7 +8388,7 @@ function provenanceBlock(o){
   else if (o.kind === 'ring') t = o.ring.star ? 'Halo installation from the Daybreak wiki, drawn on the star Daybreak names for its system; the ring inside the system is at true scale on the station Daybreak describes.' : o.ring.est ? 'Halo installation from the Daybreak wiki. Daybreak has not placed it; the ellipse is the estimated region on the Daybreak galaxy map, and anything drawn inside it is constructed.' : 'Halo installation from the Daybreak wiki, at the fixed point the Daybreak galaxy map gives it, scaled to this map\'s Sol-to-core distance.';
   else if (o.kind === 'estreg') t = 'Estimated region traced from the hatched area on the Daybreak galaxy map; its outline is that drawing, not a surveyed border.';
   else if (o.kind === 'wp') t = 'A named point on a route that is not a system, kept so later routes and markers can be plotted against it.';
-  else if (o.kind === 'field') t = 'Real star from the catalogue field (AT-HYG 4.0, the Gaia Catalogue of Nearby Stars and SIMBAD). No Daybreak chart lists it; it is not a system.';
+  else if (o.kind === 'field') t = 'Real star from the catalogue field (AT-HYG 4.0, the Gaia Catalogue of Nearby Stars, the Gaia DR3 shell and SIMBAD). No Daybreak chart lists it; it is not a system.';
   else if (o.kind === 'deep' || o.kind === 'gal') t = 'Real object. Position, distance and type from catalogue data.';
   else if (o.kind === 'con') t = 'Real constellation figure, drawn as it appears from Earth.';
   else if (o.kind === 'sol') t = 'Real. Sol is the origin every distance on this map is measured from.';
@@ -8549,6 +8590,8 @@ q.addEventListener('input', () => {
   hits.sort((a,b) => a[0]-b[0] || (a[1].dSol||0)-(b[1].dSol||0));
   const top = hits.slice(0,14).map(h => h[1]);
   // d21: the star field. Named objects rank first; the table is searched only once three characters are typed.
+  // d27: a Gaia DR3 source id typed on its own finds a shell star exactly (the table scan below covers AT-HYG and GCNS ids)
+  if (realStarsLoaded && GAIA_ID){ const gm = /^(?:gaia\s*(?:dr3)?\s*)?(\d{10,20})$/.exec(s); if (gm){ const k = gaiaFind(gm[1]); if (k >= 0){ const o = fieldObjOrNamed(k); if (!top.includes(o)) top.unshift(o); } } }
   if (top.length < 14 && realStarsLoaded){ for (const i of fieldSearch(s, 14 - top.length)){ const o = fieldObjOrNamed(i); if (!top.includes(o)) top.push(o); } }
   const extra = o => {
     if (o.db && !o.nkey.includes(s)){ const w = (o.db.worlds||[]).find(w=>nrm(w.n).includes(s)); if (w) return ' \u00b7 '+w.n; }
