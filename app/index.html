@@ -454,6 +454,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
     <label><input type="checkbox" data-layer="stars" checked> Star field</label>
     <label><input type="checkbox" data-layer="named" checked> Named stars</label>
     <label class="sub"><input type="checkbox" data-layer="fieldpick" checked> Click selects catalogue stars</label>
+    <label class="sub" title="The Gaia DR3 shell: every catalogued star out to 300 pc. Turning it off drops the field to the 634,031-star catalogue and is remembered, so the shell is not loaded next time; on a machine that struggles, turn this off."><input type="checkbox" data-layer="gaiashell" checked> Gaia deep field to 300 pc<span id="gaiaNote" style="margin-left:6px;color:var(--mute);font-size:11px"></span></label>
     <label><input type="checkbox" data-layer="sats" checked> Satellites and Local Group</label>
     <label><input type="checkbox" data-layer="deep" checked> Nebulae and clusters</label>
     <label><input type="checkbox" data-layer="con"> Constellations</label>
@@ -596,7 +597,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 <!-- d20: the About sheet -->
 <div class="ov" id="ovAbout" hidden>
  <div class="sheet narrow" role="dialog" aria-modal="true" aria-labelledby="aboutH">
-  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 0.29.0. What it is, and where everything came from</p></div>
+  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 0.30.0. What it is, and where everything came from</p></div>
    <button class="x" id="aboutX" aria-label="Close">&times;</button></div>
   <div class="sb">
 
@@ -610,9 +611,9 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p class="src"><b>Daybreak charts</b>Positions in human and Covenant space follow the three Daybreak charts: the Human Sphere chart (2565), the ONI Project LEVIATHAN Spinward strategic map (2576), the Siakar Expanse chart and the Covenant Sphere heatmap (1,000 ly grid), with the Halo Array placed as on the Daybreak galaxy map ("The Milky Way / Project LEVIATHAN", Tacitus, 2021). Where a chart and a wiki page disagree, the map follows the chart.</p>
 
    <h3>Star and deep sky data</h3>
-   <p class="src"><b>Augmented Tycho-HYG (AT-HYG) v4.0</b>By David Nash (astronexus), <a href="https://codeberg.org/astronexus/athyg" target="_blank" rel="noopener noreferrer">codeberg.org/astronexus/athyg</a>, CC BY-SA 4.0. 354,212 of the 1,653,146 stars in the field, the named-star list and the HIP, HD, HR, Gliese, Bayer, Flamsteed, Tycho-2 and Gaia DR3 designations come from it. AT-HYG is itself compiled from Hipparcos and Tycho-2 (ESA), Gaia DR3, the Henry Draper catalogue, the Yale Bright Star Catalogue, the Gliese-Jahreiss catalogue and the IAU star names. The Hipparcos distance switch in Settings uses the HYG parallaxes carried in the same catalogue.</p>
+   <p class="src"><b>Augmented Tycho-HYG (AT-HYG) v4.0</b>By David Nash (astronexus), <a href="https://codeberg.org/astronexus/athyg" target="_blank" rel="noopener noreferrer">codeberg.org/astronexus/athyg</a>, CC BY-SA 4.0. 354,212 of the 3,316,198 stars in the field, the named-star list and the HIP, HD, HR, Gliese, Bayer, Flamsteed, Tycho-2 and Gaia DR3 designations come from it. AT-HYG is itself compiled from Hipparcos and Tycho-2 (ESA), Gaia DR3, the Henry Draper catalogue, the Yale Bright Star Catalogue, the Gliese-Jahreiss catalogue and the IAU star names. The Hipparcos distance switch in Settings uses the HYG parallaxes carried in the same catalogue.</p>
    <p class="src"><b>Gaia Catalogue of Nearby Stars (GCNS)</b>Gaia Collaboration, Smart, R. L., et al. 2021, A&amp;A, 649, A6, "Gaia Early Data Release 3: The Gaia Catalogue of Nearby Stars", via the CDS VizieR catalogue <a href="https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/649/A6" target="_blank" rel="noopener noreferrer">J/A+A/649/A6</a>. The 279,819 faint stars and brown dwarfs within 100 pc that AT-HYG does not carry, with their Gaia EDR3, 2MASS and CATWISE names, come from it. The 863 brown dwarfs (767 typed by SIMBAD, 96 candidates by colour and absolute magnitude) are drawn and typed as such.</p>
-   <p class="src"><b>Gaia DR3 shell</b>Gaia Collaboration, Vallenari, A., et al. 2023, A&amp;A, 674, A1, "Gaia Data Release 3: Summary of the content and survey properties", queried from the <a href="https://gea.esac.esa.int/archive/" target="_blank" rel="noopener noreferrer">ESA Gaia Archive</a>. The 1,019,115 stars between 100 and 200 pc (326 to 652 ly) brighter than G = 17, with parallax over error above 5, that neither AT-HYG nor GCNS carries. Each is placed by its Gaia DR3 parallax; V is derived from G and BP-RP by a fit on the stars the catalogues share; they carry their Gaia DR3 source id and no other designation.</p>
+   <p class="src"><b>Gaia DR3 shell</b>Gaia Collaboration, Vallenari, A., et al. 2023, A&amp;A, 674, A1, "Gaia Data Release 3: Summary of the content and survey properties", queried from the <a href="https://gea.esac.esa.int/archive/" target="_blank" rel="noopener noreferrer">ESA Gaia Archive</a>. The 2,682,167 stars between 100 and 300 pc (326 to 978 ly) brighter than G = 17, with parallax over error above 5, that neither AT-HYG nor GCNS carries. Each is placed by its Gaia DR3 parallax; V is derived from G and BP-RP by a fit on the stars the catalogues share; they carry their Gaia DR3 source id and no other designation.</p>
    <p class="src"><b>SIMBAD</b>This research has made use of the SIMBAD database, operated at CDS, Strasbourg, France (Wenger, M., et al. 2000, A&amp;AS, 143, 9). Every other identifier a star carries, its object type, and the adopted parallax that places each star within 100 pc come from a SIMBAD extract taken on 23 September 2026.</p>
    <p class="src"><b>2MASS and CATWISE</b>Names from the Two Micron All Sky Survey (Skrutskie, M. F., et al. 2006, AJ, 131, 1163) and CATWISE2020 (Marocco, F., et al. 2021, ApJS, 253, 8), as carried by GCNS.</p>
    <p class="src"><b>Gaia</b>This work has made use of data from the European Space Agency (ESA) mission <a href="https://www.cosmos.esa.int/gaia" target="_blank" rel="noopener noreferrer">Gaia</a>, processed by the <a href="https://www.cosmos.esa.int/web/gaia/dpac/consortium" target="_blank" rel="noopener noreferrer">Gaia Data Processing and Analysis Consortium</a> (DPAC). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the Gaia Multilateral Agreement.</p>
@@ -653,12 +654,12 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <h3>What you're looking at</h3>
    <p>The Milky Way from outside, about 100,000 light years corner to corner, with Project Daybreak laid over the top of it.</p>
    <p>One unit here is one light year. The bright smear in the middle is the galactic core. Sol is the small yellow dot 26,000 light years out on a spiral arm.</p>
-   <p>Two spheres sit on that galaxy. The Human Sphere is 484 systems from the 2565 chart and Daybreak's own Human Sphere page, each one placed on the real star it names where a catalogue star can be tied to it. The Covenant Sphere is 690 systems read off the Covenant worlds table, the two strategic charts and the Covenant Sphere heatmap. Everything else on screen came out of the star catalogues: 1,653,146 stars in the field (1,019,115 of them a Gaia DR3 shell out to 200 pc), 9,843 of them named, and every one of them can be clicked, plus the nebulae, the clusters and the small galaxies orbiting ours.</p>
+   <p>Two spheres sit on that galaxy. The Human Sphere is 484 systems from the 2565 chart and Daybreak's own Human Sphere page, each one placed on the real star it names where a catalogue star can be tied to it. The Covenant Sphere is 690 systems read off the Covenant worlds table, the two strategic charts and the Covenant Sphere heatmap. Everything else on screen came out of the star catalogues: 3,316,198 stars in the field (2,682,167 of them a Gaia DR3 shell out to 300 pc), 9,843 of them named, and every one of them can be clicked, plus the nebulae, the clusters and the small galaxies orbiting ours.</p>
    <figure><img src="help/overview.webp" width="1500" height="943" loading="lazy" decoding="async" alt="The Milky Way seen from outside, with the Halo Array installations and the hatched estimated regions marked across the disc"><figcaption>The galaxy view as it loads, with the Array and the estimated regions marked.</figcaption></figure>
 
    <h3>Moving around</h3>
    <p>Left mouse drags the view round. Scroll moves you in and out, and it zooms towards your cursor rather than the middle of the screen, so point at what you want before you scroll.</p>
-   <p>Click something to select it. You get a ring round it, its name in the top right, and a panel of everything the map knows about it. That includes the anonymous dots of the star field: click one and the panel names it by its best designation and lists every catalogue identifier it carries, from HIP and HD down to Gaia, 2MASS and the survey names. Stars beyond 100 pc that come from the Gaia DR3 shell carry their Gaia source id only, with G, colour and a V worked out from them. Settings has a switch if you would rather clicks only landed on named things.</p>
+   <p>Click something to select it. You get a ring round it, its name in the top right, and a panel of everything the map knows about it. That includes the anonymous dots of the star field: click one and the panel names it by its best designation and lists every catalogue identifier it carries, from HIP and HD down to Gaia, 2MASS and the survey names. Stars beyond 100 pc that come from the Gaia DR3 shell carry their Gaia source id only, with G, colour and a V worked out from them. Settings has a switch if you would rather clicks only landed on named things, and another, "Gaia deep field to 300 pc", that drops the field back to the 634,031-star catalogue on a machine that struggles with the full three million; off is remembered between launches.</p>
    <p>Selecting doesn't move you anywhere. It hands the camera something to pivot around, so you can circle a thing without drifting off it. When you want to go there, click it again, or press <span class="kbd">Fly to</span>.</p>
    <p>There are plus and minus buttons in the bottom right if your trackpad is being difficult.</p>
    <figure><img src="help/select.webp" width="1500" height="943" loading="lazy" decoding="async" alt="The Soell system selected at 43 light years range, with its object panel open on the right"><figcaption>Soell selected. The panel names the system, its catalogue star and how it was placed.</figcaption></figure>
@@ -6071,20 +6072,24 @@ function buildLocalGroup(satObjs){
   return lgObjs;
 }
 
-// ---------- real star catalogue (v7, rebuilt d21; d27 adds the Gaia DR3 shell): AT-HYG 4.0 plus the Gaia Catalogue of Nearby Stars, 634,031 stars in stars.wasm, then 1,019,115 shell stars in gaia.wasm and gaia2.wasm (d28: G < 17) ----------
+// ---------- real star catalogue (v7, rebuilt d21; d27 adds the Gaia DR3 shell): AT-HYG 4.0 plus the Gaia Catalogue of Nearby Stars, 634,031 stars in stars.wasm, then 2,682,167 shell stars in gaia.wasm to gaia5.wasm (d30: 100 to 300 pc, G < 17) ----------
 // Record: f32 x,y,z (world ly) · f32 absolute magnitude · u8 r,g,b · u8 placement source · u32 HIP. All Hipparcos stars are kept (needed for
 // the constellation lines), every star within 1,000 ly brighter than M=3.65, every star out to 15,000 ly brighter than M=-0.35, every AT-HYG
 // star within 100 pc whatever its magnitude, and every GCNS star within 100 pc that AT-HYG does not carry, brown dwarfs included from d22.
 // Placement source: 1 Gaia DR3 · 2 Gaia DR2 · 3 Hipparcos · 4 Gliese · 5 GCNS (Gaia EDR3) · 6 other SIMBAD-adopted · 7 held at the d20
 // position · 8 pinned to the Daybreak chart · 9 other AT-HYG · 10 Gaia DR3 shell. Line i of starids.wasm is the identifier record of point i.
-// d27: gaia.wasm and gaia2.wasm (one table in two parts, joined on load) hold the Gaia DR3 shell (100 to 200 pc, G < 17 from d28, parallax over error > 5, minus everything the field already carries),
+// d27: gaia.wasm to gaia5.wasm (one table in five parts, joined on load) hold the Gaia DR3 shell (100 to 300 pc from d30, G < 17 from d28, parallax over error > 5, minus everything the field already carries),
 // 32 bytes a record: f32 x,y,z · f32 absolute V (from G and BP-RP) · u8 r,g,b · u8 source (10) · i16 BP-RP ×1000 (-9999 = none) ·
 // i16 G ×1000 · u64 Gaia DR3 source id. Records are sorted by source id so a bare id can be found by bisection. The shell points are
 // appended to the same buffers as the field, so picking, the stopover search and the layer toggle see one field; they have no
 // starids line, so the panel shows the Gaia id and the photometry carried in the record.
-const STAR_FILES = ['stars.wasm', 'stars2.wasm'], STARID_FILES = ['starids.wasm', 'starids2.wasm'], GAIA_FILES = ['gaia.wasm', 'gaia2.wasm'];
+const STAR_FILES = ['stars.wasm', 'stars2.wasm'], STARID_FILES = ['starids.wasm', 'starids2.wasm'], GAIA_FILES = ['gaia.wasm', 'gaia2.wasm', 'gaia3.wasm', 'gaia4.wasm', 'gaia5.wasm'];
 const HIP_POS = new Map(); let realStarsLoaded = false, realStarCount = 0, HIP_OF = null;
 let fieldBase = 0, GAIA_ID = null, GAIA_BPRP = null, GAIA_G = null;   // d27: shell points are indices fieldBase and up
+// d30: the deep-field switch. Off is remembered (localStorage 'daybreak.gaiashell' = '0') so the shell files are not fetched at the
+// next launch; within a session, off hides the shell points (draw range) and shrinks the searchable field to the base catalogue.
+const GAIA_SHELL = { on: true, loaded: false, total: 0 };
+try { GAIA_SHELL.on = localStorage.getItem('daybreak.gaiashell') !== '0'; } catch(e){}
 const STAR_SRC_NAME = ['', 'Gaia DR3', 'Gaia DR2', 'Hipparcos', 'Gliese-Jahreiss', 'Gaia EDR3 (GCNS)', 'SIMBAD-adopted parallax', 'AT-HYG 3.2 (held)', 'Daybreak chart (pinned)', 'AT-HYG', 'Gaia DR3'];
 async function loadRealStars(){
   let buf;
@@ -6094,7 +6099,7 @@ async function loadRealStars(){
   catch(e){ console.warn('stars.wasm unavailable, keeping the procedural field only', e); return false; }
   // d27: the shell. Optional: if gaia.wasm is missing the field is simply the d21 field.
   let gbuf = null;
-  try { const parts = []; for (const f of GAIA_FILES){ const r = await fetch(f); if (!r.ok) throw new Error(f + ' ' + r.status); parts.push(await r.arrayBuffer()); }
+  if (GAIA_SHELL.on) try { const parts = []; for (const f of GAIA_FILES){ const r = await fetch(f); if (!r.ok) throw new Error(f + ' ' + r.status); parts.push(await r.arrayBuffer()); }
     const tot = parts.reduce((a, b) => a + b.byteLength, 0), u = new Uint8Array(tot); let off = 0; for (const b of parts){ u.set(new Uint8Array(b), off); off += b.byteLength; } gbuf = u.buffer; }
   catch(e){ console.warn('gaia.wasm unavailable, the field stops at the d21 catalogue', e); }
   const NB = Math.floor(buf.byteLength/24), NS = gbuf ? Math.floor(gbuf.byteLength/32) : 0, N = NB + NS, dv = new DataView(buf);
@@ -6119,7 +6124,19 @@ async function loadRealStars(){
     const hip = dv.getUint32(o+20,true); if (hip){ HIP_POS.set(hip, i); HIP_OF[i] = hip; }
   }
   const p = makePoints(pos, col, sz, {tex:TEX_STAR, opacity:STAR.gain, order:2, star:true}); scene.add(p); layers.stars.push(p);
-  p.userData.pos = pos; p.userData.M = Mv; p.userData.src = srcv; realStarsLoaded = true; realStarCount = N; return p;
+  p.userData.pos = pos; p.userData.M = Mv; p.userData.src = srcv; realStarsLoaded = true; realStarCount = N;
+  GAIA_SHELL.loaded = NS > 0; GAIA_SHELL.total = N; return p;
+}
+// d30: switch the shell on or off within the session. Off: the points past fieldBase are not drawn and the pick, search and
+// stopover code stop at fieldBase. On when the shell was never fetched: remembered for the next launch, nothing to show now.
+function setGaiaShell(on){
+  GAIA_SHELL.on = on; try { if (on) localStorage.removeItem('daybreak.gaiashell'); else localStorage.setItem('daybreak.gaiashell', '0'); } catch(e){}
+  const note = document.getElementById('gaiaNote');
+  if (!realStarsLoaded || !realPts){ if (note) note.textContent = ''; return; }
+  if (!GAIA_SHELL.loaded){ if (note) note.textContent = on ? 'loads at next launch' : ''; return; }
+  const n = on ? GAIA_SHELL.total : fieldBase;
+  realPts.geometry.setDrawRange(0, n); realStarCount = n; if (typeof SLIP !== 'undefined') SLIP.fld = null;
+  if (note) note.textContent = on ? '' : 'off: ' + fieldBase.toLocaleString('en-GB') + ' stars';
 }
 // d27: the point index of a shell star by its Gaia DR3 source id (bisection over the sorted id table), or -1
 function gaiaFind(idStr){
@@ -6202,7 +6219,7 @@ function fieldObj(i){
 }
 function objById(id){ const o = objects.find(x => x.id === id); if (o) return o; const m = /^fs-(\d+)$/.exec(id); return (m && realStarsLoaded) ? fieldObjOrNamed(+m[1]) : null; }
 // pick the field star nearest the click, within px pixels; brighter stars win a near tie. One pass over the whole
-// field per click, about 10 ms for 634,031 points (d28: 1,653,146 with the shell), and nothing per frame.
+// field per click, about 10 ms for 634,031 points (d30: 3,316,198 with the shell), and nothing per frame.
 const _vpm = new THREE.Matrix4();
 function pickField(cx, cy, px){
   if (!realStarsLoaded || !realPts.visible) return -1;
@@ -6223,7 +6240,7 @@ function pickField(cx, cy, px){
 function fieldPara(o){
   const r = o.rec, src = realPts.userData.src[o.fidx], sn = STAR_SRC_NAME[src] || 'catalogue';
   const what = r && r.otype ? (OTYPE_NAME[r.otype] || 'star') : 'star';
-  const how = src === 10 ? 'It is one of the stars of the Gaia DR3 shell: the stars between 100 and 200 pc brighter than G 17 that AT-HYG and GCNS do not carry. The position is from its Gaia DR3 parallax; V is derived from G and BP-RP, and it carries no designation beyond its Gaia source id.'
+  const how = src === 10 ? 'It is one of the stars of the Gaia DR3 shell: the stars between 100 and 300 pc brighter than G 17 that AT-HYG and GCNS do not carry. The position is from its Gaia DR3 parallax; V is derived from G and BP-RP, and it carries no designation beyond its Gaia source id.'
     : src === 5 ? 'It is one of the faint nearby stars added from the Gaia Catalogue of Nearby Stars; the position is the GCNS median distance from the Gaia EDR3 parallax.'
     : src === 8 ? 'It carries a Daybreak system, so it is held at the chart position.'
     : src === 7 ? 'AT-HYG 4.0 and 3.2 disagree by more than a factor of two on its distance, so the d20 position is kept.'
@@ -7552,6 +7569,7 @@ function perfText(){
 objects.push(...satObjs, ...starObjs);
 setProg(0.92,'Loading the Gaia / Hipparcos star catalogue');
 const realPts = await loadRealStars(); buildConstellations(realPts);
+{ const cb = document.querySelector('#layers input[data-layer="gaiashell"]'); if (cb){ cb.checked = GAIA_SHELL.on; if (!GAIA_SHELL.on){ const note = document.getElementById('gaiaNote'); if (note) note.textContent = 'off: ' + fieldBase.toLocaleString('en-GB') + ' stars'; } } }
 loadStarIds();   // d21: the identifier table, in the background; the field is usable before it arrives
 // v18: the named-star cloud shipped every star at a flat 1.00 / 0.97 / 0.92, because the named list carries no
 // colour index. The catalogue does, and HIP_POS already maps a Hipparcos number to its row, so where a named
@@ -8849,6 +8867,7 @@ document.querySelectorAll('#layers input[type=checkbox]').forEach(cb => cb.addEv
   const L = cb.dataset.layer; if (L==='labels'){ labelRoot.style.display = cb.checked?'':'none'; return; }
   if (L==='starlabels'){ SLAB.on = cb.checked; SLAB.t = 0; return; }
   if (L==='fieldpick'){ FIELDPICK.on = cb.checked; return; }
+  if (L==='gaiashell'){ setGaiaShell(cb.checked); return; }
   if (L==='quad'){ setQuadTint(cb.checked); $('#ckey').classList.toggle('on', cb.checked); return; }
   if (L==='level'){ setPlaneLevel(cb.checked); return; }
   if (L==='plane'){ PLANE.on = cb.checked; return; }
@@ -10132,7 +10151,7 @@ slipRenderStops();
 if (sol) slipSet('From', sol);
 
 buildRefPlane(); buildGalPlane(); applyRefLabels();
-window.DAYBREAK_MAP = { RPL, GPL, refItems, rebuildRefPlane, rebuildRefDrops, applyRefLabels, refStep, offPlaneTxt,
+window.DAYBREAK_MAP = { GAIA_SHELL, setGaiaShell, RPL, GPL, refItems, rebuildRefPlane, rebuildRefDrops, applyRefLabels, refStep, offPlaneTxt,
   stepRefPlane, stepGalPlane, RPL_STARS, GPL_RINGS, GPL_INNER,
   PLANE, DIST, applyDistSrc, conflictsOf, COV, applyCovZ, covAll, ROUTES, rebuildRoutes, BAND_FIX, SYSTEMS, objects, camera, gcam, SHIFT, camG, controls, composer, volPass,
   covZ, covFieldZ, covOffset, covRelief, COVF, COV_OFFSET, COV_WAYPOINTS, WP, RINGS, layers, resetMap, showObject, conGroup, hudPass, sysPass, VOL, PERF, showObject, flyToObject, resetMap, layers,
