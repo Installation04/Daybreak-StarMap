@@ -394,7 +394,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
 <aside id="filters" class="ui">
   <div class="hd"><div class="tx"><h2>Filters</h2><p>Show only the regions you pick</p></div><button class="x" id="fclose" aria-label="Close filter panel">×</button></div>
   <div class="fbody">
-    <div class="ftabs"><button data-ftab="hum" class="on">Human Sphere</button><button data-ftab="cov">Covenant Sphere</button></div>
+    <div class="ftabs"><button data-ftab="hum" class="on">Human Sphere</button><button data-ftab="cov">Covenant Sphere</button><button data-ftab="cls">Star classes</button></div>
     <input id="fq" type="search" placeholder="Narrow the list…" autocomplete="off" spellcheck="false">
     <div class="fbar"><button class="ibtn" data-fact="all">All</button><button class="ibtn" data-fact="none">None</button><button class="ibtn" data-fact="invert">Invert</button><span class="cnt" id="fcnt"></span></div>
     <label class="fopt"><input type="checkbox" id="fghost" checked> Show the rest as faint dots</label>
@@ -597,14 +597,14 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 <!-- d20: the About sheet -->
 <div class="ov" id="ovAbout" hidden>
  <div class="sheet narrow" role="dialog" aria-modal="true" aria-labelledby="aboutH">
-  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 0.30.0. What it is, and where everything came from</p></div>
+  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 0.31.0. What it is, and where everything came from</p></div>
    <button class="x" id="aboutX" aria-label="Close">&times;</button></div>
   <div class="sb">
 
    <p class="lead">A fan-made, non-commercial star map of the Project Daybreak universe, laid over the real Milky Way. Real stars are where the catalogues put them. Daybreak locations are placed from the Daybreak charts and wiki where they give a position and constructed where they do not; the info panel says which is which for every object.</p>
    <p>Halo &copy; Microsoft Corporation. This map was created under Microsoft's "Game Content Usage Rules" using assets from Halo, and it is not endorsed by or affiliated with Microsoft.
     <a href="https://www.xbox.com/en-US/developers/rules" target="_blank" rel="noopener noreferrer">Game Content Usage Rules</a></p>
-   <p>Built by Faber and Tacitus. Faber built the map: the code, the placements, the system models and the write-ups. Tacitus made the Project Daybreak charts and the Daybreak galaxy map that the placements follow.</p>
+   <p>Built by Faber and Tacitus.</p>
 
    <h3>Lore</h3>
    <p class="src"><b>Project Daybreak Wiki</b><a href="https://daybreak.miraheze.org/" target="_blank" rel="noopener noreferrer">daybreak.miraheze.org</a>, released under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Where an object has a wiki article, its opening lines are the overview, quoted, attributed and linked in the panel.</p>
@@ -614,6 +614,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p class="src"><b>Augmented Tycho-HYG (AT-HYG) v4.0</b>By David Nash (astronexus), <a href="https://codeberg.org/astronexus/athyg" target="_blank" rel="noopener noreferrer">codeberg.org/astronexus/athyg</a>, CC BY-SA 4.0. 354,212 of the 3,316,198 stars in the field, the named-star list and the HIP, HD, HR, Gliese, Bayer, Flamsteed, Tycho-2 and Gaia DR3 designations come from it. AT-HYG is itself compiled from Hipparcos and Tycho-2 (ESA), Gaia DR3, the Henry Draper catalogue, the Yale Bright Star Catalogue, the Gliese-Jahreiss catalogue and the IAU star names. The Hipparcos distance switch in Settings uses the HYG parallaxes carried in the same catalogue.</p>
    <p class="src"><b>Gaia Catalogue of Nearby Stars (GCNS)</b>Gaia Collaboration, Smart, R. L., et al. 2021, A&amp;A, 649, A6, "Gaia Early Data Release 3: The Gaia Catalogue of Nearby Stars", via the CDS VizieR catalogue <a href="https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/649/A6" target="_blank" rel="noopener noreferrer">J/A+A/649/A6</a>. The 279,819 faint stars and brown dwarfs within 100 pc that AT-HYG does not carry, with their Gaia EDR3, 2MASS and CATWISE names, come from it. The 863 brown dwarfs (767 typed by SIMBAD, 96 candidates by colour and absolute magnitude) are drawn and typed as such.</p>
    <p class="src"><b>Gaia DR3 shell</b>Gaia Collaboration, Vallenari, A., et al. 2023, A&amp;A, 674, A1, "Gaia Data Release 3: Summary of the content and survey properties", queried from the <a href="https://gea.esac.esa.int/archive/" target="_blank" rel="noopener noreferrer">ESA Gaia Archive</a>. The 2,682,167 stars between 100 and 300 pc (326 to 978 ly) brighter than G = 17, with parallax over error above 5, that neither AT-HYG nor GCNS carries. Each is placed by its Gaia DR3 parallax; V is derived from G and BP-RP by a fit on the stars the catalogues share; they carry their Gaia DR3 source id and no other designation.</p>
+   <p class="src"><b>Star classes</b>Every field star carries a spectral class (O to M, L, T, carbon, white-dwarf types) and an evolution class (main sequence, subgiant, giant, bright giant or supergiant, white dwarf, brown dwarf). Where AT-HYG or SIMBAD gives a type, the class is read from it (243,329 letters, 128,602 luminosity classes); white dwarfs, brown dwarfs and red giants also come from SIMBAD's object types and the GCNS white-dwarf probability. Everything else is derived from the star's colour and absolute magnitude against the map's own Hertzsprung-Russell diagram, with boundaries fitted on the typed stars. Tested on typed stars it was not fitted to, the derived class agrees with the catalogue for 91 to 94% of main-sequence stars, 78 to 82% of giants and 92 to 99% of white dwarfs, and the spectral letter is right to within one class 98 to 99% of the time. Bright giants, supergiants, subgiants and O stars are named only where a catalogue type says so; colour alone cannot tell them from giants, dwarfs and B stars.</p>
    <p class="src"><b>SIMBAD</b>This research has made use of the SIMBAD database, operated at CDS, Strasbourg, France (Wenger, M., et al. 2000, A&amp;AS, 143, 9). Every other identifier a star carries, its object type, and the adopted parallax that places each star within 100 pc come from a SIMBAD extract taken on 23 September 2026.</p>
    <p class="src"><b>2MASS and CATWISE</b>Names from the Two Micron All Sky Survey (Skrutskie, M. F., et al. 2006, AJ, 131, 1163) and CATWISE2020 (Marocco, F., et al. 2021, ApJS, 253, 8), as carried by GCNS.</p>
    <p class="src"><b>Gaia</b>This work has made use of data from the European Space Agency (ESA) mission <a href="https://www.cosmos.esa.int/gaia" target="_blank" rel="noopener noreferrer">Gaia</a>, processed by the <a href="https://www.cosmos.esa.int/web/gaia/dpac/consortium" target="_blank" rel="noopener noreferrer">Gaia Data Processing and Analysis Consortium</a> (DPAC). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the Gaia Multilateral Agreement.</p>
@@ -659,7 +660,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 
    <h3>Moving around</h3>
    <p>Left mouse drags the view round. Scroll moves you in and out, and it zooms towards your cursor rather than the middle of the screen, so point at what you want before you scroll.</p>
-   <p>Click something to select it. You get a ring round it, its name in the top right, and a panel of everything the map knows about it. That includes the anonymous dots of the star field: click one and the panel names it by its best designation and lists every catalogue identifier it carries, from HIP and HD down to Gaia, 2MASS and the survey names. Stars beyond 100 pc that come from the Gaia DR3 shell carry their Gaia source id only, with G, colour and a V worked out from them. Settings has a switch if you would rather clicks only landed on named things, and another, "Gaia deep field to 300 pc", that drops the field back to the 634,031-star catalogue on a machine that struggles with the full three million; off is remembered between launches.</p>
+   <p>Click something to select it. You get a ring round it, its name in the top right, and a panel of everything the map knows about it. That includes the anonymous dots of the star field: click one and the panel names it by its best designation and lists every catalogue identifier it carries, from HIP and HD down to Gaia, 2MASS and the survey names. Stars beyond 100 pc that come from the Gaia DR3 shell carry their Gaia source id only, with G, colour and a V worked out from them. Settings has a switch if you would rather clicks only landed on named things, and another, "Gaia deep field to 300 pc", that drops the field back to the 634,031-star catalogue on a machine that struggles with the full three million; off is remembered between launches. The Filters panel has a Star classes tab: tick the spectral and evolution classes you want and the field and the named stars narrow to them, with Daybreak systems always shown; typing a class into search ("red dwarfs", "K giants", "white dwarf", "O stars", "main sequence") offers the same filter as the first result, and every star's panel carries a Class row saying what it is and where that came from.</p>
    <p>Selecting doesn't move you anywhere. It hands the camera something to pivot around, so you can circle a thing without drifting off it. When you want to go there, click it again, or press <span class="kbd">Fly to</span>.</p>
    <p>There are plus and minus buttons in the bottom right if your trackpad is being difficult.</p>
    <figure><img src="help/select.webp" width="1500" height="943" loading="lazy" decoding="async" alt="The Soell system selected at 43 light years range, with its object panel open on the right"><figcaption>Soell selected. The panel names the system, its catalogue star and how it was placed.</figcaption></figure>
@@ -4962,8 +4963,9 @@ const STAR = {
 };
 
 const pointVS = `
-attribute float size; attribute vec3 color;
+attribute float size; attribute vec3 color; attribute float cls;
 uniform float uScale, uMinPx, uMaxPx, uFade, uSqrt, uK, uNearCut;
+uniform float uClsOn; uniform float uSpecOn[16]; uniform float uLumOn[8];   // d31: star-class filter (low nibble spectral, high nibble evolution)
 uniform float uStar, uMLim, uMFull, uCurve, uLift, uLiftD, uCorePx, uGrowPx, uStarMax, uCut;
 varying vec3 vColor; varying float vA; varying float vPx;
 const float LOG10 = 0.30103;
@@ -4973,6 +4975,8 @@ void main(){
   // by it and projects through a near-zero w. Reject anything at or inside the near plane outright rather than trusting the projection
   // with it. vColor, vA and vPx are still written, because leaving a varying unset is its own undefined behaviour.
   if (-mv.z <= uNearCut){ vColor = color; vA = 0.0; vPx = 0.0; gl_PointSize = 0.0; gl_Position = vec4(2.0, 2.0, 2.0, 1.0); return; }
+  if (uClsOn > 0.5){ int cs = int(mod(cls, 16.0) + 0.5); int cl = int(floor(cls / 16.0) + 0.5);
+    if (uSpecOn[cs] < 0.5 || uLumOn[cl] < 0.5){ vColor = color; vA = 0.0; vPx = 0.0; gl_PointSize = 0.0; gl_Position = vec4(2.0, 2.0, 2.0, 1.0); return; } }
   float d = max(1e-4, -mv.z);
   float px;
   vColor = color;
@@ -5022,7 +5026,7 @@ function makePoints(pos, col, size, opts){
   g.setAttribute('color', new THREE.BufferAttribute(col, 3));
   g.setAttribute('size', new THREE.BufferAttribute(size, 1));
   const m = new THREE.ShaderMaterial({ vertexShader: pointVS, fragmentShader: pointFS,
-    uniforms: { uScale:{value:1}, uMinPx:{value:opts.minPx||1.0}, uMaxPx:{value:opts.maxPx||48}, uFade:{value:opts.fade||0}, uTex:{value:opts.tex||TEX_SOFT}, uOpacity:{value:opts.opacity||1}, uSqrt:{value:opts.sqrt?1:0}, uK:{value:opts.k||0.0143}, uRound:{value:opts.round?1:0}, uNearCut:{value:1e-9},
+    uniforms: { uClsOn:{value:0}, uSpecOn:{value:new Float32Array(16).fill(1)}, uLumOn:{value:new Float32Array(8).fill(1)}, uScale:{value:1}, uMinPx:{value:opts.minPx||1.0}, uMaxPx:{value:opts.maxPx||48}, uFade:{value:opts.fade||0}, uTex:{value:opts.tex||TEX_SOFT}, uOpacity:{value:opts.opacity||1}, uSqrt:{value:opts.sqrt?1:0}, uK:{value:opts.k||0.0143}, uRound:{value:opts.round?1:0}, uNearCut:{value:1e-9},
       // v18: the star law. Every value comes from STAR, so the tuning block is the only place these are set.
       uStar:{value:opts.star?1:0}, uMLim:{value:STAR.mLim}, uMFull:{value:STAR.mFull}, uCurve:{value:STAR.curve},
       uLift:{value:STAR.lift}, uLiftD:{value:STAR.liftD}, uCorePx:{value:STAR.corePx}, uGrowPx:{value:STAR.growPx},
@@ -6135,7 +6139,7 @@ function setGaiaShell(on){
   if (!realStarsLoaded || !realPts){ if (note) note.textContent = ''; return; }
   if (!GAIA_SHELL.loaded){ if (note) note.textContent = on ? 'loads at next launch' : ''; return; }
   const n = on ? GAIA_SHELL.total : fieldBase;
-  realPts.geometry.setDrawRange(0, n); realStarCount = n; if (typeof SLIP !== 'undefined') SLIP.fld = null;
+  realPts.geometry.setDrawRange(0, n); realStarCount = n; if (typeof SLIP !== 'undefined') SLIP.fld = null; clsRecount(); if (FTREE.tab === 'cls') renderFilterTree();
   if (note) note.textContent = on ? '' : 'off: ' + fieldBase.toLocaleString('en-GB') + ' stars';
 }
 // d27: the point index of a shell star by its Gaia DR3 source id (bisection over the sorted id table), or -1
@@ -6145,6 +6149,81 @@ function gaiaFind(idStr){
   while (lo <= hi){ const m = (lo + hi) >> 1, x = GAIA_ID[m]; if (x === v) return fieldBase + m; if (x < v) lo = m + 1; else hi = m - 1; }
   return -1;
 }
+// ---------- d31: star classes ----------
+// starcls.wasm: two bytes per field point in field order. Byte 0: spectral class in the low nibble (0 unknown, 1 O, 2 B, 3 A, 4 F,
+// 5 G, 6 K, 7 M, 8 L, 9 T, 10 Y, 11 carbon C/S, 12 white-dwarf type D) and evolution class in the high nibble (0 unknown, 1 main
+// sequence, 2 subgiant, 3 giant, 4 bright giant or supergiant, 5 white dwarf, 6 brown dwarf). Byte 1: where each came from
+// (bits 0-1 spectral, 2-3 evolution: 1 catalogue spectral type, 2 SIMBAD or GCNS, 3 derived from colour and absolute magnitude
+// against the map's own Hertzsprung-Russell diagram). Named Daybreak systems are coded 127 (15 | 7 << 4) and always pass the filter.
+const CLS = { a:null, s:null, ready:false, cnt:null, joint:null };
+const SPEC_NAME = ['unknown', 'O', 'B', 'A', 'F', 'G', 'K', 'M', 'L', 'T', 'Y', 'carbon', 'D'];
+const SPEC_LONG = ['unknown', 'O-type', 'B-type', 'A-type', 'F-type', 'G-type', 'K-type', 'M-type', 'L-type', 'T-type', 'Y-type', 'carbon star', 'white-dwarf type D'];
+const LUM_NAME = ['unknown', 'main sequence', 'subgiant', 'giant', 'bright giant / supergiant', 'white dwarf', 'brown dwarf'];
+const CLS_SRC = ['', 'from the catalogue spectral type', 'from SIMBAD / GCNS', 'derived from colour and luminosity'];
+const CLSF = { on:false, spec:new Set(), lum:new Set() };   // the classes switched OFF
+async function loadStarClasses(){
+  try {
+    const r = await fetch('starcls.wasm'); if (!r.ok) throw new Error('HTTP ' + r.status);
+    const u = new Uint8Array(await r.arrayBuffer()), N = realStarCount;
+    if (u.length < N*2) throw new Error('starcls.wasm has ' + (u.length/2) + ' records for ' + N + ' stars');
+    const a = new Uint8Array(N), s = new Uint8Array(N); for (let i=0;i<N;i++){ a[i] = u[i*2]; s[i] = u[i*2+1]; }
+    CLS.a = a; CLS.s = s;
+    if (realPts){ realPts.geometry.setAttribute('cls', new THREE.BufferAttribute(a, 1)); realPts.material.needsUpdate = true; }
+    if (namedPts){ const nc = new Uint8Array(STARS.length);
+      for (let i=0;i<STARS.length;i++){ const hip = STARS[i][6]; const k = hip ? HIP_POS.get(hip) : undefined; nc[i] = STARS[i][7] ? 127 : (k === undefined ? 0 : a[k]); }
+      namedPts.geometry.setAttribute('cls', new THREE.BufferAttribute(nc, 1)); namedPts.material.needsUpdate = true; }
+    CLS.ready = true; clsRecount(); if (FTREE.tab === 'cls') renderFilterTree();
+  } catch(e){ console.warn('starcls.wasm unavailable; star classes off', e); }
+}
+function clsRecount(){ if (!CLS.a) return; const j = new Uint32Array(256), n = Math.min(realStarCount, CLS.a.length); for (let i=0;i<n;i++) j[CLS.a[i]]++; CLS.joint = j; }
+function clsOK(c){ return !CLSF.spec.has(c & 15) && !CLSF.lum.has(c >> 4); }
+// a named star passes by its field record; a Daybreak system always passes; a named star with no field record counts as unknown
+function clsShowNamed(o){ if (!CLSF.on || !CLS.ready) return true; if (o.halo) return true; const k = o.hip ? HIP_POS.get(o.hip) : undefined; return clsOK(k === undefined ? 0 : CLS.a[k]); }
+function clsCount(specSet, lumSet){ if (!CLS.joint) return 0; let n = 0; for (let c=0;c<128;c++){ if (!specSet.has(c & 15) && !lumSet.has(c >> 4)) n += CLS.joint[c]; } return n; }
+function applyClassFilter(){
+  CLSF.on = CLS.ready && (CLSF.spec.size > 0 || CLSF.lum.size > 0);
+  for (const p of [realPts, namedPts]){ if (!p) continue; const u = p.material.uniforms; u.uClsOn.value = CLSF.on ? 1 : 0;
+    for (let i=0;i<16;i++) u.uSpecOn.value[i] = CLSF.spec.has(i) ? 0 : 1; for (let i=0;i<8;i++) u.uLumOn.value[i] = CLSF.lum.has(i) ? 0 : 1;
+    u.uSpecOn.value[15] = 1; u.uLumOn.value[7] = 1; }
+  if (typeof updateFilterChip === 'function') updateFilterChip();
+}
+// the class of a field point (index i) as a sentence for the panel, with its provenance
+function clsText(i){
+  if (!CLS.ready || i < 0 || i >= CLS.a.length) return null;
+  const c = CLS.a[i], sp = c & 15, lu = c >> 4, ss = CLS.s[i] & 3, ls = (CLS.s[i] >> 2) & 3;
+  if (!sp && !lu) return { text:'not classified', src:'' };
+  const L = SPEC_NAME[sp] || '', red = sp === 7 || sp === 6, blue = sp === 1 || sp === 2;
+  let t;
+  if (lu === 5) t = 'white dwarf' + (sp === 12 || !sp ? '' : ' (' + L + ')');
+  else if (lu === 6) t = 'brown dwarf' + (sp >= 8 && sp <= 10 ? ' (' + L + '-type)' : '');
+  else if (lu === 1) t = sp === 7 ? 'red dwarf (M-type main sequence)' : sp === 6 ? 'orange dwarf (K-type main sequence)' : sp === 5 ? 'yellow dwarf (G-type main sequence)' : sp ? SPEC_LONG[sp] + ' main-sequence star' : 'main-sequence star';
+  else if (lu === 3) t = sp ? (red ? 'red giant (' + L + '-type)' : blue ? 'blue giant (' + L + '-type)' : SPEC_LONG[sp] + ' giant') : 'giant';
+  else if (lu === 4) t = sp ? (red ? 'red' : blue ? 'blue' : SPEC_LONG[sp]) + ' bright giant or supergiant' : 'bright giant or supergiant';
+  else if (lu === 2) t = sp ? SPEC_LONG[sp] + ' subgiant' : 'subgiant';
+  else t = sp === 11 ? 'carbon star' : sp === 12 ? 'white-dwarf type' : SPEC_LONG[sp] + ' star';
+  const src = ss === ls || !lu || !sp ? CLS_SRC[ss || ls] : 'letter ' + CLS_SRC[ss] + ', class ' + CLS_SRC[ls];
+  return { text:t, src };
+}
+// search phrases that mean a class rather than an object: {spec:[...], lum:[...]} or null
+function clsPhrase(s){
+  const t = s.replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim(); let m;
+  const one = { 'red dwarf':[[7],[1]], 'orange dwarf':[[6],[1]], 'yellow dwarf':[[5],[1]], 'white dwarf':[null,[5]], 'brown dwarf':[null,[6]], 'red giant':[[6,7],[3]], 'blue giant':[[1,2],[3]],
+    'red supergiant':[[6,7],[4]], 'blue supergiant':[[1,2],[4]], 'main sequence':[null,[1]], 'main sequence star':[null,[1]], 'dwarf':[null,[1]], 'giant':[null,[3]], 'supergiant':[null,[4]], 'bright giant':[null,[4]],
+    'subgiant':[null,[2]], 'carbon star':[[11],null], 'brown dwarfs':[null,[6]], 'white dwarfs':[null,[5]], 'red dwarfs':[[7],[1]], 'giants':[null,[3]], 'supergiants':[null,[4]], 'dwarfs':[null,[1]], 'subgiants':[null,[2]], 'carbon stars':[[11],null], 'red giants':[[6,7],[3]], 'blue giants':[[1,2],[3]] };
+  if (one[t]) return { spec:one[t][0], lum:one[t][1] };
+  if ((m = /^(?:spectral |class |type )?([obafgkmlty])(?: ?(?:type|class))?(?: (stars?|dwarfs?|giants?|supergiants?|subgiants?|main sequence))?$/.exec(t))){
+    const sp = 'obafgkmlty'.indexOf(m[1]) + 1, w = m[2] || 'star';
+    const lum = /dwarf|main/.test(w) ? [1] : /supergiant/.test(w) ? [4] : /subgiant/.test(w) ? [2] : /giant/.test(w) ? [3] : null;
+    return { spec:[sp], lum }; }
+  return null;
+}
+function clsPreset(p){
+  CLSF.spec.clear(); CLSF.lum.clear();
+  if (p.spec) for (let i=0;i<16;i++) if (!p.spec.includes(i)) CLSF.spec.add(i);
+  if (p.lum) for (let i=0;i<8;i++) if (!p.lum.includes(i)) CLSF.lum.add(i);
+  applyClassFilter(); if (typeof filterTabTo === 'function'){ filterTabTo('cls'); setFilters(true); }
+}
+function clsPresetName(p){ const sp = p.spec ? p.spec.map(i => SPEC_NAME[i]).join('/') : '', lu = p.lum ? p.lum.map(i => LUM_NAME[i]).join('/') : ''; return (sp ? sp + (lu ? ' ' + lu : ' stars') : lu); }
 // ---------- d21: catalogue identifiers, one record per field star ----------
 // starids.wasm is gzip text (the .wasm extension is only so the host serves it unchanged): a header line, then one
 // tab-separated line per point in stars.wasm order. Columns: HIP, HD, HR, Gliese, Bayer, Flamsteed, constellation,
@@ -6226,13 +6305,14 @@ function pickField(cx, cy, px){
   const P = realPts.userData.pos, Mv = realPts.userData.M, N = realStarCount;
   _vpm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); const e = _vpm.elements;
   const W = innerWidth, H = innerHeight, asp = W/H, tx = cx/W*2-1, ty = 1-cy/H*2, rr = px*2/H, r2 = rr*rr, lim = rr*1.01;
-  const sx = SHIFT.x, sy = SHIFT.y, sz = SHIFT.z; let best = -1, bs = 1e9;
+  const sx = SHIFT.x, sy = SHIFT.y, sz = SHIFT.z; let best = -1, bs = 1e9; const CA = CLSF.on && CLS.ready ? CLS.a : null;
   for (let i=0;i<N;i++){
     const x = P[i*3]-sx, y = P[i*3+1]-sy, z = P[i*3+2]-sz;
     const w = e[3]*x + e[7]*y + e[11]*z + e[15]; if (w <= 0) continue;
     const ny = (e[1]*x + e[5]*y + e[9]*z + e[13])/w - ty; if (ny > lim || ny < -lim) continue;
     const nx = ((e[0]*x + e[4]*y + e[8]*z + e[12])/w - tx)*asp; if (nx > lim || nx < -lim) continue;
     const d2 = nx*nx + ny*ny; if (d2 > r2) continue;
+    if (CA && !clsOK(CA[i])) continue;   // d31: a filtered-out star cannot be picked
     const s = d2 + 2e-6*(Mv[i] + 12); if (s < bs){ bs = s; best = i; }
   }
   return best;
@@ -6258,6 +6338,7 @@ function fieldRows(o){
     if (GAIA_BPRP[k] > -9000) h += `<div><span class="k">Colour BP\u2212RP</span><span class="v">${(GAIA_BPRP[k]/1000).toFixed(2)}</span></div>`;
   }
   h += `<div><span class="k">Absolute mag</span><span class="v">${realPts.userData.M[o.fidx].toFixed(2)}</span></div>`;
+  { const ct = clsText(o.fidx); if (ct) h += `<div><span class="k">Class</span><span class="v" style="white-space:normal;font-size:11.5px">${esc(ct.text)}${ct.src ? ' <span style="color:var(--mute)">' + esc(ct.src) + '</span>' : ''}</span></div>`; }   // d31
   h += `<div><span class="k">Placed by</span><span class="v">${STAR_SRC_NAME[src] || 'catalogue'}</span></div>`;
   if (r && r.con) h += `<div><span class="k">Constellation</span><span class="v">${esc(r.con)}</span></div>`;
   return h;
@@ -7571,6 +7652,7 @@ setProg(0.92,'Loading the Gaia / Hipparcos star catalogue');
 const realPts = await loadRealStars(); buildConstellations(realPts);
 { const cb = document.querySelector('#layers input[data-layer="gaiashell"]'); if (cb){ cb.checked = GAIA_SHELL.on; if (!GAIA_SHELL.on){ const note = document.getElementById('gaiaNote'); if (note) note.textContent = 'off: ' + fieldBase.toLocaleString('en-GB') + ' stars'; } } }
 loadStarIds();   // d21: the identifier table, in the background; the field is usable before it arrives
+loadStarClasses();   // d31: the class bytes, in the background
 // v18: the named-star cloud shipped every star at a flat 1.00 / 0.97 / 0.92, because the named list carries no
 // colour index. The catalogue does, and HIP_POS already maps a Hipparcos number to its row, so where a named
 // star has a HIP number its real spectral colour is copied across. The handful with no catalogue entry, which
@@ -8057,6 +8139,20 @@ function renderFilterTree(){
   const tab = FTREE.tab, q = FTREE.q.trim().toLowerCase();
   const hit = n => !q || n.name.toLowerCase().includes(q) || (n.kids || []).some(hit);
   let h = '';
+  if (tab === 'cls'){
+    fq.style.display = 'none'; $('#fghost').parentElement.style.display = 'none';
+    if (!CLS.ready){ ftree.innerHTML = `<div class="fgrp">Star classes are still loading</div>`; $('#fcnt').textContent = ''; return; }
+    const row = (kind, i, name) => { const off = (kind === 'spec' ? CLSF.spec : CLSF.lum).has(i); const n = kind === 'spec' ? clsCount(new Set([...Array(16).keys()].filter(x => x !== i)), new Set()) : clsCount(new Set(), new Set([...Array(8).keys()].filter(x => x !== i)));
+      return `<label class="fn l2" data-cls="${kind}:${i}"><input type="checkbox" ${off ? '' : 'checked'}><span style="flex:1">${name}</span><span style="color:var(--mute);font-size:11px">${n.toLocaleString('en-GB')}</span></label>`; };
+    h += `<div class="fgrp">Evolution class</div>`; for (let i=1;i<7;i++) h += row('lum', i, LUM_NAME[i]); h += row('lum', 0, 'not classified');
+    h += `<div class="fgrp">Spectral class</div>`; for (let i=1;i<13;i++) h += row('spec', i, i === 12 ? 'D (white dwarf types)' : i === 11 ? 'C / S (carbon stars)' : SPEC_NAME[i] + (i <= 7 ? '' : ' (brown dwarfs)')); h += row('spec', 0, 'no letter');
+    h += `<div class="fgrp" style="text-transform:none;letter-spacing:0;font-weight:400;padding-top:12px">Classes come from the catalogue type where there is one, otherwise from colour and brightness. Daybreak systems are always shown; the filter narrows the star field and the named stars.</div>`;
+    ftree.innerHTML = h;
+    const shown = clsCount(CLSF.spec, CLSF.lum), total = clsCount(new Set(), new Set());
+    $('#fcnt').textContent = (shown === total ? 'all ' : shown.toLocaleString('en-GB') + ' of ') + total.toLocaleString('en-GB') + ' stars';
+    return;
+  }
+  fq.style.display = ''; $('#fghost').parentElement.style.display = '';
   if (tab === 'hum'){
     const ex = FILT.hum.ex, exB = FILT.hum.exBand;
     h += `<div class="fgrp">Distance band from Sol</div>`;
@@ -8115,11 +8211,13 @@ function updateFilterChip(){
     const on = FTREE.cov.filter(n => nodeState(n, FILT.cov.ex) !== 0).map(n => n.name.replace(' quartal',''));
     parts.push('Covenant: ' + (on.join(', ') || 'none'));
   }
+  if (CLSF.on){ const sp = [...Array(13).keys()].filter(i => !CLSF.spec.has(i)), lu = [...Array(7).keys()].filter(i => !CLSF.lum.has(i));
+    parts.push('Stars: ' + (sp.length < 13 ? sp.map(i => SPEC_NAME[i]).join('/') + ' ' : '') + (lu.length < 7 ? lu.map(i => LUM_NAME[i]).join('/') : sp.length < 13 ? 'any class' : '')); }
   const chip = $('#fchip');
   chip.classList.toggle('on', parts.length > 0);
   $('#fchipTxt').textContent = parts.join('  ·  ');
 }
-function clearFilters(){ FILT.hum.ex.clear(); FILT.hum.exBand.clear(); FILT.cov.ex.clear(); FILT.reveal.clear(); applyFilter(); renderFilterTree(); }
+function clearFilters(){ FILT.hum.ex.clear(); FILT.hum.exBand.clear(); FILT.cov.ex.clear(); FILT.reveal.clear(); CLSF.spec.clear(); CLSF.lum.clear(); applyClassFilter(); applyFilter(); renderFilterTree(); }
 
 // ---------- d7: catalogue designations ----------
 // ATHYG v3.2-1 (Augmented Tycho-HYG), the same catalogue the star field is a subsample of, read back for the
@@ -8179,7 +8277,7 @@ function stepStarLabels(now){
   const R = clamp(camera.position.distanceTo(controls.target) * 1.7, 12, 1400), keepR = R*SLAB.keepR;
   _slPiv.copy(controls.target).add(SHIFT);
   _slc.length = 0;
-  for (const o of starObjs){ if (o.halo || o.lab) continue; const d = _slPiv.distanceTo(o.pos); if (d > keepR) continue; o._sld = d; _slc.push(o); }
+  for (const o of starObjs){ if (o.halo || o.lab) continue; if (CLSF.on && !clsShowNamed(o)) continue; const d = _slPiv.distanceTo(o.pos); if (d > keepR) continue; o._sld = d; _slc.push(o); }
   _slc.sort((a,b) => a.mag - b.mag);
   _slRank.clear(); for (let i=0;i<_slc.length;i++) _slRank.set(_slc[i], i);
   const set = new Set();
@@ -8759,6 +8857,7 @@ function showObject(o, noFly){
   if (o.cov && o.kind!=='cov') h += covRows(o);
   if (o.covName) h += `<div><span class="k">Covenant name</span><span class="v">${o.covName}</span></div>`;
   if (o.kind==='field') h += fieldRows(o);
+  if (o.kind==='star' && o.hip && CLS.ready){ const k = HIP_POS.get(o.hip); const ct = k === undefined ? null : clsText(k); if (ct) h += `<div><span class="k">Class</span><span class="v" style="white-space:normal;font-size:11.5px">${esc(ct.text)}${ct.src ? ' <span style="color:var(--mute)">' + esc(ct.src) + '</span>' : ''}</span></div>`; }   // d31
   if (o.kind==='star' && o.idx != null) h += desigRows(o);
   if (o.kind==='field') h += fieldDesigRows(o);
   h += `</div><div class="acts"><button class="btn pr" data-act="fly">Fly to</button>`;
@@ -8842,10 +8941,14 @@ q.addEventListener('input', () => {
     if (o.hip && ('hip'+o.hip).includes(sc)) return ' \u00b7 HIP '+o.hip;
     return '';
   };
-  results.innerHTML = top.map(o=>`<button data-id="${o.id}"><span>${o.name}${extra(o)}${o.fvis===false?' <span style="color:var(--mute);font-size:11px">(filtered out)</span>':''}</span><span class="t">${o.type.split('\u00b7')[0]}</span></button>`).join('') || `<button disabled><span style="color:var(--mute)">No match</span></button>`;
+  // d31: a phrase that names a class ("red dwarfs", "K giants", "white dwarf") offers the class filter as the first result
+  let clsRow = ''; if (CLS.ready){ const p = clsPhrase(s); if (p){ const sp = new Set(p.spec ? [...Array(16).keys()].filter(i => !p.spec.includes(i)) : []), lu = new Set(p.lum ? [...Array(8).keys()].filter(i => !p.lum.includes(i)) : []);
+    clsRow = `<button data-cls="${esc(JSON.stringify(p))}"><span>Show only ${esc(clsPresetName(p))} <span style="color:var(--mute);font-size:11px">${clsCount(sp, lu).toLocaleString('en-GB')} stars</span></span><span class="t">Star class filter</span></button>`; } }
+  results.innerHTML = clsRow + top.map(o=>`<button data-id="${o.id}"><span>${o.name}${extra(o)}${o.fvis===false?' <span style="color:var(--mute);font-size:11px">(filtered out)</span>':''}</span><span class="t">${o.type.split('\u00b7')[0]}</span></button>`).join('') || `<button disabled><span style="color:var(--mute)">No match</span></button>`;
   results.style.display='block';
 });
-results.addEventListener('click', e => { const b=e.target.closest('button[data-id]'); if(!b) return; const o=objById(b.dataset.id); results.style.display='none'; q.value='';
+results.addEventListener('click', e => { const cb = e.target.closest('button[data-cls]'); if (cb){ results.style.display='none'; q.value=''; clsPreset(JSON.parse(cb.dataset.cls)); return; }
+  const b=e.target.closest('button[data-id]'); if(!b) return; const o=objById(b.dataset.id); results.style.display='none'; q.value='';
   if (!o) return;
   showObject(o);
   // v20: search still does not fly, with one exception. A planet or moon is a few thousand kilometres across
@@ -8922,6 +9025,8 @@ fq.addEventListener('input', () => { FTREE.q = fq.value; renderFilterTree(); });
 $('#fghost').addEventListener('change', e => { FILT[FTREE.tab].ghost = e.target.checked; applyFilter(); });
 $('#fchipX').onclick = () => clearFilters();
 ftree.addEventListener('click', e => {
+  const cr = e.target.closest('[data-cls]');   // d31: a class row
+  if (cr){ if (e.target.tagName !== 'INPUT') return; const [kind, i] = cr.dataset.cls.split(':'); const set = kind === 'spec' ? CLSF.spec : CLSF.lum; if (e.target.checked) set.delete(+i); else set.add(+i); applyClassFilter(); renderFilterTree(); return; }
   const tw = e.target.closest('[data-tw]');
   if (tw){ const k = tw.dataset.tw; if (FTREE.open.has(k)) FTREE.open.delete(k); else FTREE.open.add(k); renderFilterTree(); return; }
   const only = e.target.closest('[data-only]');
@@ -8941,6 +9046,11 @@ ftree.addEventListener('click', e => {
   applyFilter(); renderFilterTree();
 });
 document.querySelectorAll('#filters [data-fact]').forEach(b => b.onclick = () => {
+  if (FTREE.tab === 'cls'){ const act = b.dataset.fact;   // d31: All / None / Invert on the class rows
+    if (act === 'all'){ CLSF.spec.clear(); CLSF.lum.clear(); }
+    else if (act === 'none'){ for (let i=0;i<13;i++) CLSF.spec.add(i); for (let i=0;i<7;i++) CLSF.lum.add(i); }
+    else { for (let i=0;i<13;i++){ if (CLSF.spec.has(i)) CLSF.spec.delete(i); else CLSF.spec.add(i); } for (let i=0;i<7;i++){ if (CLSF.lum.has(i)) CLSF.lum.delete(i); else CLSF.lum.add(i); } }
+    applyClassFilter(); renderFilterTree(); return; }
   const tab = FTREE.tab, act = b.dataset.fact, ex = FILT[tab].ex;
   const roots = tab === 'hum' ? FTREE.hum : FTREE.cov;
   const all = roots.reduce((a, r) => a.concat(leavesOf(r)), []);
@@ -9037,7 +9147,7 @@ canvas.addEventListener('pointerup', e => {
   // inside the disc's apparent radius selects Sagittarius A* (the map's Milky Way object, with its Wide view button)
   // ahead of the satellite dwarfs and Sol that share the same few pixels.
   if (!best && !sysActive && camD(GC) > 150000){ const v = screenOf(gc); if (v.z <= 1){ const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const px = Math.max(22, 50000/camD(GC)*(innerHeight/2)/Math.tan(camera.fov/2*D2R)); if (Math.hypot(x-e.clientX, y-e.clientY) < px){ best = gc; bd = -1; } } }
-  if (!best) for (const o of objects){ if (o.kind==='star' && !brightSet.has(o) && !o.inMag && !starLabelSet.has(o)) continue; if (o.kind==='star' && o.halo && !haloShow(o)) continue; if (o.kind==='cov' && !covShow(o)) continue; if (o.kind==='con' || o.kind==='route') continue; if (o.kind==='wp' && (sysActive || !ROUTES.on || camD(o.pos) > 450)) continue; if (o.kind==='body' && !sysActive) continue; if (o.kind==='deep' && (!deepGroup.visible || (!o.inMag && camD(o.pos) > 90000))) continue; const v=screenOf(o); if (v.z>1) continue; const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const d=Math.hypot(x-e.clientX, y-e.clientY); if (d<bd){bd=d; best=o;} }
+  if (!best) for (const o of objects){ if (o.kind==='star' && !brightSet.has(o) && !o.inMag && !starLabelSet.has(o)) continue; if (o.kind==='star' && !o.halo && CLSF.on && !clsShowNamed(o)) continue; if (o.kind==='star' && o.halo && !haloShow(o)) continue; if (o.kind==='cov' && !covShow(o)) continue; if (o.kind==='con' || o.kind==='route') continue; if (o.kind==='wp' && (sysActive || !ROUTES.on || camD(o.pos) > 450)) continue; if (o.kind==='body' && !sysActive) continue; if (o.kind==='deep' && (!deepGroup.visible || (!o.inMag && camD(o.pos) > 90000))) continue; const v=screenOf(o); if (v.z>1) continue; const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const d=Math.hypot(x-e.clientX, y-e.clientY); if (d<bd){bd=d; best=o;} }
   // v16: the first click selects, opens the right panel and moves the orbit pivot onto the object; the camera
   // does not move at all. A second click on the same object is the only thing here that flies.
   // d21: nothing named under the click, so try the star field itself (within 10 px; brighter wins a tie)
@@ -9188,7 +9298,7 @@ function frame(now){
   LGRID.clear();
   for (const L of labelOrder()){
     const o=L.o; let show = true;
-    if (L.cls==='star') show = !sysActive && solD < 2500;
+    if (L.cls==='star') show = !sysActive && solD < 2500 && (!CLSF.on || clsShowNamed(o));
     // d18: a system at its tier threshold used to flip as the orbit carried the camera across it; once shown it now holds to 1.1 times the threshold
     if (L.cls==='halo') show = layers.namedOn !== false && haloShow(o, L.vis === 1);
     if (o.kind==='cov') show = covShow(o, L.vis === 1);
@@ -10151,7 +10261,7 @@ slipRenderStops();
 if (sol) slipSet('From', sol);
 
 buildRefPlane(); buildGalPlane(); applyRefLabels();
-window.DAYBREAK_MAP = { GAIA_SHELL, setGaiaShell, RPL, GPL, refItems, rebuildRefPlane, rebuildRefDrops, applyRefLabels, refStep, offPlaneTxt,
+window.DAYBREAK_MAP = { GAIA_SHELL, setGaiaShell, CLS, CLSF, applyClassFilter, clsText, clsPhrase, clsPreset, clsCount, RPL, GPL, refItems, rebuildRefPlane, rebuildRefDrops, applyRefLabels, refStep, offPlaneTxt,
   stepRefPlane, stepGalPlane, RPL_STARS, GPL_RINGS, GPL_INNER,
   PLANE, DIST, applyDistSrc, conflictsOf, COV, applyCovZ, covAll, ROUTES, rebuildRoutes, BAND_FIX, SYSTEMS, objects, camera, gcam, SHIFT, camG, controls, composer, volPass,
   covZ, covFieldZ, covOffset, covRelief, COVF, COV_OFFSET, COV_WAYPOINTS, WP, RINGS, layers, resetMap, showObject, conGroup, hudPass, sysPass, VOL, PERF, showObject, flyToObject, resetMap, layers,
