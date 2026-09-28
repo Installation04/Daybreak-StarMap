@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Daybreak Star Map",
-  "version": "0.32.0",
+  "version": "1.0.0",
   "identifier": "org.daybreak.starmap",
   "build": {
     "frontendDist": "../app"
@@ -30,8 +30,8 @@
     "publisher": "Faber",
     "copyright": "Map code MIT, Daybreak data CC BY-SA 4.0. Halo is a trademark of Microsoft Corporation; not affiliated with Microsoft.",
     "category": "Education",
-    "shortDescription": "A star map of the Project Daybreak universe",
-    "longDescription": "A GPU-accelerated 3D star map of the Project Daybreak universe laid over the real Milky Way, with the Human and Covenant spheres, slipspace routes, the Halo Array and 320,658 catalogue stars.",
+    "shortDescription": "Daybreak Star Map 1.0: a star map of the Project Daybreak universe",
+    "longDescription": "Daybreak Star Map version 1.0. A GPU-accelerated 3D star map of the Project Daybreak universe laid over the real Milky Way: the Human and Covenant spheres, slipspace routes and a route calculator, the Halo Array and the Ark, and 5,589,167 catalogue stars with their spectral and evolution classes.",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

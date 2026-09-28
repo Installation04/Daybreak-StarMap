@@ -1,6 +1,8 @@
 # Daybreak Star Map
 
-A GPU-accelerated 3D star map of the Project Daybreak universe, laid over the real Milky Way: the Human Sphere and the Covenant Sphere, their slipspace routes and a route calculator, the Halo Array and the Ark, and a field of 5,589,167 catalogue stars, each with a spectral and evolution class, with the nebulae, clusters and Local Group galaxies around them. Built by Faber and Tacitus.
+Version 1.0.
+
+A GPU-accelerated 3D star map of the Project Daybreak universe, laid over the real Milky Way: the Human Sphere and the Covenant Sphere, their slipspace routes and a route calculator with the revised CODEN drive figures, the Halo Array and the Ark, and a field of 5,589,167 catalogue stars, each with a spectral and evolution class, with the nebulae, clusters and Local Group galaxies around them. Built by Faber and Tacitus.
 
 Halo is a trademark of Microsoft Corporation. This is a fan-made, non-commercial work created under Microsoft's [Game Content Usage Rules](https://www.xbox.com/en-US/developers/rules); it is not endorsed by or affiliated with Microsoft.
 
@@ -21,7 +23,7 @@ then open http://localhost:8080/. A browser will not load the map's binaries fro
                     clouds.wasm, tex/, help/, fonts/
     src-tauri/      the desktop shell (Tauri 2)
     tools/          build_release.py (turns a published page into app/index.html), serve.py
-    .github/        the release workflow: push a tag like v0.32.0 and the installers appear on a draft release
+    .github/        the release workflow: push a tag like v1.0.0 and the installers appear on a draft release
 
 The page in `app/` is the whole program; the desktop shell only hosts it in the system webview and passes its outbound links to the default browser.
 

@@ -1,5 +1,7 @@
 # Data licence
 
+Daybreak Star Map, version 1.0.
+
 The Daybreak placement data embedded in `app/index.html` (the `window.STARS`, `window.DAYBREAK`, `window.DATA`, Covenant, route, region and Halo Array records, and the CSV and JSON exports derived from them) is released under the Creative Commons Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0): https://creativecommons.org/licenses/by-sa/4.0/
 
 It derives from the Project Daybreak Wiki (https://daybreak.miraheze.org/, CC BY-SA 4.0) and the Daybreak charts by Tacitus, and from the star catalogues credited in CREDITS.md: the Augmented Tycho-HYG catalogue (https://codeberg.org/astronexus/athyg, CC BY-SA 4.0), the Gaia Catalogue of Nearby Stars, Gaia DR3 (ESA Gaia Archive) and SIMBAD. The star field in `app/stars.wasm`, `app/stars2.wasm`, `app/starids.wasm`, `app/starids2.wasm` `app/gaia.wasm` to `app/gaia10.wasm` and `app/starcls.wasm` is derived from those catalogues and carries the same licence.
