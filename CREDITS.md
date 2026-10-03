@@ -1,6 +1,6 @@
 # Credits and sources
 
-Daybreak Star Map, version 1.0.
+Daybreak Star Map, version 1.1.
 
 This file mirrors the app's About sheet (the ⓘ button). If the two differ, the About sheet in the shipped page is the one to fix.
 

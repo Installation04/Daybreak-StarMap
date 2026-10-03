@@ -464,7 +464,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
     <div class="ckey" id="ckey" style="flex-wrap:wrap"><span><i style="background:#ffa85c"></i>Orion-Eridanus</span><span><i style="background:#75ebb8"></i>Vela-Scorpius</span><span><i style="background:#73c7ff"></i>Sagittarius-Cygnus</span><span><i style="background:#db9eff"></i>Cepheus-Auriga</span></div>
     <label><input type="checkbox" data-layer="cov" checked> Covenant systems</label>
     <label class="sub"><input type="checkbox" data-layer="covreg" checked> Covenant region names</label>
+    <label class="sub" title="The map's own estimate of Covenant-held space: every Covenant system's reach, blended into one shape. Not from a Daybreak chart."><input type="checkbox" data-layer="covterr" checked> Covenant territory</label>
     <label class="sub"><input type="checkbox" data-layer="covell"> Covenant Sphere outline</label>
+    <div class="sl sub"><label>Territory reach <span id="covtrv">±200 ly</span></label><input type="range" id="covtr" min="100" max="300" step="25" value="200"></div>
     <label class="sub"><input type="checkbox" data-layer="routes" checked> Slipspace routes</label>
     <label class="sub"><input type="checkbox" data-layer="hroutes" checked> Human Sphere chart routes</label>
     <label><input type="checkbox" data-layer="rings" checked> Halo Array and estimated regions</label>
@@ -598,7 +600,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 <!-- d20: the About sheet -->
 <div class="ov" id="ovAbout" hidden>
  <div class="sheet narrow" role="dialog" aria-modal="true" aria-labelledby="aboutH">
-  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 1.0.0. What it is, and where everything came from</p></div>
+  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 1.1.0. What it is, and where everything came from</p></div>
    <button class="x" id="aboutX" aria-label="Close">&times;</button></div>
   <div class="sb">
 
@@ -715,6 +717,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>The Covenant charts carry no elevation at all, so every Covenant height on this map is invented. Until d10 each system drew its own at random, which is why the Siakar Expanse used to stand up like a hedge: 197 systems inside a box 200 light years across, each at its own unrelated height.</p>
    <p>Height now comes from a smooth field sampled at the system's chart position, so neighbours sit at similar heights and the ground rises and falls instead of jumping. Two sliders in settings drive it. The cap sets how far off the plane the field can reach, and the local relief slider scales the three short octaves, so it sets how much the ground rises and falls between neighbours. Under them is a line telling you what the current settings actually do to systems 75 to 100 light years apart. None of this is canon. It is a plausible shape standing in for elevation data that does not exist yet.</p>
    <p>From version 1.0 the field also listens to reference heights: thirty-one Covenant systems carry a height set by hand, and the field around each is drawn towards it, strongly nearby and fading out a few hundred light years away, so the Siakar Expanse now sits about 300 light years below the plane instead of above it. Twenty-three of those systems sit on real F, G or K main-sequence stars from the catalogue field, chosen as the nearest such star to the chart position at the set height; their panels name the star and its class. The seven beyond the field's reach are pinned to the figure itself.</p>
+   <p>The purple territory is the map's own estimate, not a Daybreak chart. Every Covenant system claims the space within 200 light years of it across the galactic plane (the slider under the switch changes the reach), and neighbouring claims blend into one shape. The 36 Covenant systems that sit inside human space, on human stars or placed from the Human Sphere chart, claim nothing, and any point nearer a human system than a Covenant one stays human. The shape follows the Covenant elevation field, so it rises and falls with the systems inside it. The older Covenant Sphere outline, an ellipse fitted to the placed systems, is still in Settings beside it.</p>
    <p>Urs comes out 3,870 light years from Sol on the 2576 chart's own scale bar against the wiki's 3,500. The map uses the chart. Fifteen systems have no real star behind them at all.</p>
    <p>None of it is hidden. It is all in the panels.</p>
 
@@ -7907,11 +7910,106 @@ function applyCovZ(z, scale){
   A.needsUpdate = true; COV.pts.geometry.computeBoundingSphere();
   for (const o of COV.regs){ const d = Math.hypot(o.reg.gx, o.reg.gy); o.pos.y = clamp(covFieldZ(o.reg.gx, o.reg.gy), -0.35*d, 0.35*d); }
   if (typeof rebuildRoutes === 'function' && ROUTES.group) rebuildRoutes();
+  drapeCovTerritory();   // d34
   showCovRelief();
   if (selected && (selected.kind === 'cov' || selected.kind === 'wp')) showObject(selected, true);
 }
 const covAll = () => COV.objs.concat(starObjs.filter(s => s.cov)).sort((a,b) => a.dSol - b.dSol);
 buildCovenant();
+// ---------- d34 (v1.1.0): Covenant territory ----------
+// Ram's merged-reach outline (3 October 2026). Every Covenant system claims the space within COV_TERR.R light years
+// of it across the galactic plane, and where claims meet they blend over COV_TERR.blend light years. The blend is a
+// polynomial smooth minimum of each point's two nearest systems only, so a join is rounded but a dense cluster such
+// as the Siakar Expanse does not swell (a smooth minimum over every system would add up to ~200 ly there). The 36
+// Covenant systems inside human space (basis 'star' or 'humanchart': on human-designated stars or placed from the
+// Human Sphere chart, which takes in the systems on the ingress routes) claim nothing, and any point nearer a human
+// system than a Covenant one stays human. COV_TERR_SKIP takes further system ids by hand.
+// The shape is traced on a COV_TERR.cell grid by marching squares, each cell clipped against the field so the fill
+// and the line always agree, then draped over the Covenant elevation field with the same flare guard as the region
+// labels. The elevation sliders re-drape it (applyCovZ); the reach slider re-traces it. Display only: never picked.
+var COV_TERR = { on:true, R:200, blend:50, cell:10, hstep:30, fillOp:0.06, lineOp:0.55, col:0xb98cff,
+  group:null, fill:null, line:null, pos:null, gxy:null, lat:null, stats:null, raf:0 };
+var COV_TERR_SKIP = new Set([]);
+function covTerrSkip(r){ return r.basis === 'star' || r.basis === 'humanchart' || COV_TERR_SKIP.has(r.id); }
+function buildCovTerritory(){
+  const t0 = performance.now(), T = COV_TERR, R = T.R, K = T.blend, C = T.cell;
+  const cs = [], hs = []; let skipped = 0;
+  for (const r of COVENANT.systems){ if (r.gx == null) continue; if (covTerrSkip(r)){ skipped++; continue; } cs.push(r.gx, r.gy); }
+  for (const r of COVENANT.systems) if (r.gx == null && covTerrSkip(r)) skipped++;
+  for (const s of starObjs) if (s.db && !s.cov) hs.push(s.pos.x + R0, -s.pos.z);   // human systems, in chart coordinates
+  if (!cs.length) return;
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+  for (let i = 0; i < cs.length; i += 2){ x0 = Math.min(x0, cs[i]); x1 = Math.max(x1, cs[i]); y0 = Math.min(y0, cs[i+1]); y1 = Math.max(y1, cs[i+1]); }
+  const reach = R + 1.5*K, pad = reach + 2*C;
+  x0 = Math.floor((x0 - pad)/C)*C; y0 = Math.floor((y0 - pad)/C)*C;
+  const nx = Math.ceil((x1 + pad - x0)/C) + 1, ny = Math.ceil((y1 + pad - y0)/C) + 1, N = nx*ny;
+  const d1 = new Float32Array(N).fill(Infinity), d2 = new Float32Array(N).fill(Infinity), dh = new Float32Array(N).fill(Infinity);
+  const stamp = (gx, gy, rad, fn) => {
+    const i0 = Math.max(0, Math.floor((gx - rad - x0)/C)), i1 = Math.min(nx - 1, Math.ceil((gx + rad - x0)/C));
+    const j0 = Math.max(0, Math.floor((gy - rad - y0)/C)), j1 = Math.min(ny - 1, Math.ceil((gy + rad - y0)/C)), r2 = rad*rad;
+    for (let j = j0; j <= j1; j++){ const dy = y0 + j*C - gy, row = j*nx;
+      for (let i = i0; i <= i1; i++){ const dx = x0 + i*C - gx, q = dx*dx + dy*dy; if (q <= r2) fn(row + i, Math.sqrt(q)); } } };
+  for (let k = 0; k < cs.length; k += 2) stamp(cs[k], cs[k+1], reach, (n, d) => { if (d < d1[n]){ d2[n] = d1[n]; d1[n] = d; } else if (d < d2[n]) d2[n] = d; });
+  for (let k = 0; k < hs.length; k += 2) stamp(hs[k], hs[k+1], R + K, (n, d) => { if (d < dh[n]) dh[n] = d; });
+  // s > 0 inside: within the reach of the blended Covenant distance, and nearer the Covenant than human space
+  const s = new Float32Array(N);
+  for (let n = 0; n < N; n++){
+    const a = d1[n]; if (a === Infinity){ s[n] = -1e4; continue; }
+    const b = d2[n], h = Math.max(K - Math.abs(a - b), 0)/K, ds = Math.min(a, b) - h*h*K/4;
+    s[n] = Math.min(R - ds, dh[n] - ds);
+  }
+  const vIdx = new Int32Array(N).fill(-1), eIdx = new Map(), gxy = [], fillI = [], lineI = [];
+  const nodeV = n => { let v = vIdx[n]; if (v < 0){ v = vIdx[n] = gxy.length >> 1; gxy.push(x0 + (n % nx)*C, y0 + Math.floor(n/nx)*C); } return v; };
+  const edgeV = (a, b) => { const key = a < b ? a*2 + (b - a === 1 ? 0 : 1) : b*2 + (a - b === 1 ? 0 : 1);
+    let v = eIdx.get(key); if (v !== undefined) return v;
+    const t = s[a]/(s[a] - s[b]), ax = a % nx, ay = Math.floor(a/nx), bx = b % nx, by = Math.floor(b/nx);
+    v = gxy.length >> 1; eIdx.set(key, v); gxy.push(x0 + (ax + (bx - ax)*t)*C, y0 + (ay + (by - ay)*t)*C); return v; };
+  const c = [0, 0, 0, 0], poly = [], edge = [];
+  for (let j = 0; j < ny - 1; j++) for (let i = 0; i < nx - 1; i++){
+    const n0 = j*nx + i; c[0] = n0; c[1] = n0 + 1; c[2] = n0 + nx + 1; c[3] = n0 + nx;
+    const in0 = s[c[0]] > 0, in1 = s[c[1]] > 0, in2 = s[c[2]] > 0, in3 = s[c[3]] > 0;
+    if (!in0 && !in1 && !in2 && !in3) continue;
+    if (in0 && in1 && in2 && in3){ const a = nodeV(c[0]), b = nodeV(c[1]), d = nodeV(c[2]), e = nodeV(c[3]); fillI.push(a, b, d, a, d, e); continue; }
+    poly.length = 0; edge.length = 0;
+    for (let k = 0; k < 4; k++){ const a = c[k], b = c[(k + 1) & 3], ia = s[a] > 0, ib = s[b] > 0;
+      if (ia){ poly.push(nodeV(a)); edge.push(false); }
+      if (ia !== ib){ poly.push(edgeV(a, b)); edge.push(true); } }
+    for (let k = 1; k < poly.length - 1; k++) fillI.push(poly[0], poly[k], poly[k + 1]);
+    for (let k = 0; k < poly.length; k++){ const k2 = (k + 1) % poly.length; if (edge[k] && edge[k2]) lineI.push(poly[k], poly[k2]); }
+  }
+  // geometry: one position buffer shared by the fill and the line
+  if (!T.group){ T.group = new THREE.Group(); T.group.visible = false; scene.add(T.group); layers.covterr = [T.group]; }
+  for (const m of [T.fill, T.line]) if (m){ T.group.remove(m); m.geometry.dispose(); m.material.dispose(); }
+  T.gxy = new Float32Array(gxy);
+  T.lat = { x0, y0, step:T.hstep, lx:Math.ceil((nx - 1)*C/T.hstep) + 2, ly:Math.ceil((ny - 1)*C/T.hstep) + 2 };
+  T.pos = new THREE.BufferAttribute(new Float32Array(T.gxy.length/2*3), 3);
+  const gF = new THREE.BufferGeometry(); gF.setAttribute('position', T.pos); gF.setIndex(new THREE.BufferAttribute(new Uint32Array(fillI), 1));
+  const gL = new THREE.BufferGeometry(); gL.setAttribute('position', T.pos); gL.setIndex(new THREE.BufferAttribute(new Uint32Array(lineI), 1));
+  T.fill = new THREE.Mesh(gF, new THREE.MeshBasicMaterial({ color:T.col, transparent:true, opacity:T.fillOp, side:THREE.DoubleSide, depthWrite:false, blending:THREE.AdditiveBlending }));
+  T.line = new THREE.LineSegments(gL, new THREE.LineBasicMaterial({ color:T.col, transparent:true, opacity:T.lineOp, depthTest:false, depthWrite:false, blending:THREE.AdditiveBlending }));
+  T.fill.renderOrder = 2; T.line.renderOrder = 3; T.fill.frustumCulled = T.line.frustumCulled = false;
+  T.group.add(T.fill); T.group.add(T.line);
+  const t1 = performance.now(); drapeCovTerritory();
+  T.stats = { R, grid:nx + ' x ' + ny, cell:C, systems:cs.length/2, skipped, human:hs.length/2, verts:T.gxy.length/2, tris:fillI.length/3, segs:lineI.length/2,
+    traceMs:Math.round(t1 - t0), drapeMs:Math.round(performance.now() - t1) };
+}
+// The field's shortest octave is 300 ly and the reference pull is 250 ly or wider, so heights are sampled on a lattice
+// of COV_TERR.hstep light years (only where the shape needs them) and interpolated between; the flare guard is then
+// applied at each vertex. Same surface to well under a light year, about a ninth of the field evaluations.
+function drapeCovTerritory(){
+  const T = COV_TERR; if (!T || !T.pos) return;
+  const g = T.gxy, A = T.pos.array, L = T.lat, H = L.step, cache = new Float32Array(L.lx*L.ly).fill(NaN);
+  const at = (i, j) => { const k = j*L.lx + i; let z = cache[k]; if (z !== z){ z = cache[k] = covFieldZ(L.x0 + i*H, L.y0 + j*H); } return z; };
+  for (let v = 0, n = g.length >> 1; v < n; v++){
+    const gx = g[2*v], gy = g[2*v + 1], u = (gx - L.x0)/H, w = (gy - L.y0)/H, i = Math.floor(u), j = Math.floor(w), fu = u - i, fw = w - j;
+    const zf = (at(i, j)*(1 - fu) + at(i + 1, j)*fu)*(1 - fw) + (at(i, j + 1)*(1 - fu) + at(i + 1, j + 1)*fu)*fw;
+    const d = Math.hypot(gx, gy), z = clamp(zf, -0.35*d, 0.35*d);
+    A[3*v] = gx - R0; A[3*v + 1] = z; A[3*v + 2] = -gy;   // as covWorld(gx, gy, z)
+  }
+  T.pos.needsUpdate = true; T.fill.geometry.computeBoundingSphere(); T.line.geometry.computeBoundingSphere();
+}
+function stepCovTerr(){ const T = COV_TERR; if (!T || !T.group) return; const want = T.on && !sysActive; if (T.group.visible !== want) T.group.visible = want; }
+buildCovTerritory();
 // ---------- d5: slipspace routes ----------
 // Siakar chart polylines snapped to their system dots (stroke weight = class), and the four wiki crossing routes drawn
 // system to system in the listed order. Lines are rebuilt from the live object positions, so they follow the elevation
@@ -9061,6 +9159,7 @@ document.querySelectorAll('#layers input[type=checkbox]').forEach(cb => cb.addEv
   if (L==='plane'){ PLANE.on = cb.checked; return; }
   if (L==='cov'){ COV.on = cb.checked; return; }
   if (L==='covreg'){ COV.regOn = cb.checked; return; }
+  if (L==='covterr'){ COV_TERR.on = cb.checked; return; }
   if (L==='covell'){ COV.ellOn = cb.checked; const q = RINGS.regs.find(x => x.reg.id === 'covenant');
     if (q){ if (q.line) q.line.visible = cb.checked; if (q.fill) q.fill.visible = cb.checked; } return; }
   if (L==='routes'){ ROUTES.on = cb.checked; return; }
@@ -9148,6 +9247,8 @@ document.querySelectorAll('#filters [data-fact]').forEach(b => b.onclick = () =>
 $('#volq').addEventListener('change', e => volSetQuality(e.target.value));
 $('#planeSel').addEventListener('change', e => { PLANE.mode = e.target.value; rebuildSectorPlane(); });
 $('#covz').addEventListener('input', e => { applyCovZ(+e.target.value, null); $('#covzv').textContent = '±'+e.target.value+' ly'; navMark(); });
+$('#covtr').addEventListener('input', e => { COV_TERR.R = +e.target.value; $('#covtrv').textContent = '±'+e.target.value+' ly';
+  if (!COV_TERR.raf) COV_TERR.raf = requestAnimationFrame(() => { COV_TERR.raf = 0; buildCovTerritory(); }); });
 $('#covs').addEventListener('input', e => { applyCovZ(null, +e.target.value); $('#covsv').textContent = (+e.target.value).toFixed(2); navMark(); });
 $('#distSrc').addEventListener('change', e => { applyDistSrc(e.target.value, true); navMark(); });
 $('#fcap').addEventListener('change', e => { CAP.fps = +e.target.value || 120; });
@@ -9376,7 +9477,7 @@ function frame(now){
   { const on = layers.starsOn !== false, cl = layers.cloudsOn === true;
     if (starGroup.visible !== (cl && !sysActive)) starGroup.visible = cl && !sysActive;
     for (let i=1;i<layers.stars.length;i++) if (layers.stars[i].visible !== on) layers.stars[i].visible = on; }
-  stepDeep(camD, uScale); stepConstellations(camD(SUN)); renderSystems(); stepSystems(JD_NOW(), dt); stepHaloRings(); stepArk(now); stepSlip(now);
+  stepDeep(camD, uScale); stepConstellations(camD(SUN)); renderSystems(); stepSystems(JD_NOW(), dt); stepHaloRings(); stepCovTerr(); stepArk(now); stepSlip(now);
   if (follow && !fly){ const lp = lposOf(follow); if (follow.lastL){ const delta = lp.clone().sub(follow.lastL); controls.target.add(delta); camera.position.add(delta); } follow.lastL = lp.clone(); }   // v46: local delta, exact
   const solD = camD(SUN);
   stepSectorPlane(solD); stepRefPlane(solD); stepGalPlane(solD);
@@ -10411,7 +10512,7 @@ buildRefPlane(); buildGalPlane(); applyRefLabels();
 window.DAYBREAK_MAP = { GAIA_SHELL, setGaiaShell, CLS, CLSF, applyClassFilter, clsText, clsPhrase, clsPreset, clsCount, RPL, GPL, refItems, rebuildRefPlane, rebuildRefDrops, applyRefLabels, refStep, offPlaneTxt,
   stepRefPlane, stepGalPlane, RPL_STARS, GPL_RINGS, GPL_INNER,
   PLANE, DIST, applyDistSrc, conflictsOf, COV, applyCovZ, covAll, ROUTES, rebuildRoutes, BAND_FIX, SYSTEMS, objects, camera, gcam, SHIFT, camG, controls, composer, volPass,
-  covZ, covFieldZ, covBaseZ, covCorr, covOffset, covRelief, COVF, COV_OFFSET, COV_HEIGHT, COV_PULL, buildCovAnchors, COV_FIELD, linkCovFieldStars, realPtsPos: () => realPts.userData.pos, COV_WAYPOINTS, WP, RINGS, layers, resetMap, showObject, conGroup, hudPass, sysPass, VOL, PERF, showObject, flyToObject, resetMap, layers,
+  covZ, covFieldZ, covBaseZ, covCorr, covOffset, covRelief, COVF, COV_OFFSET, COV_HEIGHT, COV_PULL, buildCovAnchors, COV_FIELD, linkCovFieldStars, realPtsPos: () => realPts.userData.pos, COV_WAYPOINTS, WP, COV_TERR, COV_TERR_SKIP, buildCovTerritory, drapeCovTerritory, RINGS, layers, resetMap, showObject, conGroup, hudPass, sysPass, VOL, PERF, showObject, flyToObject, resetMap, layers,
   get selected(){ return selected; }, get sysActive(){ return sysActive; }, get activeSys(){ return activeSys; },
   SLIP, SLIP_DRIVES, SLIP_NAV, SLIP_DIL, SLIP_CAP, SLIP_EDDY, slipCap, slipRanges, slipLegCap, slipVfmt, slipSolveDirect, slipSolve, slipSolveChain, slipSystems, slipCharted, slipDriveById, slipNavById, slipSet, slipGo, setSlip, slipT, slipAddStop, slipRemoveStop, slipWaypoints, slipReady, slipReverse,
   slipFieldCat, slipFieldCands, slipFieldObj, SLIP_FIELD_MAX, DAYBREAK,

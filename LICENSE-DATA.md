@@ -1,6 +1,6 @@
 # Data licence
 
-Daybreak Star Map, version 1.0.
+Daybreak Star Map, version 1.1.
 
 The Daybreak placement data embedded in `app/index.html` (the `window.STARS`, `window.DAYBREAK`, `window.DATA`, Covenant, route, region and Halo Array records, and the CSV and JSON exports derived from them) is released under the Creative Commons Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0): https://creativecommons.org/licenses/by-sa/4.0/
 
