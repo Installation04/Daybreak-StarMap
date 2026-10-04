@@ -1,6 +1,6 @@
 # Credits and sources
 
-Daybreak Star Map, version 1.1.
+Daybreak Star Map, version 1.2.
 
 This file mirrors the app's About sheet (the ⓘ button). If the two differ, the About sheet in the shipped page is the one to fix.
 
@@ -51,5 +51,5 @@ Halo © Microsoft Corporation. The Daybreak Star Map was created under Microsoft
 ## Software
 
 - three.js r170, MIT, https://threejs.org/
-- Tauri 2 and tauri-plugin-opener, MIT / Apache-2.0, https://tauri.app/
+- Desktop shell: Tauri 2 with its opener, dialog, fs and persisted-scope plugins (MIT or Apache-2.0), https://tauri.app/
 - Fonts: Inter (Rasmus Andersson), Chakra Petch (Cadson Demak), IBM Plex Mono (IBM), SIL Open Font Licence 1.1, bundled from fontsource 5.3.0; licence texts in app/fonts/.

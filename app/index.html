@@ -374,10 +374,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
   <button class="ibtn" id="btnCat" title="Browse objects"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
   <button class="ibtn" id="btnHome" title="Galaxy overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></button>
   <button class="ibtn" id="btnSlip" title="Slipspace route calculator" aria-label="Slipspace route calculator"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2-5.6-3.3-5.6 3.3 1.4-6.2L3 9.5l6.4-.6z"/></svg></button>
+  <button class="ibtn" id="btnScen" title="Scenario: plan Daybreak's future with factions, designations and new stars" aria-label="Scenario"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4 2.5 4H5"/></svg></button>
   <span class="spacer"></span>
   <button class="ibtn" id="btnHelp" title="How to use this map" aria-label="Help"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 0 1 5.6 1c0 1.9-2.8 2.4-2.8 4"/><path d="M12 17.4v.2"/></svg></button>
   <button class="ibtn" id="btnAbout" title="About this map and its sources" aria-label="About and credits"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><path d="M12 7.6v.2"/></svg></button>
-  <button class="ibtn" id="btnFilters" title="Filters: show only chosen quadrants, sectors, quartals, domains or locations"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg></button>
+  <button class="ibtn" id="btnFilters" title="Filters: show only chosen quadrants, sectors, quartals, domains, locations or factions"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg></button>
   <button class="ibtn" id="btnLayers" title="Settings: layers and rendering"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
   <button class="ibtn" id="btnFull" title="Full screen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
 </div>
@@ -394,7 +395,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
 <aside id="filters" class="ui">
   <div class="hd"><div class="tx"><h2>Filters</h2><p>Show only the regions you pick</p></div><button class="x" id="fclose" aria-label="Close filter panel">×</button></div>
   <div class="fbody">
-    <div class="ftabs"><button data-ftab="hum" class="on">Human Sphere</button><button data-ftab="cov">Covenant Sphere</button><button data-ftab="cls">Star classes</button></div>
+    <div class="ftabs"><button data-ftab="hum" class="on">Human Sphere</button><button data-ftab="cov">Covenant Sphere</button><button data-ftab="cls">Star classes</button><button data-ftab="fac">Factions</button></div>
     <input id="fq" type="search" placeholder="Narrow the list…" autocomplete="off" spellcheck="false">
     <div class="fbar"><button class="ibtn" data-fact="all">All</button><button class="ibtn" data-fact="none">None</button><button class="ibtn" data-fact="invert">Invert</button><span class="cnt" id="fcnt"></span></div>
     <label class="fopt"><input type="checkbox" id="fghost" checked> Show the rest as faint dots</label>
@@ -426,6 +427,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
     <div class="sbtns"><button id="slipGo" disabled>Plot route</button><button class="ibtn" id="slipWipe" title="Clear the drawn route">Clear</button></div>
     <div id="slipOut"></div>
   </div>
+</aside>
+
+<!-- d35: the scenario dock -->
+<aside id="scen" class="ui">
+  <div class="hd"><div class="tx"><h2>Scenario</h2><p>Your additions to the map, saved separately from it</p></div><button class="x" id="scenClose" aria-label="Close the scenario panel">&times;</button></div>
+  <div class="sbody" id="scenBody"></div>
 </aside>
 
 <aside id="info" class="ui hidden">
@@ -501,6 +508,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
     <div class="sl"><label>Idle orbit rate <span id="idlev">2.0</span> deg/s</label><input type="range" id="idler" min="0.25" max="8" step="0.25" value="2"></div>
   <div class="sl"><label>Exposure <span id="expv">1.0</span></label><input type="range" id="exp" min="0.3" max="2.5" step="0.05" value="1"></div>
     <div class="sl"><label>Bloom <span id="bloomv">0.32</span></label><input type="range" id="bloom" min="0" max="2" step="0.02" value="0.32"></div>
+    <div class="lgrp">Files</div>
+    <div class="sl"><label>Save location</label><div id="scenLocTxt">Not chosen yet. You'll be asked the first time you save or export.</div><button class="ibtn" id="scenLocBtn">Change…</button></div>
   </div>
   <div id="scale"><span id="scaleTxt">1,000 ly</span><div class="bar"></div></div>
   <div id="zoom"><button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">−</button></div>
@@ -595,12 +604,83 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 #slip .skv.three .hdr{font:600 9.5px var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);padding:4px 0 2px}
 #slip .skv.three .hdr span{text-align:right}
 </style>
+<style>
+/* ---------- d35: the scenario dock and its forms ---------- */
+/* The fourth left dock. Like the slipspace calculator it takes the left edge on its own: opening it stands Browse,
+   Filters and the calculator down, and opening any of those stands it down. */
+#scen{position:fixed;z-index:5;top:64px;bottom:110px;left:14px;width:350px;max-width:calc(100vw - 28px);
+  background:var(--glass);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(12px);
+  display:none;flex-direction:column;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+#scen.open{display:flex}
+#scen .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:14px 16px 10px;flex:none}
+#scen .hd h2{margin:0;font:700 17px var(--f-ui);letter-spacing:-.01em;color:#fff;white-space:nowrap}
+#scen .hd p{margin:2px 0 0;font-size:11.5px;color:var(--mute)}
+#scen .sbody{display:flex;flex-direction:column;gap:7px;flex:1;min-height:0;padding:0 12px 14px;overflow-y:auto;overscroll-behavior:contain}
+#scen .stool{display:flex;flex-wrap:wrap;gap:5px}
+#scen .stool .ibtn{height:28px;font-size:11.5px;padding:0 8px}
+#scen .stool .sp{flex:1}
+#scen .stool .ibtn[disabled]{opacity:.35;cursor:default}
+.sstat{font:11px var(--f-mono);color:var(--mute);min-height:14px}
+.sstat.warn{color:#ffc46b;font-family:var(--f-ui)}
+.sempty{margin:6px 0;font-size:12.5px;line-height:1.5;color:var(--ink2)}
+.sgrp{padding:10px 2px 2px;font:600 10px var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);border-top:1px solid var(--line);margin-top:4px}
+.sdet summary{cursor:pointer;font:600 12px var(--f-ui);color:var(--ink2);padding:4px 0}
+.srow2,.sfrow{display:flex;width:100%;justify-content:space-between;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);padding:6px 9px;text-align:left;cursor:pointer;font:12px var(--f-ui)}
+.srow2:hover,.sfrow:hover{background:rgba(255,255,255,.09)}
+.srow2 .t,.sfrow .t{font-size:10.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48%}
+.srow2 span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.srow2.bad{border-color:rgba(255,196,107,.45)}
+.srow2 em{font-style:normal;color:#ffc46b}
+.sfrow i,.fsw{display:inline-block;width:11px;height:11px;border-radius:3px;flex:none;margin-right:2px}
+.sfrow span:nth-child(2){flex:1}
+.sfrow.chart{cursor:default;opacity:.6}
+.sfrow.chart:hover{background:rgba(255,255,255,.04)}
+.sadd2{align-self:flex-start;height:28px;font-size:12px}
+.sform{display:flex;flex-direction:column;gap:4px}
+.sbox{border:1px solid var(--line2);border-radius:10px;padding:9px 10px;background:rgba(255,255,255,.03)}
+.sfh{font:700 13px var(--f-ui);color:#fff;margin-bottom:2px}
+#scen label.sl,#ibody label.sl,#ovScen label.sl{font:600 10px var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);display:block;margin:5px 0 1px}
+#scen input[type=text],#scen select,#scen textarea,#ibody .sform input[type=text],#ibody .sform select,#ibody .sform textarea{width:100%;box-sizing:border-box;min-height:30px;
+  background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);font:12.5px var(--f-ui);border-radius:8px;padding:5px 8px;outline:none;color-scheme:dark}
+#scen textarea,#ibody .sform textarea{resize:vertical}
+#scen select option,#ibody .sform select option{background:#181c24;color:#eef2f6}
+#scen input:focus,#scen select:focus,#scen textarea:focus,#ibody .sform input:focus,#ibody .sform select:focus,#ibody .sform textarea:focus{border-color:var(--line2);background:rgba(255,255,255,.09)}
+#scen input[type=color]{width:56px;height:28px;padding:0 2px;background:none;border:1px solid var(--line);border-radius:6px}
+#scen input[type=range]{width:100%}
+.shint{margin:1px 0 2px;font-size:11px;line-height:1.4;color:var(--mute)}
+.serr{margin:4px 0 0;font-size:11.5px;color:#ff9b8a}
+.schk2{display:flex;align-items:center;gap:7px;font:12px var(--f-ui);color:var(--ink);cursor:pointer;margin:2px 0}
+.schk2 input{accent-color:#7fe3ff;margin:0}
+.s2col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stabs{display:flex;flex-wrap:wrap;gap:4px}
+.stabs button{flex:1 1 45%;height:26px;font:600 10.5px var(--f-ui);border-radius:7px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink2);cursor:pointer}
+.stabs button.on{background:rgba(127,227,255,.16);border-color:rgba(127,227,255,.45);color:#fff}
+.sread{font:11px var(--f-mono);color:var(--ink2);line-height:1.45;margin:4px 0}
+.swarn{margin:4px 0;padding:7px 9px;border-left:2px solid #ffc46b;background:rgba(255,196,107,.07);font-size:11.5px;line-height:1.45;color:var(--ink2);border-radius:0 8px 8px 0}
+#scenSnap{font-size:11.5px;color:var(--ink2);line-height:1.45}
+#scenSnap .btn{height:26px;font-size:11.5px;margin-top:4px}
+.sbtns2{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.sbtns2 .btn{height:30px;font-size:12px}
+.smsg{position:relative;padding:7px 26px 7px 9px;border:1px solid rgba(127,227,255,.3);border-radius:8px;background:rgba(127,227,255,.06);font-size:11.5px;line-height:1.45;color:var(--ink2)}
+.smsg .x{position:absolute;top:2px;right:2px}
+.sskip{margin:4px 0 0;padding-left:16px;max-height:160px;overflow:auto}
+#ibody .sform{margin-top:4px}
+.lab.scen{font-size:10.5px}
+#ovScen .sheet{max-width:520px}
+#ovScen .sb>p{margin:0 0 11px;font-size:13.5px;line-height:1.55;color:var(--ink2)}
+.smbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.smfoot{margin:12px 0 0;font-size:12px;color:var(--mute)}
+#layers .lgrp{font:600 10px var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+#scenLocTxt{font:11px var(--f-mono);color:var(--ink2);margin:3px 0 5px;word-break:break-all;max-width:280px}
+@media (max-width:980px){#scen{left:14px;right:14px;width:auto;top:64px;bottom:auto;max-height:66vh}}
+</style>
 <div id="hint">Drag to orbit · scroll or hold +/− to zoom · click to select and lock on, click again to fly</div>
 
 <!-- d20: the About sheet -->
 <div class="ov" id="ovAbout" hidden>
  <div class="sheet narrow" role="dialog" aria-modal="true" aria-labelledby="aboutH">
-  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 1.1.0. What it is, and where everything came from</p></div>
+  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 1.2.0. What it is, and where everything came from</p></div>
    <button class="x" id="aboutX" aria-label="Close">&times;</button></div>
   <div class="sb">
 
@@ -637,7 +717,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p class="src"><b>Galaxy, nebula and cluster rendering</b>Procedural, made for this project. The Halo rings are drawn as procedural models.</p>
 
    <h3>Software</h3>
-   <p class="src"><a href="https://threejs.org/" target="_blank" rel="noopener noreferrer">three.js</a> r170 (MIT licence). Fonts: Inter (Rasmus Andersson), Chakra Petch (Cadson Demak) and IBM Plex Mono (IBM), all under the SIL Open Font Licence, bundled with the app. Desktop build: <a href="https://tauri.app/" target="_blank" rel="noopener noreferrer">Tauri</a> (MIT / Apache-2.0). Source and releases: <a href="https://github.com/Installation04/Daybreak-StarMap" target="_blank" rel="noopener noreferrer">github.com/Installation04/Daybreak-StarMap</a>. The map's own code is MIT; the Daybreak placement data is CC BY-SA 4.0.</p>
+   <p class="src"><a href="https://threejs.org/" target="_blank" rel="noopener noreferrer">three.js</a> r170 (MIT licence). Fonts: Inter (Rasmus Andersson), Chakra Petch (Cadson Demak) and IBM Plex Mono (IBM), all under the SIL Open Font Licence, bundled with the app. Desktop build: <a href="https://tauri.app/" target="_blank" rel="noopener noreferrer">Tauri</a> 2 with its opener, dialog, fs and persisted-scope plugins (MIT / Apache-2.0). Source and releases: <a href="https://github.com/Installation04/Daybreak-StarMap" target="_blank" rel="noopener noreferrer">github.com/Installation04/Daybreak-StarMap</a>. The map's own code is MIT; the Daybreak placement data is CC BY-SA 4.0.</p>
 
    <h3>Found an error?</h3>
    <p>Distances and positions in fiction are often contradictory. If you have a source that beats the one this map used, the panel names what it used, and the GitHub page takes reports.</p>
@@ -691,6 +771,15 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>The route button plots a chain of jumps between two systems, with stops if you add them, for a chosen drive, navigation interface and slipspace weather. It reports the effective translight time, the time aboard, the jumps and the legs, and draws the chain. The CODEN drives use the map's revised figures: a speed band, a default range off the drawn routes and an extended range along them or with a smart AI.</p>
    <p>Three switches. Uncharted stopovers lets the chain stop at real catalogue stars that no chart lists, when the charted systems are too far apart. Direct jump, off by default, plots one continuous jump per leg instead of a chain: start to destination, or start to each chosen stop and on. It ignores the drive's range and says by how much the jump overreaches, so it is a probe for operational limits still to be set, not a claim that the drive can make it; where the solver has a chain, the panel shows the two side by side. The weather setting moves the speed within the band.</p>
 
+   <h3>Planning Daybreak's future</h3>
+   <p>Everything above is the charts. This is the part that is yours.</p>
+   <p>A scenario is a separate file that sits on top of the map and never changes it. Open the scenario panel with the button at the top, start a new one, and anything you add goes into that file: factions, designations and new stars. Close it and the map is exactly as it shipped.</p>
+   <p>Factions come first. Give one a name, a short code and a colour. The Human Sphere and the Covenant are already there as chart factions, read-only, so you can filter and export them alongside your own.</p>
+   <p>To designate a star, select it and press Designate in its panel. A Daybreak system keeps its chart name and gains a faction and a status. A catalogue star can take a name of its own as well, and keeps every designation it already had. The status is one of surveyed, claimed, outpost, colony, contested or abandoned. One faction per star, for now.</p>
+   <p>New star puts a star where the catalogues have none. Type its position in galactic X, Y and Z, in l, b and distance, or in RA, Dec and distance, or click the map and set the height with the slider. It gets a DBK number, takes its colour from the class you give it, and is drawn with a ring so nobody mistakes it for a real star. If you place it on top of a real one, the map asks whether you meant that star.</p>
+   <p>Save writes the scenario to your save folder, which you choose the first time. Undo and redo cover every edit, and a recovery copy is kept while you work, so a crash costs you a minute at most. Export writes the systems you choose to a CSV, every catalogue designation, class, distance from Sol and height above the plane included, or a points file for Houdini.</p>
+   <p>If you want your work in Daybreak, send me the scenario file.</p>
+
    <h3>Going into a star system</h3>
    <p>Get within about a third of a light year of a star and the map stops treating it as a point of light and builds the system around it, with planets, moons and orbit lines.</p>
    <p>Try Sol. Select it, press <span class="kbd">Enter system</span>, and note that you land on Earth rather than the Sun.</p>
@@ -739,6 +828,14 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>Every panel names its source. If you have a better one, tell me.</p>
 
   </div>
+ </div>
+</div>
+
+<!-- d35: scenario prompts -->
+<div class="ov" id="ovScen" hidden>
+ <div class="sheet narrow" role="dialog" aria-modal="true" aria-labelledby="scenMH">
+  <div class="sh"><div><h2 id="scenMH"></h2></div></div>
+  <div class="sb" id="scenMB"></div>
  </div>
 </div>
 
@@ -6194,6 +6291,7 @@ function applyClassFilter(){
     for (let i=0;i<16;i++) u.uSpecOn.value[i] = CLSF.spec.has(i) ? 0 : 1; for (let i=0;i<8;i++) u.uLumOn.value[i] = CLSF.lum.has(i) ? 0 : 1;
     u.uSpecOn.value[15] = 1; u.uLumOn.value[7] = 1; }
   if (typeof updateFilterChip === 'function') updateFilterChip();
+  scenPaint();   // d35: new stars follow the class filter
 }
 // the class of a field point (index i) as a sentence for the panel, with its provenance
 function clsText(i){
@@ -8155,7 +8253,7 @@ for (const o of bodyObjs) if (!o.minor) mkLabel(o, o.moon?'moon':'body', o.moon 
 // Ram's rules for this pass: filtered-out systems hide, with a ghost option; slipspace routes ignore the
 // filter entirely and always draw; the Browse panel and the region labels are not narrowed by it.
 const FSEP = '\u0001';
-const FILT = { hum:{ ex:new Set(), exBand:new Set(), ghost:true }, cov:{ ex:new Set(), ghost:true }, reveal:new Set(), on:false };
+const FILT = { hum:{ ex:new Set(), exBand:new Set(), ghost:true }, cov:{ ex:new Set(), ghost:true }, fac:{ ex:new Set(), ghost:true }, reveal:new Set(), on:false };   // d35: fac
 // four Covenant locations and nine chart region labels exist in an all-capitals variant as well as a
 // mixed-case one. They are the same place, so they are folded together and shown in the mixed-case spelling.
 const FCASE = new Map();
@@ -8237,14 +8335,15 @@ function rebuildRouteEnds(){
   RENDS.pts.visible = arr.length > 0;
 }
 function applyFilter(){
-  FILT.on = FILT.hum.ex.size > 0 || FILT.hum.exBand.size > 0 || FILT.cov.ex.size > 0;
+  FILT.on = FILT.hum.ex.size > 0 || FILT.hum.exBand.size > 0 || FILT.cov.ex.size > 0 || FILT.fac.ex.size > 0;
   for (const o of objects){
     if (!(o.halo || o.cov)) continue;
-    const v = objVis(o) || FILT.reveal.has(o);
+    // d35: the region filters and the faction filter both have to admit a system
+    const rv = objVis(o), fv = scenFacVis(o), v = (rv && fv) || FILT.reveal.has(o);
     o.fvis = v;
-    o.fghost = !v && ((o.halo && FILT.hum.ghost) || (o.cov && FILT.cov.ghost));
+    o.fghost = !v && (rv ? FILT.fac.ghost : ((o.halo && FILT.hum.ghost) || (o.cov && FILT.cov.ghost)));
   }
-  paintNamed(); paintCov(); rebuildRouteEnds(); updateFilterChip();
+  paintNamed(); paintCov(); rebuildRouteEnds(); updateFilterChip(); scenPaint();
 }
 // selecting a filtered-out system from search or from Browse brings that one system back until it is deselected
 function filterReveal(o){
@@ -8312,6 +8411,7 @@ function renderFilterTree(){
   const tab = FTREE.tab, q = FTREE.q.trim().toLowerCase();
   const hit = n => !q || n.name.toLowerCase().includes(q) || (n.kids || []).some(hit);
   let h = '';
+  if (tab === 'fac'){ scenFacTree(); return; }   // d35
   if (tab === 'cls'){
     fq.style.display = 'none'; $('#fghost').parentElement.style.display = 'none';
     if (!CLS.ready){ ftree.innerHTML = `<div class="fgrp">Star classes are still loading</div>`; $('#fcnt').textContent = ''; return; }
@@ -8386,11 +8486,12 @@ function updateFilterChip(){
   }
   if (CLSF.on){ const sp = [...Array(13).keys()].filter(i => !CLSF.spec.has(i)), lu = [...Array(7).keys()].filter(i => !CLSF.lum.has(i));
     parts.push('Stars: ' + (sp.length < 13 ? sp.map(i => SPEC_NAME[i]).join('/') + ' ' : '') + (lu.length < 7 ? lu.map(i => LUM_NAME[i]).join('/') : sp.length < 13 ? 'any class' : '')); }
+  if (FILT.fac.ex.size && typeof scenFacChip === 'function' && SCEN) parts.push('Factions: ' + scenFacChip());   // d35
   const chip = $('#fchip');
   chip.classList.toggle('on', parts.length > 0);
   $('#fchipTxt').textContent = parts.join('  ·  ');
 }
-function clearFilters(){ FILT.hum.ex.clear(); FILT.hum.exBand.clear(); FILT.cov.ex.clear(); FILT.reveal.clear(); CLSF.spec.clear(); CLSF.lum.clear(); applyClassFilter(); applyFilter(); renderFilterTree(); }
+function clearFilters(){ FILT.fac.ex.clear(); FILT.hum.ex.clear(); FILT.hum.exBand.clear(); FILT.cov.ex.clear(); FILT.reveal.clear(); CLSF.spec.clear(); CLSF.lum.clear(); applyClassFilter(); applyFilter(); renderFilterTree(); }
 
 // ---------- d7: catalogue designations ----------
 // ATHYG v3.2-1 (Augmented Tycho-HYG), the same catalogue the star field is a subsample of, read back for the
@@ -8684,7 +8785,7 @@ function syncGutters(){ const rs = document.documentElement.style;
   const fOpen = $('#filters').classList.contains('open');
   // d12: the slipspace calculator is a third left dock, but it never shares the edge with the other two
   const sEl = document.getElementById('slip');
-  const sOpen = !!(sEl && sEl.classList.contains('open'));
+  const sOpen = !!(sEl && sEl.classList.contains('open')) || !!document.querySelector('#scen.open');   // d35: the scenario dock sits where the calculator does
   rs.setProperty('--fl', bOpen ? '350px' : '14px');
   rs.setProperty('--lw', (sOpen ? 364 : ((bOpen ? 350 : 14) + (fOpen ? 336 : 0))) + 'px');
   rs.setProperty('--rw', info.classList.contains('hidden') ? '14px' : '368px');
@@ -8703,6 +8804,7 @@ function tidyLeft(keep){
       const b = document.getElementById('btnSlip'); if (b) b.classList.remove('on');
     }
   }
+  if (keep !== 'scen' && SCEN && SCEN.open) setScen(false);   // d35
   // below MOBILE the panels reflow to the full width of the window, so the settings stack cannot share the
   // screen with them at all and stands down whenever a panel opens
   if (innerWidth < MOBILE) $('#layers').classList.remove('open');
@@ -8978,7 +9080,7 @@ function showObject(o, noFly){
   if (o && o.fvis === false) filterReveal(o); else if (FILT.reveal.size && !FILT.reveal.has(o)) filterUnreveal();
   selected = o; setChip(o); location.hash = '#/obj/'+o.id;
   ROUTES.selObj = o.kind === 'route' ? o : null; if (ROUTES.hi) highlightRoute(ROUTES.selObj);
-  ititle.textContent = o.name; isub.textContent = o.type;
+  ititle.textContent = scenTitle(o); isub.textContent = o.type;   // d35: a designated catalogue star shows its scenario name
   const dS = o.pos.distanceTo(SUN), dG = o.pos.distanceTo(GC);
   const [l,b] = (()=>{ const v = o.pos.clone().sub(SUN); const xh=v.x, zh=v.y, yh=-v.z; const d=v.length()||1; return [((Math.atan2(yh,xh)/D2R)+360)%360, Math.asin(zh/d)/D2R]; })();
   let h = `<div class="obj">`;
@@ -9048,6 +9150,7 @@ function showObject(o, noFly){
   if (o.kind==='gc' || o.kind==='ark') h += `<button class="btn ghost" data-act="orbit">Wide view</button>`;
   h += `<button class="btn ghost" data-act="back">All objects</button></div>`;
   if (o.kind==='body' && !o.star) h += `<div class="note">True scale: bodies are drawn at their real size and the orbit lines fade as you close in. ${o.sys.holo ? 'The sources give no orbital data for this system, so the orbit is a construction chosen to be plausible; any stated figures are named in the description. These worlds have no textures, so they are drawn as holograms. The plane the system is drawn on is constructed too: no orbital plane orientation is published for any of these stars, so each system takes a fixed pole of its own rather than sharing one.' : 'Positions follow the real clock (JPL approximate elements).'}</div>`;
+  h += scenBlock(o);   // d35
   h += relatedBlock(o) + provenanceBlock(o);
   h += `</div>`;
   ibody.innerHTML = h; ibody.scrollTop = 0; info.classList.remove('hidden'); syncGutters(); navMark();
@@ -9093,7 +9196,7 @@ q.addEventListener('input', () => {
   if (!s){ results.style.display='none'; return; }
   const sc = s.replace(/\s+/g,'');
   const hits = [];
-  for (const o of objects){
+  for (const o of (SCEN && SCEN.extraSearch.length ? objects.concat(SCEN.extraSearch) : objects)){   // d35: named designations of field stars
     if (!o.skey) continue;
     let r = -1;
     if (o.nkey === s) r = 0; else if (o.nkey.startsWith(s)) r = 1; else if (o.nkey.includes(s)) r = 2;
@@ -9127,7 +9230,7 @@ q.addEventListener('input', () => {
   // d31: a phrase that names a class ("red dwarfs", "K giants", "white dwarf") offers the class filter as the first result
   let clsRow = ''; if (CLS.ready){ const p = clsPhrase(s); if (p){ const sp = new Set(p.spec ? [...Array(16).keys()].filter(i => !p.spec.includes(i)) : []), lu = new Set(p.lum ? [...Array(8).keys()].filter(i => !p.lum.includes(i)) : []);
     clsRow = `<button data-cls="${esc(JSON.stringify(p))}"><span>Show only ${esc(clsPresetName(p))} <span style="color:var(--mute);font-size:11px">${clsCount(sp, lu).toLocaleString('en-GB')} stars</span></span><span class="t">Star class filter</span></button>`; } }
-  results.innerHTML = clsRow + top.map(o=>`<button data-id="${o.id}"><span>${o.name}${extra(o)}${o.fvis===false?' <span style="color:var(--mute);font-size:11px">(filtered out)</span>':''}</span><span class="t">${o.type.split('\u00b7')[0]}</span></button>`).join('') || `<button disabled><span style="color:var(--mute)">No match</span></button>`;
+  results.innerHTML = clsRow + top.map(o=>`<button data-id="${o.id}"><span>${scenTitle(o)}${scenTitle(o) !== o.name ? ' \u00b7 ' + o.name : ''}${extra(o)}${o.fvis===false?' <span style="color:var(--mute);font-size:11px">(filtered out)</span>':''}</span><span class="t">${o.type.split('\u00b7')[0]}</span></button>`).join('') || `<button disabled><span style="color:var(--mute)">No match</span></button>`;
   results.style.display='block';
 });
 results.addEventListener('click', e => { const cb = e.target.closest('button[data-cls]'); if (cb){ results.style.display='none'; q.value=''; clsPreset(JSON.parse(cb.dataset.cls)); return; }
@@ -9209,6 +9312,8 @@ fq.addEventListener('input', () => { FTREE.q = fq.value; renderFilterTree(); });
 $('#fghost').addEventListener('change', e => { FILT[FTREE.tab].ghost = e.target.checked; applyFilter(); });
 $('#fchipX').onclick = () => clearFilters();
 ftree.addEventListener('click', e => {
+  const fr = e.target.closest('[data-fac]');   // d35: a faction row
+  if (fr){ if (e.target.tagName !== 'INPUT') return; const k = fr.dataset.fac; if (e.target.checked) FILT.fac.ex.delete(k); else FILT.fac.ex.add(k); applyFilter(); renderFilterTree(); return; }
   const cr = e.target.closest('[data-cls]');   // d31: a class row
   if (cr){ if (e.target.tagName !== 'INPUT') return; const [kind, i] = cr.dataset.cls.split(':'); const set = kind === 'spec' ? CLSF.spec : CLSF.lum; if (e.target.checked) set.delete(+i); else set.add(+i); applyClassFilter(); renderFilterTree(); return; }
   const tw = e.target.closest('[data-tw]');
@@ -9230,6 +9335,7 @@ ftree.addEventListener('click', e => {
   applyFilter(); renderFilterTree();
 });
 document.querySelectorAll('#filters [data-fact]').forEach(b => b.onclick = () => {
+  if (FTREE.tab === 'fac'){ scenFacAct(b.dataset.fact); return; }   // d35
   if (FTREE.tab === 'cls'){ const act = b.dataset.fact;   // d31: All / None / Invert on the class rows
     if (act === 'all'){ CLSF.spec.clear(); CLSF.lum.clear(); }
     else if (act === 'none'){ for (let i=0;i<13;i++) CLSF.spec.add(i); for (let i=0;i<7;i++) CLSF.lum.add(i); }
@@ -9272,7 +9378,7 @@ $('#idler').addEventListener('input', e => { IDLE.rate = +e.target.value; $('#id
 $('#exp').addEventListener('input', e => { renderer.toneMappingExposure = +e.target.value; $('#expv').textContent = (+e.target.value).toFixed(2); });
 $('#bloom').addEventListener('input', e => { bloom.strength = +e.target.value; $('#bloomv').textContent = (+e.target.value).toFixed(2); });
 function resetMap(){
-  FILT.hum.ghost = true; FILT.cov.ghost = true; clearFilters(); FTREE.q = ''; $('#fq').value = ''; FTREE.open.clear(); filterTabTo('hum');
+  FILT.hum.ghost = true; FILT.cov.ghost = true; FILT.fac.ghost = true; clearFilters(); FTREE.q = ''; $('#fq').value = ''; FTREE.open.clear(); filterTabTo('hum');
   document.querySelectorAll('#layers input[type=checkbox]').forEach(cb => {
     if (cb.checked !== cb.defaultChecked){ cb.checked = cb.defaultChecked; cb.dispatchEvent(new Event('change')); }
   });
@@ -9283,7 +9389,7 @@ function resetMap(){
   document.querySelectorAll('#layers input[type=range]').forEach(sl => {
     if (sl.value !== sl.defaultValue){ sl.value = sl.defaultValue; sl.dispatchEvent(new Event('input')); }
   });
-  $('#layers').classList.remove('open'); setFilters(false);
+  $('#layers').classList.remove('open'); setFilters(false); if (SCEN && SCEN.open) setScen(false);
   if (typeof setSlip === 'function'){ setSlip(false); slipClear(); $('#slipOut').classList.remove('on');
     const c = $('#slipField'); if (c && !c.checked){ c.checked = true; c.dispatchEvent(new Event('change')); } }
   selected = null; follow = null; setChip(null);
@@ -9320,6 +9426,7 @@ function screenOf(o){ ndc.copy(lposOf(o)).project(camera); return ndc; }
 canvas.addEventListener('pointerdown', e => { canvas._pd = [e.clientX, e.clientY, performance.now()]; });
 canvas.addEventListener('pointerup', e => {
   const pd = canvas._pd; if (!pd) return; if (Math.hypot(e.clientX-pd[0], e.clientY-pd[1])>5 || performance.now()-pd[2]>400) return;
+  if (SCEN && SCEN.placing){ scenPlaceClick(e); return; }   // d35: New star, On the map
   let best=null, bd=22;
   // d29: a click on a visible label picks that label's object. Labels ignore the pointer and sit 8 to 20 px above
   // their star, so the old dot-only test often took a neighbour or nothing when a name was clicked.
@@ -9333,7 +9440,7 @@ canvas.addEventListener('pointerup', e => {
   // inside the disc's apparent radius selects Sagittarius A* (the map's Milky Way object, with its Wide view button)
   // ahead of the satellite dwarfs and Sol that share the same few pixels.
   if (!best && !sysActive && camD(GC) > 150000){ const v = screenOf(gc); if (v.z <= 1){ const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const px = Math.max(22, 50000/camD(GC)*(innerHeight/2)/Math.tan(camera.fov/2*D2R)); if (Math.hypot(x-e.clientX, y-e.clientY) < px){ best = gc; bd = -1; } } }
-  if (!best) for (const o of objects){ if (o.kind==='star' && !brightSet.has(o) && !o.inMag && !starLabelSet.has(o)) continue; if (o.kind==='star' && !o.halo && CLSF.on && !clsShowNamed(o)) continue; if (o.kind==='star' && o.halo && !haloShow(o)) continue; if (o.kind==='cov' && !covShow(o)) continue; if (o.kind==='con' || o.kind==='route') continue; if (o.kind==='wp' && (sysActive || !ROUTES.on || camD(o.pos) > 450)) continue; if (o.kind==='body' && !sysActive) continue; if (o.kind==='deep' && (!deepGroup.visible || (!o.inMag && camD(o.pos) > 90000))) continue; const v=screenOf(o); if (v.z>1) continue; const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const d=Math.hypot(x-e.clientX, y-e.clientY); if (d<bd){bd=d; best=o;} }
+  if (!best) for (const o of objects){ if (o.kind==='star' && !brightSet.has(o) && !o.inMag && !starLabelSet.has(o)) continue; if (o.kind==='star' && !o.halo && CLSF.on && !clsShowNamed(o)) continue; if (o.kind==='star' && o.halo && !haloShow(o)) continue; if (o.kind==='cov' && !covShow(o)) continue; if (o.kind==='con' || o.kind==='route') continue; if (o.kind==='scen' && !scenObjShow(o)) continue; if (o.kind==='wp' && (sysActive || !ROUTES.on || camD(o.pos) > 450)) continue; if (o.kind==='body' && !sysActive) continue; if (o.kind==='deep' && (!deepGroup.visible || (!o.inMag && camD(o.pos) > 90000))) continue; const v=screenOf(o); if (v.z>1) continue; const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const d=Math.hypot(x-e.clientX, y-e.clientY); if (d<bd){bd=d; best=o;} }
   // v16: the first click selects, opens the right panel and moves the orbit pivot onto the object; the camera
   // does not move at all. A second click on the same object is the only thing here that flies.
   // d21: nothing named under the click, so try the star field itself (within 10 px; brighter wins a tie)
@@ -9477,7 +9584,7 @@ function frame(now){
   { const on = layers.starsOn !== false, cl = layers.cloudsOn === true;
     if (starGroup.visible !== (cl && !sysActive)) starGroup.visible = cl && !sysActive;
     for (let i=1;i<layers.stars.length;i++) if (layers.stars[i].visible !== on) layers.stars[i].visible = on; }
-  stepDeep(camD, uScale); stepConstellations(camD(SUN)); renderSystems(); stepSystems(JD_NOW(), dt); stepHaloRings(); stepCovTerr(); stepArk(now); stepSlip(now);
+  stepDeep(camD, uScale); stepConstellations(camD(SUN)); renderSystems(); stepSystems(JD_NOW(), dt); stepHaloRings(); stepCovTerr(); stepScen(); stepArk(now); stepSlip(now);
   if (follow && !fly){ const lp = lposOf(follow); if (follow.lastL){ const delta = lp.clone().sub(follow.lastL); controls.target.add(delta); camera.position.add(delta); } follow.lastL = lp.clone(); }   // v46: local delta, exact
   const solD = camD(SUN);
   stepSectorPlane(solD); stepRefPlane(solD); stepGalPlane(solD);
@@ -9485,6 +9592,7 @@ function frame(now){
   for (const L of labelOrder()){
     const o=L.o; let show = true;
     if (L.cls==='star') show = !sysActive && solD < 2500 && (!CLSF.on || clsShowNamed(o));
+    if (L.cls==='scen') show = scenLabelShow(L, L.vis === 1);   // d35
     // d18: a system at its tier threshold used to flip as the orbit carried the camera across it; once shown it now holds to 1.1 times the threshold
     if (L.cls==='halo') show = layers.namedOn !== false && haloShow(o, L.vis === 1);
     if (o.kind==='cov') show = covShow(o, L.vis === 1);
@@ -9739,6 +9847,7 @@ function slipSystems(){
   return out;
 }
 function slipTag(o){
+  if (o.kind === 'scen') return 'Scenario star';   // d35
   if (o.field) return 'Uncharted';
   if (o.kind === 'sol') return 'SolCore';
   if (o.kind === 'cov' || o.cov) return 'Covenant';
@@ -9891,7 +10000,8 @@ function slipSolve(opt){
   if (opt.direct) return slipSolveDirect(opt, RR, band, layer, dil, eddy);   // v1.0: one continuous jump
   const useField = opt.field !== undefined ? !!opt.field : SLIP.field;
   const cands = useField ? slipFieldCands(from, to, effRange) : null;
-  const base = slipSystems(), ch = slipCharted();
+  // d35: a new star joins the graph only as this leg's start or end, never as an automatic stopover
+  const base0 = slipSystems(), xs = [from, to].filter(o => o && o.kind === 'scen' && !base0.includes(o)), base = xs.length ? base0.concat(xs) : base0, ch = slipCharted();
   const sys = cands && cands.length ? base.concat(cands) : base, N = sys.length;
   const idx = new Map(); sys.forEach((o, i) => idx.set(o, i));
   const X = new Float64Array(N), Y = new Float64Array(N), Z = new Float64Array(N);
@@ -10203,6 +10313,7 @@ function setSlip(open){
     panel.classList.add('hidden');
     if ($('#filters').classList.contains('open')) setFilters(false);
     if (innerWidth < MOBILE) $('#layers').classList.remove('open');
+    if (SCEN && SCEN.open) setScen(false);   // d35
   }
   $('#btnSlip').classList.toggle('on', open);
   syncGutters();
@@ -10278,7 +10389,7 @@ function slipPick(which){
   if (!s){ list.style.display = 'none'; return; }
   const sc = s.replace(/\s+/g, '');
   const hits = [];
-  for (const o of slipSystems()){
+  for (const o of slipPickables()){   // d35: new stars can be picked
     if (!o.skey) continue;
     let r = -1;
     if (o.nkey === s) r = 0; else if (o.nkey.startsWith(s)) r = 1; else if (o.nkey.includes(s)) r = 2;
@@ -10313,7 +10424,7 @@ function slipWire(which){
   inp.addEventListener('input', () => { const f = slipField(which); if (f) f.set(null); slipSyncGo(); slipPick(which); });
   inp.addEventListener('focus', () => { if (inp.value.trim()) slipPick(which); });
   list.addEventListener('click', e => { const b = e.target.closest('button[data-id]'); if (!b) return;
-    slipSet(which, slipSystems().find(o => o.id === b.dataset.id)); });
+    slipSet(which, slipPickables().find(o => o.id === b.dataset.id)); });
 }
 function slipHideLists(){ for (const el of slipEl.querySelectorAll('.plist')) el.style.display = 'none'; }
 
@@ -10508,6 +10619,900 @@ slipFillDrives();
 slipRenderStops();
 if (sol) slipSet('From', sol);
 
+// ---------- d35 (v1.2.0): scenarios ----------
+// A scenario is a separate JSON file laid over the map: factions, designations of existing stars and systems, and new
+// stars. The canonical chart data is never touched; closing the scenario puts the map back exactly as it shipped.
+// Positions are stored as galactic X, Y, Z in light years from Sol (X towards the core, Y towards galactic rotation,
+// Z above the plane), the same X and Y as the map's chart coordinates. World space is (X - R0, Z, -Y).
+// Files: in the desktop app through the Tauri dialog and fs plugins (save folder default Documents\Daybreak Star Map,
+// remembered in localStorage 'daybreak.savedir'; a recovery copy in the app's local data folder); in a plain browser
+// files download and upload instead, and the recovery copy and the last scenario live in localStorage.
+var SCEN = null;
+const SCEN_SCHEMA = 1, SCEN_APP = '1.2.0', SCEN_FORMAT = 'daybreak-scenario';
+const SCEN_STATUS = [
+  ['surveyed', 'Surveyed', 'Visited and charted. Nobody holds it.'],
+  ['claimed', 'Claimed', 'Claimed by the faction, with no one living there.'],
+  ['outpost', 'Outpost', 'A small permanent presence: a station, a listening post, a depot.'],
+  ['colony', 'Colony', 'Settled, with a permanent population.'],
+  ['contested', 'Contested', 'Claimed by this faction and disputed by another.'],
+  ['abandoned', 'Abandoned', 'Once held, now empty.']];
+const SCEN_STATUS_NAME = Object.fromEntries(SCEN_STATUS.map(s => [s[0], s[1]]));
+// the two factions of the current map. Read-only, and assignable like a scenario faction (Ram, 4 October 2026)
+const SCEN_CHART_FAC = [{ id:'chart:hum', name:'Human Sphere', list:'Human Sphere (chart)', code:'HUM', colour:'#ffb15c', chart:true }, { id:'chart:cov', name:'Covenant', list:'Covenant (chart)', code:'COV', colour:'#b98cff', chart:true }];
+const SCEN_PALETTE = ['#4fc3f7', '#81c784', '#ffb74d', '#e57373', '#ba68c8', '#4db6ac', '#f06292', '#aed581', '#ffd54f', '#90a4ae'];
+// spectral class (CLS nibble) and evolution class for new stars, as the class filter knows them
+const SCEN_SPEC = [[1,'O'],[2,'B'],[3,'A'],[4,'F'],[5,'G'],[6,'K'],[7,'M'],[8,'L'],[9,'T'],[10,'Y'],[12,'White dwarf']];
+const SCEN_LUM = [[1,'Main sequence'],[2,'Subgiant'],[3,'Giant'],[4,'Bright giant / supergiant'],[5,'White dwarf'],[6,'Brown dwarf']];
+const SCEN_SPEC_RGB = { 1:[0.61,0.69,1], 2:[0.67,0.75,1], 3:[0.79,0.84,1], 4:[0.97,0.97,1], 5:[1,0.96,0.92], 6:[1,0.82,0.63], 7:[1,0.8,0.44], 8:[1,0.6,0.35], 9:[0.88,0.38,0.48], 10:[0.69,0.31,0.5], 12:[0.85,0.89,1] };
+function scenDefaultAbsMag(sp, lu){
+  if (lu === 5 || sp === 12) return 12;
+  if (lu === 6) return sp === 9 ? 15 : sp === 10 ? 17 : 13.5;
+  if (lu === 4) return -5;
+  if (lu === 3) return sp >= 7 ? -0.5 : sp === 6 ? 0.5 : sp === 5 ? 0.8 : 0;
+  if (lu === 2) return ({3:1, 4:2.5, 5:3, 6:3.5})[sp] ?? 2.5;
+  return ({1:-5, 2:-1.5, 3:1.5, 4:3.5, 5:4.8, 6:6.5, 7:10, 8:13, 9:15, 10:17})[sp] ?? 4.8;
+}
+// ---- small helpers ----
+function scenUUID(){ try { if (crypto.randomUUID) return crypto.randomUUID(); } catch(e){}
+  const b = crypto.getRandomValues(new Uint8Array(16)); b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+  const h = [...b].map(x => x.toString(16).padStart(2, '0')).join(''); return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20); }
+const scenNow = () => new Date().toISOString();
+function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+function lsSet(k, v){ try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e){} }
+const scenGalOf = w => [w.x + R0, -w.z, w.y];
+const scenWorldOf = (X, Y, Z) => new THREE.Vector3(X - R0, Z, -Y);
+function scenLB(X, Y, Z){ const d = Math.hypot(X, Y, Z) || 1; return [((Math.atan2(Y, X)/D2R) + 360) % 360, Math.asin(Z/d)/D2R, Math.hypot(X, Y, Z)]; }
+function scenXYZofLB(l, b, d){ const cb = Math.cos(b*D2R); return [d*cb*Math.cos(l*D2R), d*cb*Math.sin(l*D2R), d*Math.sin(b*D2R)]; }
+// galactic to equatorial (J2000), the inverse of eqToGal
+function scenGalToEq(l, b){
+  const aN = 192.85948*D2R, dN = 27.12825*D2R, lN = 122.93192*D2R, L = l*D2R, B = b*D2R;
+  const sd = Math.sin(B)*Math.sin(dN) + Math.cos(B)*Math.cos(dN)*Math.cos(lN - L);
+  const y = Math.cos(B)*Math.sin(lN - L), x = Math.sin(B)*Math.cos(dN) - Math.cos(B)*Math.sin(dN)*Math.cos(lN - L);
+  let a = (aN + Math.atan2(y, x))/D2R; a = ((a % 360) + 360) % 360;
+  return [a, Math.asin(Math.max(-1, Math.min(1, sd)))/D2R];
+}
+// RA in degrees, or in hours as "h m s", "hh:mm:ss" or "12h 30m 15s"; Dec in degrees, decimal or "d m s"
+function scenParseRA(s){ s = String(s || '').trim(); if (!s) return NaN;
+  if (/[hms:]/i.test(s) || /^\d+(\.\d+)?\s+\d/.test(s)){ const p = s.replace(/[hms:]/gi, ' ').trim().split(/\s+/).map(Number); if (p.some(isNaN)) return NaN; return ((p[0]||0) + (p[1]||0)/60 + (p[2]||0)/3600)*15; }
+  return Number(s); }
+function scenParseDec(s){ s = String(s || '').trim(); if (!s) return NaN; const neg = /^-|^−/.test(s);
+  if (/[°d′'″":]/.test(s) || /^[+\-−]?\d+(\.\d+)?\s+\d/.test(s)){ const p = s.replace(/^[+\-−]/, '').replace(/[°d′'″":]/g, ' ').trim().split(/\s+/).map(Number); if (p.some(isNaN)) return NaN; const v = (p[0]||0) + (p[1]||0)/60 + (p[2]||0)/3600; return neg ? -v : v; }
+  return Number(s.replace('−', '-')); }
+const scenNum = v => { const n = Number(String(v).replace('−', '-').trim()); return String(v).trim() === '' ? NaN : n; };
+const scenFix = (v, n) => (Math.round(v*Math.pow(10, n))/Math.pow(10, n)).toString();
+const scenLy = v => (Math.abs(v) < 10 ? v.toFixed(2) : Math.abs(v) < 1000 ? v.toFixed(1) : Math.round(v).toLocaleString('en-GB')) + ' ly';
+function scenFileName(p){ return String(p || '').split(/[\\/]/).pop(); }
+function scenSafeName(s){ return (String(s || '').replace(/[<>:"/\\|?*\u0000-\u001f]/g, '').replace(/\s+/g, ' ').trim() || 'Untitled scenario').slice(0, 80); }
+function scenCsvCell(v){ if (v == null) return ''; const s = String(v); return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+function scenCsv(rows){ return '﻿' + rows.map(r => r.map(scenCsvCell).join(',')).join('\r\n') + '\r\n'; }
+function scenCsvParse(text){
+  text = String(text).replace(/^﻿/, ''); const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++){ const c = text[i];
+    if (q){ if (c === '"'){ if (text[i+1] === '"'){ cell += '"'; i++; } else q = false; } else cell += c; continue; }
+    if (c === '"') q = true; else if (c === ','){ row.push(cell); cell = ''; } else if (c === '\n' || c === '\r'){ if (c === '\r' && text[i+1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; } else cell += c; }
+  if (cell !== '' || row.length){ row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(x => x.trim() !== ''));
+}
+
+SCEN = { ready:false, doc:null, path:null, dirty:false, undo:[], redo:[], on:true, open:false, objs:[], targets:[], labels:[],
+  extraSearch:[], resolved:new Map(), unresolved:[], savedAt:0, recAt:0, recTimer:0, msg:'', msgWarn:false, placing:false,
+  facForm:null, nf:null, df:null, importMsg:'', pts:null, ring:null, dia:null, prev:null, prevLine:null, near:null, nearT:0, snapMsg:'', keepNear:false };
+// ---------- files ----------
+const SFS = {
+  T(){ const T = window.__TAURI__; return T && T.fs && T.dialog && T.path ? T : null; },
+  get desktop(){ return !!this.T(); },
+  folder(){ return lsGet('daybreak.savedir') || ''; },
+  async docDefault(){ const T = this.T(); return await T.path.join(await T.path.documentDir(), 'Daybreak Star Map'); },
+  async join(a, b){ return await this.T().path.join(a, b); },
+  async exists(p){ try { return await this.T().fs.exists(p); } catch(e){ return false; } },
+  async read(p){ return await this.T().fs.readTextFile(p); },
+  // written to a temporary file and moved into place, so a crash mid-write never leaves half a scenario
+  async write(p, text){ const fs = this.T().fs, tmp = p + '.tmp'; await fs.writeTextFile(tmp, text); await fs.rename(tmp, p); },
+  async remove(p){ try { await this.T().fs.remove(p); } catch(e){} },
+  async mkdir(p){ const fs = this.T().fs; if (!(await this.exists(p))) await fs.mkdir(p, { recursive:true }); },
+  async recoveryPath(){ const T = this.T(), d = await T.path.join(await T.path.appLocalDataDir(), 'recovery'); await this.mkdir(d); return await T.path.join(d, 'scenario-recovery.json'); },
+  // the folder Save and Export write to: asked for the first time it is needed (the prompt approved on 3 October 2026)
+  async ensureFolder(){
+    const cur = this.folder(); if (cur){ try { await this.mkdir(cur); } catch(e){} return cur; }
+    const def = await this.docDefault();
+    const r = await scenModal({ title:'Choose where Daybreak Star Map saves your work',
+      html:`<p>Scenarios and CSV exports need a folder. The suggested place is Documents\\Daybreak Star Map.</p>`,
+      buttons:[['use', 'Use this folder', true], ['pick', 'Choose another folder…'], ['cancel', 'Cancel']],
+      foot:'You can change this at any time in Settings, under Files &gt; Save location.' });
+    if (r === 'use'){ try { await this.mkdir(def); } catch(e){ await scenError(`Couldn't save to ${esc(def)}: ${esc(e)}.`); return null; } this.setFolder(def); return def; }
+    if (r === 'pick') return await this.pickFolder();
+    return null;
+  },
+  setFolder(p){ lsSet('daybreak.savedir', p); scenSettingsRow(); },
+  async pickFolder(){ const T = this.T(); let start = this.folder(); if (!start){ try { start = await this.docDefault(); } catch(e){ start = undefined; } }
+    let p = null; try { p = await T.dialog.open({ directory:true, recursive:true, defaultPath:start, title:'Save location' }); } catch(e){ return null; }
+    if (!p || Array.isArray(p)) return null; this.setFolder(p); return p; },
+  // a plain browser: files download and upload
+  download(name, text, type){ const b = new Blob([text], { type:type || 'application/octet-stream' }), a = document.createElement('a');
+    a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500); },
+  upload(accept){ return new Promise(res => { const i = document.createElement('input'); i.type = 'file'; i.accept = accept; i.style.display = 'none';
+    i.onchange = () => { const f = i.files && i.files[0]; if (!f){ res(null); return; } const r = new FileReader(); r.onload = () => res({ name:f.name, text:String(r.result) }); r.onerror = () => res(null); r.readAsText(f); i.remove(); };
+    document.body.appendChild(i); i.click(); }); }
+};
+// ---------- modal ----------
+let scenModalOpen = false;
+function scenModal(o){
+  return new Promise(res => {
+    const ov = $('#ovScen'); $('#scenMH').textContent = o.title; const btns = o.buttons || [['ok', 'OK', true]];
+    $('#scenMB').innerHTML = (o.html || '') + `<div class="smbtns">${btns.map(b => `<button class="btn${b[2] ? ' pr' : ''}" data-mb="${b[0]}">${b[1]}</button>`).join('')}</div>` + (o.foot ? `<p class="smfoot">${o.foot}</p>` : '');
+    ov.hidden = false; scenModalOpen = true; if (o.onOpen) o.onOpen($('#scenMB'));
+    const done = id => { const v = o.read ? o.read($('#scenMB'), id) : undefined; ov.hidden = true; scenModalOpen = false; $('#scenMB').onclick = null; res(o.read ? { id, v } : id); };
+    $('#scenMB').onclick = e => { const b = e.target.closest('[data-mb]'); if (b) done(b.dataset.mb); };
+    const f = $('#scenMB').querySelector('.btn.pr'); if (f) f.focus({ preventScroll:true });
+    scenModal.cancel = () => done(o.escape || btns[btns.length - 1][0]);
+  });
+}
+const scenError = msg => scenModal({ title:'Scenario', html:`<p>${msg}</p>` });
+addEventListener('keydown', e => { if (!scenModalOpen) return; if (e.key === 'Escape'){ e.stopPropagation(); scenModal.cancel && scenModal.cancel(); return; }
+  if (e.target && /INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName)) return; e.stopPropagation(); }, true);
+
+// ---------- the document ----------
+function scenBlankDoc(){ const t = scenNow(); return { format:SCEN_FORMAT, schema:SCEN_SCHEMA, id:scenUUID(), name:'Untitled scenario', author:lsGet('daybreak.author') || '', description:'',
+  licence:'CC BY-SA 4.0', created:t, modified:t, mapVersion:SCEN_APP, factions:[], designations:[], customStars:[], routes:[] }; }
+function scenCheck(doc){
+  if (!doc || typeof doc !== 'object' || doc.format !== SCEN_FORMAT) throw new Error('it has no Daybreak scenario header');
+  if ((doc.schema || 0) > SCEN_SCHEMA){ const e = new Error('newer'); e.newer = doc.mapVersion || 'unknown'; throw e; }
+  for (const k of ['factions', 'designations', 'customStars', 'routes']) if (!Array.isArray(doc[k])) doc[k] = [];
+  if (!doc.id) doc.id = scenUUID(); if (!doc.licence) doc.licence = 'CC BY-SA 4.0';
+  for (const s of doc.customStars){ if (!Array.isArray(s.pos) || s.pos.length !== 3 || s.pos.some(v => !isFinite(v))) throw new Error('new star ' + (s.dbk || s.name || '?') + ' has no valid position'); if (!s.uuid) s.uuid = scenUUID(); }
+  for (const d of doc.designations){ if (!d.key) throw new Error('a designation has no key'); if (!d.uuid) d.uuid = scenUUID(); }
+  return doc;
+}
+const scenFac = id => !id ? null : String(id).startsWith('chart:') ? SCEN_CHART_FAC.find(f => f.id === id) || null : SCEN.doc ? SCEN.doc.factions.find(f => f.id === id) || null : null;
+const scenFacName = id => { const f = scenFac(id); return f ? f.name : ''; };
+function scenNextDBK(){ let n = 0; for (const s of SCEN.doc.customStars){ const m = /DBK-(\d+)/.exec(s.dbk || ''); if (m) n = Math.max(n, +m[1]); } return 'DBK-' + String(n + 1).padStart(4, '0'); }
+// every edit goes through here: one undo step, the dirty flag, the recovery timer and a rebuild
+function scenEdit(fn){
+  if (!SCEN.doc) scenStartNew(true);
+  SCEN.undo.push(JSON.stringify(SCEN.doc)); if (SCEN.undo.length > 200) SCEN.undo.shift(); SCEN.redo.length = 0;
+  fn(SCEN.doc); SCEN.doc.modified = scenNow(); SCEN.doc.mapVersion = SCEN_APP; scenDirty();
+  scenRebuild();
+}
+function scenDirty(){ SCEN.dirty = true; clearTimeout(SCEN.recTimer); SCEN.recTimer = setTimeout(scenWriteRecovery, 60000); scenStatus(); }
+function scenUndo(){ if (!SCEN.undo.length) return; SCEN.redo.push(JSON.stringify(SCEN.doc)); SCEN.doc = JSON.parse(SCEN.undo.pop()); scenDirty(); scenRebuild(); }
+function scenRedo(){ if (!SCEN.redo.length) return; SCEN.undo.push(JSON.stringify(SCEN.doc)); SCEN.doc = JSON.parse(SCEN.redo.pop()); scenDirty(); scenRebuild(); }
+function scenStartNew(silent){ SCEN.doc = scenBlankDoc(); SCEN.path = null; SCEN.undo = []; SCEN.redo = []; SCEN.dirty = false; SCEN.savedAt = 0; SCEN.msg = ''; SCEN.nf = null; SCEN.facForm = null; SCEN.df = null;
+  if (!silent) scenRebuild(); }
+function scenLoad(doc, path, how){
+  SCEN.doc = doc; SCEN.path = path || null; SCEN.undo = []; SCEN.redo = []; SCEN.dirty = how === 'recovered'; SCEN.savedAt = how === 'recovered' ? 0 : Date.now();
+  SCEN.nf = null; SCEN.facForm = null; SCEN.df = null; SCEN.importMsg = '';
+  scenRebuild();
+  SCEN.msg = how === 'reopened' ? `Reopened ${doc.name}` : ''; SCEN.msgWarn = false;
+  if (SCEN.unresolved.length){ SCEN.msg = `${SCEN.unresolved.length} designations could not find their star and are listed under Designated stars with a warning.`; SCEN.msgWarn = true; }
+  if (path && SFS.desktop) scenRecent(path, doc.name);
+  if (path) lsSet('daybreak.lastScenario', path);
+  scenStatus(); renderScenPanel();
+}
+// unsaved changes: Save / Don't save / Cancel. Resolves true when it is fine to carry on.
+async function scenConfirmDiscard(){
+  if (!SCEN.doc || !SCEN.dirty) return true;
+  const r = await scenModal({ title:`Save changes to ${esc(SCEN.doc.name)}?`, buttons:[['save', 'Save', true], ['nosave', "Don't save"], ['cancel', 'Cancel']], escape:'cancel' });
+  if (r === 'save') return await scenSave();
+  if (r === 'nosave'){ await scenClearRecovery(); return true; }
+  return false;
+}
+async function scenNewCmd(){ if (!(await scenConfirmDiscard())) return; scenStartNew(); SCEN.msg = ''; scenStatus(); renderScenPanel(); }
+async function scenOpenCmd(path){
+  if (!(await scenConfirmDiscard())) return;
+  let text, p = path || null;
+  if (SFS.desktop){
+    if (!p){ let start = SFS.folder(); try { p = await SFS.T().dialog.open({ defaultPath:start || undefined, multiple:false, directory:false, filters:[{ name:'Daybreak scenario', extensions:['json'] }] }); } catch(e){ p = null; } }
+    if (!p || Array.isArray(p)) return;
+    try { text = await SFS.read(p); } catch(e){ await scenError(`That file isn't a Daybreak scenario, or it is damaged: ${esc(e)}.`); scenRecentDrop(p); return; }
+  } else { const f = await SFS.upload('.json,application/json'); if (!f) return; text = f.text; p = null; }
+  let doc; try { doc = scenCheck(JSON.parse(text)); }
+  catch(e){ if (e.newer){ await scenError(`This scenario was made with a newer version of the map (${esc(e.newer)}). Update the map to open it.`); return; }
+    await scenError(`That file isn't a Daybreak scenario, or it is damaged: ${esc(e.message || e)}.`); return; }
+  scenLoad(doc, p, 'opened');
+  if (!SFS.desktop) lsSet('daybreak.lastdoc', JSON.stringify(doc));
+}
+async function scenWriteTo(p){
+  const text = JSON.stringify(SCEN.doc, null, 1);
+  try { await SFS.write(p, text); }
+  catch(e){ await scenWriteRecovery(); await scenError(`Couldn't save to ${esc(p)}: ${esc(e)}. Your changes are still here, and a recovery copy has been kept.`); return false; }
+  SCEN.path = p; SCEN.dirty = false; SCEN.savedAt = Date.now(); SCEN.msg = ''; clearTimeout(SCEN.recTimer);
+  lsSet('daybreak.lastScenario', p); scenRecent(p, SCEN.doc.name); await scenClearRecovery(); scenStatus(); renderScenPanel(); return true;
+}
+async function scenSave(){
+  if (!SCEN.doc) return false;
+  if (SCEN.doc.author) lsSet('daybreak.author', SCEN.doc.author);
+  if (!SFS.desktop){ const t = JSON.stringify(SCEN.doc, null, 1); SFS.download(scenSafeName(SCEN.doc.name) + '.json', t, 'application/json');
+    lsSet('daybreak.lastdoc', t); lsSet('daybreak.recovery', null); SCEN.dirty = false; SCEN.savedAt = Date.now(); SCEN.path = null; SCEN.msg = ''; scenStatus(); renderScenPanel(); return true; }
+  if (SCEN.path) return await scenWriteTo(SCEN.path);
+  const dir = await SFS.ensureFolder(); if (!dir) return false;
+  // Save writes straight to the save folder; a name already taken by another scenario gets a number
+  const base = scenSafeName(SCEN.doc.name); let p = await SFS.join(dir, base + '.json');
+  for (let k = 2; k < 100 && await SFS.exists(p); k++){ let same = false; try { same = JSON.parse(await SFS.read(p)).id === SCEN.doc.id; } catch(e){} if (same) break; p = await SFS.join(dir, `${base} (${k}).json`); }
+  return await scenWriteTo(p);
+}
+async function scenSaveAs(){
+  if (!SCEN.doc) return false;
+  if (!SFS.desktop) return await scenSave();
+  const dir = await SFS.ensureFolder(); if (!dir) return false;
+  let p = null; try { p = await SFS.T().dialog.save({ defaultPath:await SFS.join(dir, scenSafeName(SCEN.doc.name) + '.json'), filters:[{ name:'Daybreak scenario', extensions:['json'] }] }); } catch(e){ p = null; }
+  if (!p) return false; if (!/\.json$/i.test(p)) p += '.json';
+  return await scenWriteTo(p);
+}
+// recovery: one copy of the open scenario, about a minute after the last edit
+async function scenWriteRecovery(){
+  if (!SCEN.doc || !SCEN.dirty) return;
+  const rec = JSON.stringify({ savedAt:scenNow(), path:SCEN.path, name:SCEN.doc.name, doc:SCEN.doc });
+  try { if (SFS.desktop) await SFS.write(await SFS.recoveryPath(), rec); else lsSet('daybreak.recovery', rec); SCEN.recAt = Date.now(); } catch(e){ console.warn('scenario recovery copy failed', e); }
+  scenStatus();
+}
+async function scenClearRecovery(){ SCEN.recAt = 0; if (SFS.desktop){ try { await SFS.remove(await SFS.recoveryPath()); } catch(e){} } else lsSet('daybreak.recovery', null); }
+async function scenReadRecovery(){ try { const t = SFS.desktop ? (await SFS.exists(await SFS.recoveryPath()) ? await SFS.read(await SFS.recoveryPath()) : null) : lsGet('daybreak.recovery'); return t ? JSON.parse(t) : null; } catch(e){ return null; } }
+function scenRecentList(){ try { return JSON.parse(lsGet('daybreak.recent') || '[]').filter(r => r && r.path); } catch(e){ return []; } }
+function scenRecent(path, name){ const L = scenRecentList().filter(r => r.path !== path); L.unshift({ path, name }); lsSet('daybreak.recent', JSON.stringify(L.slice(0, 5))); }
+function scenRecentDrop(path){ lsSet('daybreak.recent', JSON.stringify(scenRecentList().filter(r => r.path !== path))); if (lsGet('daybreak.lastScenario') === path) lsSet('daybreak.lastScenario', null); }
+function scenStatus(){
+  const el = document.getElementById('scenStatus'); if (!el) return;
+  let t; const d = SCEN.doc;
+  if (!d) t = '';
+  else if (SCEN.msg && !SCEN.dirty) t = SCEN.msg;
+  else if (SCEN.dirty){ t = 'Unsaved changes'; if (SCEN.recAt) t += ` · recovery copy kept ${Math.max(1, Math.round((Date.now() - SCEN.recAt)/1000))} s ago`; }
+  else if (SCEN.path) t = `Saved to ${scenFileName(SCEN.path)}`;
+  else if (SCEN.savedAt) t = `Saved to ${scenSafeName(d.name)}.json`;
+  else t = 'Not saved yet';
+  el.textContent = t; el.classList.toggle('warn', !!(SCEN.msgWarn && SCEN.msg && !SCEN.dirty));
+  const u = document.getElementById('scenUndo'), r = document.getElementById('scenRedo'); if (u) u.disabled = !SCEN.undo.length; if (r) r.disabled = !SCEN.redo.length;
+}
+setInterval(() => { if (SCEN && SCEN.dirty && SCEN.recAt) scenStatus(); }, 10000);
+
+// ---------- what a designation points at ----------
+// Chart systems by their chart identity; catalogue stars by Gaia DR3 source id, then HIP, HD, Tycho-2, Gliese, then
+// position. Every designation also stores the star's position, so a mismatch can be found later.
+function scenChartKey(o){
+  if (!o) return null; if (o.kind === 'sol') return 'sol';
+  if (o.cov && o.cov.id) return 'cov:' + o.cov.id;
+  if (o.kind === 'star' && o.halo && o.db) return 'hum:' + o.name;
+  return null;
+}
+function scenFidx(o){
+  if (!o) return -1; if (o.kind === 'field') return o.fidx;
+  if (o.cov && o.cov.fidx != null) return o.cov.fidx;
+  if (o.hip){ const k = HIP_POS.get(o.hip); if (k !== undefined) return k; }
+  return -1;
+}
+const scenDigits = s => String(s || '').replace(/[^0-9]/g, '');
+// catalogue numbers without their prefixes: the identifier table writes 'HD 94', 'TYC 600-978-1', 'Gaia DR3 2766...'
+const scenBare = v => String(v || '').replace(/^\s*(HD|HR|HIP|TYC)\s*/i, '').trim();
+const scenGaia = v => { const m = /(\d{6,})\s*$/.exec(String(v || '')); return m ? m[1] : ''; };
+function scenIdsOf(o){
+  const ids = {}, i = scenFidx(o);
+  if (o.kind === 'star' && o.idx != null){ const d = DES[o.idx]; if (d){ if (d.gaia) ids.gaia = scenGaia(d.gaia); if (d.hd) ids.hd = scenBare(d.hd); if (d.tyc) ids.tyc = scenBare(d.tyc); if (d.gl) ids.gl = String(d.gl); } }
+  if (o.hip) ids.hip = String(o.hip);
+  if (i >= 0){
+    if (GAIA_ID && i >= fieldBase) ids.gaia = String(GAIA_ID[i - fieldBase]);
+    if (HIP_OF && HIP_OF[i]) ids.hip = String(HIP_OF[i]);
+    const r = i < fieldBase ? starIdRec(i) : null;
+    if (r){ if (r.gaia && !ids.gaia) ids.gaia = scenGaia(r.gaia); if (r.hip && !ids.hip) ids.hip = scenDigits(r.hip); if (r.hd && !ids.hd) ids.hd = scenBare(r.hd); if (r.tyc && !ids.tyc) ids.tyc = scenBare(r.tyc); if (r.gl && !ids.gl) ids.gl = r.gl; }
+  }
+  for (const k of Object.keys(ids)) if (!ids[k]) delete ids[k];
+  return ids;
+}
+function scenKeyOf(o){
+  const c = scenChartKey(o); if (c) return { key:c, ids:{}, chart:true };
+  const ids = scenIdsOf(o), g = scenGalOf(o.pos);
+  const key = ids.gaia ? 'gaia:' + ids.gaia : ids.hip ? 'hip:' + ids.hip : ids.hd ? 'hd:' + ids.hd : ids.tyc ? 'tyc:' + ids.tyc : ids.gl ? 'gl:' + ids.gl : 'pos:' + g.map(v => v.toFixed(2)).join(',');
+  return { key, ids, chart:false, posOnly:key.startsWith('pos:') };
+}
+function scenDesignatable(o){ return !!o && (o.kind === 'field' || o.kind === 'cov' || o.kind === 'sol' || (o.kind === 'star' && !o.inMag)); }
+function scenChartObj(key){
+  if (key === 'sol') return sol;
+  if (key.startsWith('cov:')){ const id = key.slice(4), r = COVENANT.systems.find(x => x.id === id); if (!r) return null; return r.obj || starObjs.find(s => s.cov === r) || COV.objs.find(o => o.cov === r) || null; }
+  if (key.startsWith('hum:')){ const n = key.slice(4); return starObjs.find(s => s.halo && s.db && s.name === n) || null; }
+  return null;
+}
+function scenResolve(d){
+  if (SCEN.resolved.has(d.key)) return SCEN.resolved.get(d.key);
+  let o = null;
+  if (d.chart) o = scenChartObj(d.key);
+  else {
+    const ids = d.ids || {};
+    if (!o && ids.hip){ const k = HIP_POS.get(+ids.hip); if (k !== undefined) o = fieldObjOrNamed(k); }
+    if (!o && ids.gaia){ const k = gaiaFind(ids.gaia); if (k >= 0) o = fieldObjOrNamed(k); }
+  }
+  if (o) SCEN.resolved.set(d.key, o);
+  return o;
+}
+// the position fallback, one pass over the field for every designation the ids could not place (within 0.5 ly)
+function scenResolveByPos(list){
+  if (!list.length || !realStarsLoaded) return;
+  const P = realPts.userData.pos, N = realStarCount, cell = new Map(), key = (x, y, z) => x + ',' + y + ',' + z;
+  for (const d of list){ const w = scenWorldOf(d.pos[0], d.pos[1], d.pos[2]); d._w = w; d._best = 0.5; d._k = -1; cell.set(key(Math.round(w.x), Math.round(w.y), Math.round(w.z)), (cell.get(key(Math.round(w.x), Math.round(w.y), Math.round(w.z))) || []).concat([d])); }
+  for (let i = 0; i < N; i++){
+    const x = P[i*3], y = P[i*3+1], z = P[i*3+2], cx = Math.round(x), cy = Math.round(y), cz = Math.round(z);
+    for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) for (let c = -1; c <= 1; c++){
+      const L = cell.get(key(cx + a, cy + b, cz + c)); if (!L) continue;
+      for (const d of L){ const q = Math.hypot(x - d._w.x, y - d._w.y, z - d._w.z); if (q < d._best){ d._best = q; d._k = i; } } }
+  }
+  for (const d of list){ if (d._k >= 0) SCEN.resolved.set(d.key, fieldObjOrNamed(d._k));
+    else { const s = starObjs.find(o => !o.inMag && o.pos.distanceTo(d._w) < 0.5); if (s) SCEN.resolved.set(d.key, s); }
+    delete d._w; delete d._best; delete d._k; }
+}
+const scenDName = d => d.name || d.label || d.key;
+const scenItemFac = it => it && it.faction ? it.faction : null;
+// the faction key an item counts under in the Factions filter: a scenario faction, or 'none'
+const scenFacKey = it => !(scenItemFac(it) && scenFac(it.faction)) ? 'none' : String(it.faction).startsWith('chart:') ? it.faction : 'f:' + it.faction;
+// filter: a chart system is drawn when its chart faction or its scenario faction is admitted (the map's "either tree" rule)
+function scenFacVis(o){
+  if (!FILT.fac || !FILT.fac.ex.size) return true;
+  if ((o.halo && o.db) || o.kind === 'sol' || (o.cov && o.cov.hum)) { if (!FILT.fac.ex.has('chart:hum')) return true; }
+  if (o.cov && !FILT.fac.ex.has('chart:cov')) return true;
+  const d = o.scenD; if (d && !FILT.fac.ex.has(scenFacKey(d))) return true;
+  return false;
+}
+function scenItemVis(it){ return !FILT.fac.ex.has(scenFacKey(it)); }
+
+// ---------- rebuild: objects, markers, labels, search, panels ----------
+function scenRebuild(){
+  if (!SCEN.ready) return;
+  const doc = SCEN.doc;
+  // undo the previous pass
+  for (const o of SCEN.targets){ delete o.scenD; if (o._k0){ o.nkey = o._k0[0]; o.skey = o._k0[1]; delete o._k0; } }
+  for (const o of SCEN.objs){ const k = objects.indexOf(o); if (k >= 0) objects.splice(k, 1); }
+  for (const L of SCEN.labels){ L.el.remove(); const k = labelled.indexOf(L); if (k >= 0) labelled.splice(k, 1); }
+  SCEN.targets = []; SCEN.objs = []; SCEN.labels = []; SCEN.extraSearch = []; SCEN.unresolved = []; LORD.n = -1;
+  if (doc){
+    // designations
+    const need = [];
+    for (const d of doc.designations){ const o = scenResolve(d); if (!o && !d.chart && Array.isArray(d.pos)) need.push(d); }
+    if (need.length) scenResolveByPos(need);
+    for (const d of doc.designations){
+      const o = SCEN.resolved.get(d.key) || scenResolve(d);
+      if (!o){ SCEN.unresolved.push(d); continue; }
+      o.scenD = d; SCEN.targets.push(o);
+      if (!d.chart){ const g = scenGalOf(o.pos); d._moved = Array.isArray(d.pos) ? Math.hypot(g[0] - d.pos[0], g[1] - d.pos[1], g[2] - d.pos[2]) : 0;
+        scenMkLabel(o, d.name || o.name, d);
+        if (d.name){ o._k0 = [o.nkey, o.skey]; o.nkey = nrm(d.name); o.skey = nrm(d.name) + ' | ' + (o.skey || nrm([o.name, o.alt, o.desig, ...(o.hip ? ['hip ' + o.hip, 'hip' + o.hip] : [])].filter(Boolean).join(' | '))); if (o.kind === 'field') SCEN.extraSearch.push(o); } }
+    }
+    // new stars
+    for (const s of doc.customStars){
+      const w = scenWorldOf(s.pos[0], s.pos[1], s.pos[2]);
+      const o = { id:'scen-' + s.uuid.replace(/[^a-f0-9]/gi, '').slice(0, 12).toLowerCase(), name:s.name || s.dbk, alt:s.dbk, kind:'scen', scen:s, pos:w, dSol:w.distanceTo(SUN),
+        type:'Scenario star · ' + s.dbk, desig:'Scenario star · ' + s.dbk + (scenFacName(s.faction) ? ' · ' + scenFacName(s.faction) : '') };
+      o.nkey = nrm(o.name); o.skey = nrm([o.name, s.dbk, scenFacName(s.faction), 'scenario star'].join(' | '));
+      objects.push(o); SCEN.objs.push(o); scenMkLabel(o, o.name, s);
+    }
+  }
+  scenBuildMarkers(); scenPaint();
+  if (typeof SLIP === 'object' && SLIP){   // a new star that has gone stops being a route endpoint
+    for (const w of ['From', 'To']){ const f = slipField(w); const o = f && f.get(); if (o && o.kind === 'scen' && !SCEN.objs.includes(o)) slipSet(w, null); }
+    for (const st of SLIP.stops) if (st.obj && st.obj.kind === 'scen' && !SCEN.objs.includes(st.obj)){ st.obj = null; slipRenderStops(); }
+  }
+  // keep the selection on the same star if it was a new star rebuilt under a new object
+  if (selected && selected.kind === 'scen' && !SCEN.objs.includes(selected)){ const n = SCEN.objs.find(o => o.id === selected.id); if (n) showObject(n); else { selected = null; setChip(null); info.classList.add('hidden'); syncGutters(); } }
+  else if (selected && !info.classList.contains('hidden')) showObject(selected);
+  applyFilter();
+  if (FTREE.tab === 'fac' && $('#filters').classList.contains('open')) renderFilterTree();
+  renderScenPanel(); scenStatus();
+}
+function scenFacCss(fid){ const f = scenFac(fid); return f ? f.colour : '#cfd6e0'; }
+function scenMkLabel(o, text, it){
+  const el = document.createElement('div'); el.className = 'lab scen';
+  const f = scenFac(it.faction); el.innerHTML = esc(text) + (f ? `<span class="sub">${esc(f.code || f.name)}</span>` : '');
+  el.style.color = scenFacCss(it.faction); labelRoot.appendChild(el);
+  const L = { o, el, cls:'scen', it }; labelled.push(L); SCEN.labels.push(L); el.style.display = 'none'; L.vis = 0;
+}
+function scenLabelShow(L, hyst){ const o = L.o; if (!SCEN.on || sysActive) return false;
+  if (!scenItemVis(L.it)) return false; if (o.kind === 'scen' && CLSF.on && !clsOK((o.scen.spec || 0) | ((o.scen.lum || 0) << 4))) return false;
+  return camD(o.pos) < 1500*(hyst ? 1.1 : 1); }
+function scenObjShow(o){ return SCEN && SCEN.on && !sysActive && o.scenVis === 1; }
+// markers: a ring on each designated star in its faction colour, a diamond on each new star, and the new stars themselves
+function scenTex(kind){
+  const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); g.strokeStyle = '#fff'; g.lineWidth = 5;
+  if (kind === 'ring'){ g.beginPath(); g.arc(32, 32, 24, 0, Math.PI*2); g.stroke(); }
+  else { g.beginPath(); g.moveTo(32, 5); g.lineTo(59, 32); g.lineTo(32, 59); g.lineTo(5, 32); g.closePath(); g.stroke(); }
+  return new THREE.CanvasTexture(c);
+}
+function scenMarkerPts(tex, size){
+  const m = new THREE.PointsMaterial({ size, sizeAttenuation:false, map:tex, vertexColors:true, transparent:true, opacity:0.95, depthTest:false, depthWrite:false, blending:THREE.AdditiveBlending });
+  const p = new THREE.Points(new THREE.BufferGeometry(), m); p.frustumCulled = false; p.renderOrder = 9; scene.add(p); return p;
+}
+function scenBuildMarkers(){
+  if (!SCEN.ring){ SCEN.ring = scenMarkerPts(scenTex('ring'), 16); SCEN.dia = scenMarkerPts(scenTex('dia'), 18); }
+  // the new stars as stars, by the same law as the catalogue field
+  if (SCEN.pts){ scene.remove(SCEN.pts); SCEN.pts.geometry.dispose(); const k = pointMats.indexOf(SCEN.pts.material); if (k >= 0) pointMats.splice(k, 1); SCEN.pts.material.dispose(); SCEN.pts = null; }
+  const n = SCEN.objs.length;
+  if (n){ const pos = new Float32Array(n*3), col = new Float32Array(n*3), sz = new Float32Array(n);
+    SCEN.objs.forEach((o, i) => { const s = o.scen, c = SCEN_SPEC_RGB[s.spec] || [1, 1, 1], M = isFinite(s.absMag) ? s.absMag : scenDefaultAbsMag(s.spec, s.lum);
+      pos[i*3] = o.pos.x; pos[i*3+1] = o.pos.y; pos[i*3+2] = o.pos.z; col[i*3] = c[0]; col[i*3+1] = c[1]; col[i*3+2] = c[2]; sz[i] = Math.min(60, Math.pow(10, -0.1*M)); });
+    SCEN.pts = makePoints(pos, col, sz, { tex:TEX_STAR, opacity:STAR.gain, order:4, star:true }); SCEN.pts.userData.base = sz.slice(); scene.add(SCEN.pts); }
+}
+function scenHexRGB(h){ const m = /^#?([0-9a-f]{6})$/i.exec(h || ''); if (!m) return [0.81, 0.84, 0.88]; const v = parseInt(m[1], 16); return [(v >> 16 & 255)/255, (v >> 8 & 255)/255, (v & 255)/255]; }
+function scenPaint(){
+  if (!SCEN || !SCEN.ready || !SCEN.ring) return;
+  const fill = (pts, items) => { const pos = [], col = [];
+    for (const [p, it, ghost] of items){ const c = scenHexRGB(scenFacCss(it.faction)), k = ghost ? 0.28 : 1; pos.push(p.x, p.y, p.z); col.push(c[0]*k, c[1]*k, c[2]*k); }
+    pts.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3)); pts.geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(col), 3)); pts.geometry.computeBoundingSphere(); };
+  const ring = [], dia = [], ghostOn = FILT.fac.ghost;
+  for (const o of SCEN.targets){ const d = o.scenD; if (!d) continue; const v = scenItemVis(d); if (!v && !ghostOn) continue; ring.push([o.viewPos || o.pos, d, !v]); }
+  SCEN.objs.forEach((o, i) => { const s = o.scen, cv = !CLSF.on || clsOK((s.spec || 0) | ((s.lum || 0) << 4)), v = scenItemVis(s) && cv;
+    o.scenVis = v ? 1 : (ghostOn && cv) ? 2 : 0;
+    if (SCEN.pts){ const a = SCEN.pts.geometry.attributes.size; a.array[i] = o.scenVis === 1 ? SCEN.pts.userData.base[i] : o.scenVis === 2 ? SCEN.pts.userData.base[i]*0.25 : 0; a.needsUpdate = true; }
+    if (o.scenVis) dia.push([o.pos, s, o.scenVis === 2]); });
+  fill(SCEN.ring, ring); fill(SCEN.dia, dia);
+}
+function stepScen(){
+  if (!SCEN || !SCEN.ready || !SCEN.ring) return;
+  const on = SCEN.on && !sysActive;
+  for (const p of [SCEN.ring, SCEN.dia, SCEN.pts]) if (p && p.visible !== on) p.visible = on;
+  const pv = on && !!SCEN.nf && SCEN.open; for (const p of [SCEN.prev, SCEN.prevLine]) if (p && p.visible !== pv) p.visible = pv;
+}
+// the placement preview: a diamond at the position in the New star form and a line down to the galactic plane
+function scenPreview(pos){
+  if (!SCEN.prev){ SCEN.prev = scenMarkerPts(scenTex('dia'), 22);
+    SCEN.prevLine = new THREE.LineSegments(new THREE.BufferGeometry(), new THREE.LineDashedMaterial({ color:0xffffff, dashSize:4, gapSize:3, transparent:true, opacity:0.7, depthTest:false, depthWrite:false }));
+    SCEN.prevLine.frustumCulled = false; SCEN.prevLine.renderOrder = 9; scene.add(SCEN.prevLine); }
+  if (!pos){ SCEN.prev.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(0), 3)); SCEN.prevLine.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(0), 3)); return; }
+  const w = scenWorldOf(pos[0], pos[1], pos[2]);
+  SCEN.prev.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array([w.x, w.y, w.z]), 3));
+  SCEN.prev.geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array([1, 1, 1]), 3));
+  SCEN.prevLine.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array([w.x, w.y, w.z, w.x, 0, w.z]), 3));
+  SCEN.prevLine.computeLineDistances(); SCEN.prev.geometry.computeBoundingSphere(); SCEN.prevLine.geometry.computeBoundingSphere();
+}
+// nearest catalogue point to a world position; with a class test, the nearest F, G or K main-sequence star
+function scenNearest(w, maxD, fgk){
+  if (!realStarsLoaded) return null;
+  const P = realPts.userData.pos, N = realStarCount, CA = CLS.ready ? CLS.a : null; let best = -1, bd = maxD*maxD;
+  for (let i = 0; i < N; i++){ const dx = P[i*3] - w.x; if (dx > maxD || dx < -maxD) continue; const dy = P[i*3+1] - w.y, dz = P[i*3+2] - w.z, q = dx*dx + dy*dy + dz*dz;
+    if (q >= bd) continue; if (fgk){ if (!CA) return null; const c = CA[i], sp = c & 15; if ((c >> 4) !== 1 || sp < 4 || sp > 6) continue; } bd = q; best = i; }
+  return best < 0 ? null : { i:best, d:Math.sqrt(bd), o:fieldObjOrNamed(best) };
+}
+
+// ---------- the scenario panel ----------
+function setScen(open){
+  const el = $('#scen'); el.classList.toggle('open', open); SCEN.open = open;
+  if (open){ panel.classList.add('hidden'); if ($('#filters').classList.contains('open')) setFilters(false); if (typeof setSlip === 'function' && SLIP.open) setSlip(false);
+    if (innerWidth < MOBILE) $('#layers').classList.remove('open'); renderScenPanel(); }
+  else { SCEN.placing = false; }
+  $('#btnScen').classList.toggle('on', open); syncGutters();
+}
+const scenOpt = (v, t, cur) => `<option value="${esc(v)}"${String(v) === String(cur) ? ' selected' : ''}>${esc(t)}</option>`;
+function scenFacOptions(cur){ return scenOpt('', 'No faction', cur || '') + SCEN_CHART_FAC.map(f => scenOpt(f.id, f.list, cur)).join('') + (SCEN.doc ? SCEN.doc.factions.map(f => scenOpt(f.id, f.name, cur)).join('') : ''); }
+function scenStatusOptions(cur){ return SCEN_STATUS.map(s => `<option value="${s[0]}" title="${esc(s[2])}"${s[0] === cur ? ' selected' : ''}>${s[1]}</option>`).join(''); }
+function scenCounts(fid){ const d = SCEN.doc; return d.designations.filter(x => x.faction === fid).length + d.customStars.filter(x => x.faction === fid).length; }
+function renderScenPanel(){
+  const body = document.getElementById('scenBody'); if (!body || !SCEN.open) return;
+  const d = SCEN.doc, desk = SFS.desktop;
+  let h = `<div class="stool"><button class="ibtn" data-sc="new">New</button><button class="ibtn" data-sc="open">Open…</button>`
+    + `<button class="ibtn" data-sc="save"${d ? '' : ' disabled'}>Save</button><button class="ibtn" data-sc="saveas"${d ? '' : ' disabled'}>Save as…</button>`
+    + `<button class="ibtn" data-sc="export"${d ? '' : ' disabled'}>Export…</button><button class="ibtn" data-sc="import"${d ? '' : ' disabled'}>Import designations…</button>`
+    + `<span class="sp"></span><button class="ibtn" id="scenUndo" data-sc="undo" title="Undo (Ctrl+Z)" aria-label="Undo">&#8630;</button><button class="ibtn" id="scenRedo" data-sc="redo" title="Redo (Ctrl+Y)" aria-label="Redo">&#8631;</button></div>`;
+  h += `<div id="scenStatus" class="sstat"></div>`;
+  if (desk){ const R = scenRecentList();
+    h += `<details class="sdet"${d ? '' : ' open'}><summary>Open recent</summary>` + (R.length ? R.map(r => `<button class="srow2" data-sc="recent" data-path="${esc(r.path)}" title="${esc(r.path)}"><span>${esc(r.name || scenFileName(r.path))}</span><span class="t">${esc(scenFileName(r.path))}</span></button>`).join('') : `<p class="shint">No recent scenarios.</p>`) + `</details>`; }
+  if (!d){ h += `<p class="sempty">No scenario open. Start a new one, or open a scenario file someone has sent you.</p>`; body.innerHTML = h; scenStatus(); return; }
+  if (SCEN.importMsg) h += `<div class="smsg">${SCEN.importMsg}<button class="x" data-sc="dismiss" aria-label="Dismiss">&times;</button></div>`;
+  h += `<label class="schk2"><input type="checkbox" data-sc="show"${SCEN.on ? ' checked' : ''}> Show the scenario on the map</label>`;
+  h += `<details class="sdet"><summary>Scenario details</summary><div class="sform">
+    <label class="sl">Name</label><input type="text" data-dd="name" value="${esc(d.name)}">
+    <label class="sl">Author</label><input type="text" data-dd="author" value="${esc(d.author || '')}">
+    <label class="sl">Description</label><textarea data-dd="description" rows="3">${esc(d.description || '')}</textarea>
+    <label class="sl">Licence</label><p class="shint">CC BY-SA 4.0, the same as the Daybreak data</p></div></details>`;
+  // factions
+  h += `<div class="sgrp">Factions (${d.factions.length})</div>`;
+  for (const f of SCEN_CHART_FAC){ const n = scenCounts(f.id); h += `<div class="sfrow chart" title="From the Daybreak charts. Read-only: designate a system to give it a scenario faction as well."><i style="background:${f.colour}"></i><span>${esc(f.list)}</span><span class="t">${f.code}${n ? ' · ' + n : ''}</span></div>`; }
+  for (const f of d.factions) h += `<button class="sfrow" data-sc="facedit" data-id="${f.id}"><i style="background:${esc(f.colour)}"></i><span>${esc(f.name)}</span><span class="t">${esc(f.code || '')} · ${scenCounts(f.id)}</span></button>`;
+  if (SCEN.facForm) h += scenFacFormHtml(); else h += `<button class="ibtn sadd2" data-sc="facnew">+ Add faction</button>`;
+  // new stars
+  h += `<div class="sgrp">New stars (${d.customStars.length})</div>`;
+  for (const s of d.customStars){ const o = SCEN.objs.find(x => x.scen === s);
+    h += `<button class="srow2" data-sc="sel" data-id="${o ? o.id : ''}" title="Select on the map"><span><b>${esc(s.dbk)}</b> ${esc(s.name || '')}</span><span class="t">${esc(scenFacName(s.faction) || 'No faction')}${s.status ? ' · ' + SCEN_STATUS_NAME[s.status] : ''}</span></button>`; }
+  if (SCEN.nf) h += scenNfHtml(); else h += `<button class="ibtn sadd2" data-sc="nfnew">+ New star</button>`;
+  // designations
+  h += `<div class="sgrp">Designated stars (${d.designations.length})</div>`;
+  for (const x of d.designations){ const o = SCEN.resolved.get(x.key), bad = !o || SCEN.unresolved.includes(x);
+    h += `<button class="srow2${bad ? ' bad' : ''}" data-sc="sel" data-id="${o ? o.id : ''}" title="${bad ? 'This designation could not find its star' : 'Select on the map'}"><span>${esc(scenDName(x))}${bad ? ' <em>(star not found)</em>' : ''}</span><span class="t">${esc(scenFacName(x.faction) || 'No faction')}${x.status ? ' · ' + SCEN_STATUS_NAME[x.status] : ''}</span></button>`; }
+  if (!d.designations.length) h += `<p class="shint">Select a star or system and press Designate in its panel.</p>`;
+  body.innerHTML = h; scenStatus(); if (SCEN.nf) scenNfUpdate();
+}
+function scenFacFormHtml(){ const F = SCEN.facForm;
+  return `<div class="sform sbox"><div class="sfh">${F.id ? 'Faction' : 'New faction'}</div>
+    <label class="sl">Name</label><input type="text" data-ff="name" value="${esc(F.name)}">
+    <label class="sl">Short code</label><input type="text" data-ff="code" maxlength="8" placeholder="e.g. UEG" value="${esc(F.code)}">
+    <label class="sl">Colour</label><input type="color" data-ff="colour" value="${esc(F.colour)}">
+    <label class="sl">Description</label><textarea data-ff="description" rows="2">${esc(F.description)}</textarea>
+    ${F.err ? `<p class="serr">${esc(F.err)}</p>` : ''}
+    <div class="sbtns2"><button class="btn pr" data-sc="facsave">Save faction</button><button class="btn" data-sc="faccancel">Cancel</button>${F.id ? `<button class="btn ghost" data-sc="facdel">Delete faction</button>` : ''}</div></div>`; }
+// ---- New star form ----
+function scenNfBlank(){ const t = controls.target.clone().add(SHIFT), g = scenGalOf(t);
+  return { uuid:null, name:'', faction:'', status:'', founded:'', notes:'', fictional:true, spec:5, lum:1, absMag:'4.8', magTouched:false,
+    place:'xyz', x:scenFix(g[0], 1), y:scenFix(g[1], 1), z:scenFix(g[2], 1), l:'', b:'', d:'', ra:'', dec:'', dr:'', mapZ:Math.round(g[2]), err:'' }; }
+function scenNfFrom(s){ const nf = scenNfBlank(); Object.assign(nf, { uuid:s.uuid, name:s.name || '', faction:s.faction || '', status:s.status || '', founded:s.founded || '', notes:s.notes || '', fictional:s.fictional !== false,
+  spec:s.spec || 5, lum:s.lum || 1, absMag:String(isFinite(s.absMag) ? s.absMag : scenDefaultAbsMag(s.spec, s.lum)), magTouched:true, x:scenFix(s.pos[0], 2), y:scenFix(s.pos[1], 2), z:scenFix(s.pos[2], 2), mapZ:Math.round(s.pos[2]) }); return nf; }
+// the position the form currently describes, from whichever tab is active
+function scenNfPos(nf){
+  if (nf.place === 'xyz' || nf.place === 'map'){ const v = [scenNum(nf.x), scenNum(nf.y), nf.place === 'map' ? +nf.mapZ : scenNum(nf.z)]; return v.every(isFinite) ? v : null; }
+  if (nf.place === 'lbd'){ const l = scenNum(nf.l), b = scenNum(nf.b), d = scenNum(nf.d); return [l, b, d].every(isFinite) && d >= 0 && Math.abs(b) <= 90 ? scenXYZofLB(l, b, d) : null; }
+  if (nf.place === 'radec'){ const a = scenParseRA(nf.ra), de = scenParseDec(nf.dec), d = scenNum(nf.dr); if (![a, de, d].every(isFinite) || d < 0 || Math.abs(de) > 90) return null;
+    const [l, b] = eqToGal(a, de); return scenXYZofLB(l, b, d); }
+  return null;
+}
+// switching tabs carries the position across
+function scenNfSync(nf, pos){ if (!pos) return; const [X, Y, Z] = pos, [l, b, d] = scenLB(X, Y, Z), [a, de] = scenGalToEq(l, b);
+  nf.x = scenFix(X, 2); nf.y = scenFix(Y, 2); nf.z = scenFix(Z, 2); nf.mapZ = Math.round(Z); nf.l = scenFix(l, 4); nf.b = scenFix(b, 4); nf.d = scenFix(d, 2); nf.ra = scenFix(a, 5); nf.dec = scenFix(de, 5); nf.dr = scenFix(d, 2); }
+function scenNfHtml(){ const nf = SCEN.nf, P = nf.place, tab = (k, t) => `<button class="${P === k ? 'on' : ''}" data-sc="nftab" data-tab="${k}">${t}</button>`;
+  const fld = (k, lab, ph) => `<label class="sl">${lab}</label><input type="text" data-nf="${k}" value="${esc(nf[k])}"${ph ? ` placeholder="${esc(ph)}"` : ''}>`;
+  let pl = '';
+  if (P === 'xyz') pl = fld('x', 'X (towards the core), ly') + fld('y', 'Y (towards galactic rotation), ly') + fld('z', 'Z (above the plane), ly') + `<p class="shint">The map's chart coordinates use the same X and Y, so a position read off a chart goes straight in.</p>`;
+  if (P === 'lbd') pl = fld('l', 'Longitude l (°)') + fld('b', 'Latitude b (°)') + fld('d', 'Distance (ly)');
+  if (P === 'radec') pl = fld('ra', 'RA (° or h m s)', '83.82 or 5 35 17') + fld('dec', 'Dec (° or ° ′ ″)', '-5.39 or -5 23 28') + fld('dr', 'Distance (ly)');
+  if (P === 'map') pl = `<p class="shint">Click the map to set the position on the plane. The Z slider sets the height; the drop line shows where it meets the plane.</p>`
+    + `<label class="sl">Height above the plane <span id="scenMapZv">${nf.mapZ}</span> ly</label><input type="range" data-nf="mapZ" min="-1000" max="1000" step="1" value="${nf.mapZ}">`
+    + `<button class="ibtn" data-sc="placehere" title="Use the point the view is centred on">Place here</button>`;
+  return `<div class="sform sbox"><div class="sfh">${nf.uuid ? 'Edit ' + esc((SCEN.doc.customStars.find(s => s.uuid === nf.uuid) || {}).dbk || '') : 'New star'}</div>
+    ${fld('name', 'Name')}
+    <label class="sl">Faction</label><select data-nf="faction">${scenFacOptions(nf.faction)}</select>
+    <label class="sl">Status</label><select data-nf="status">${scenOpt('', '—', nf.status)}${scenStatusOptions(nf.status)}</select>
+    ${fld('founded', 'Founded (optional)')}
+    <label class="sl">Notes</label><textarea data-nf="notes" rows="2">${esc(nf.notes)}</textarea>
+    <label class="schk2"><input type="checkbox" data-nf="fictional"${nf.fictional ? ' checked' : ''}> Fictional</label><p class="shint">Off means a real object the map's catalogues do not carry, such as a missing brown dwarf.</p>
+    <div class="s2col"><div><label class="sl">Spectral class</label><select data-nf="spec">${SCEN_SPEC.map(s => scenOpt(s[0], s[1], nf.spec)).join('')}</select></div>
+    <div><label class="sl">Evolution class</label><select data-nf="lum">${SCEN_LUM.map(s => scenOpt(s[0], s[1], nf.lum)).join('')}</select></div></div>
+    <p class="shint">These drive the star's colour, the class filter and the CSV.</p>
+    ${fld('absMag', 'Absolute magnitude')}<p class="shint">How bright it draws. Change it if you want a brighter or fainter star.</p>
+    <label class="sl">Place by</label><div class="stabs">${tab('xyz', 'Galactic X, Y, Z')}${tab('lbd', 'Galactic l, b, distance')}${tab('radec', 'RA, Dec, distance')}${tab('map', 'On the map')}</div>
+    ${pl}
+    <div class="sread" id="scenRead"></div><div id="scenNear"></div>
+    <button class="ibtn" data-sc="snap" title="Use the nearest F, G or K main-sequence catalogue star within 40 ly instead, and designate it.">Snap to a real star</button>
+    <div id="scenSnap">${SCEN.snapMsg}</div>
+    ${nf.err ? `<p class="serr">${esc(nf.err)}</p>` : ''}
+    <div class="sbtns2"><button class="btn pr" data-sc="nfsave">${nf.uuid ? 'Save changes' : 'Add star'}</button><button class="btn" data-sc="nfcancel">Cancel</button>${nf.uuid ? `<button class="btn ghost" data-sc="nfdel">Delete star</button>` : ''}</div></div>`; }
+function scenNfUpdate(){
+  const nf = SCEN.nf; if (!nf) return; const pos = scenNfPos(nf); SCEN.placing = nf.place === 'map' && SCEN.open;
+  scenPreview(pos); const rd = document.getElementById('scenRead'), nr = document.getElementById('scenNear'); if (!rd) return;
+  if (!pos){ rd.textContent = 'Enter a position.'; if (nr) nr.innerHTML = ''; return; }
+  const d = Math.hypot(pos[0], pos[1], pos[2]), z = pos[2];
+  const base = `${scenLy(d)} from Sol · ${scenLy(Math.abs(z))} ${z >= 0 ? 'above' : 'below'} the plane`;
+  rd.textContent = base + ' · nearest catalogue star …';
+  clearTimeout(SCEN.nearT); SCEN.nearT = setTimeout(() => {
+    const w = scenWorldOf(pos[0], pos[1], pos[2]), n = scenNearest(w, 200, false); SCEN.near = n;
+    const r2 = document.getElementById('scenRead'), n2 = document.getElementById('scenNear'); if (!r2) return;
+    r2.textContent = base + (n ? ` · nearest catalogue star ${n.o.name}, ${scenLy(n.d)}` : ' · no catalogue star within 200 ly');
+    if (n2) n2.innerHTML = n && n.d < 1 && !SCEN.keepNear ? `<div class="swarn">This is ${scenLy(n.d)} from ${esc(n.o.name)}, a real catalogue star. Did you mean to designate that star instead?<div class="sbtns2"><button class="btn" data-sc="neardes">Designate ${esc(n.o.name)}</button><button class="btn ghost" data-sc="nearkeep">Keep my new star</button></div></div>` : '';
+  }, 150);
+}
+function scenPlaceClick(e){
+  const nf = SCEN.nf; if (!nf) return;
+  const r = canvas.getBoundingClientRect(), v = new THREE.Vector2((e.clientX - r.left)/r.width*2 - 1, -(e.clientY - r.top)/r.height*2 + 1);
+  const rc = new THREE.Raycaster(); rc.setFromCamera(v, camera); const o = rc.ray.origin.clone().add(SHIFT), dir = rc.ray.direction;
+  if (Math.abs(dir.y) < 1e-6) return; const t = -o.y/dir.y; if (t <= 0) return; const p = o.add(dir.multiplyScalar(t)), g = scenGalOf(p);
+  nf.x = scenFix(g[0], 1); nf.y = scenFix(g[1], 1); SCEN.keepNear = false; scenNfUpdate();
+}
+function scenNfSave(){
+  const nf = SCEN.nf, pos = scenNfPos(nf);
+  if (!nf.name.trim()){ nf.err = 'A new star needs a name.'; renderScenPanel(); return; }
+  if (!pos || Math.hypot(...pos) > 200000){ nf.err = 'Enter a position.'; renderScenPanel(); return; }
+  const M = scenNum(nf.absMag), rec = { name:nf.name.trim(), faction:nf.faction || null, status:nf.status || null, founded:nf.founded.trim(), notes:nf.notes.trim(), fictional:!!nf.fictional,
+    spec:+nf.spec, lum:+nf.lum, absMag:isFinite(M) ? M : scenDefaultAbsMag(+nf.spec, +nf.lum), pos:pos.map(v => Math.round(v*1000)/1000) };
+  const uuid = nf.uuid; SCEN.nf = null; SCEN.placing = false; SCEN.snapMsg = ''; scenPreview(null);
+  scenEdit(doc => { if (uuid){ const s = doc.customStars.find(x => x.uuid === uuid); if (s) Object.assign(s, rec); }
+    else doc.customStars.push(Object.assign({ uuid:scenUUID(), dbk:scenNextDBK(), author:doc.author || '', scenario:doc.id, created:scenNow() }, rec)); });
+  const o = SCEN.objs.find(x => uuid ? x.scen.uuid === uuid : x.scen === SCEN.doc.customStars[SCEN.doc.customStars.length - 1]); if (o) showObject(o);
+}
+async function scenNfDelete(uuid){
+  const s = SCEN.doc.customStars.find(x => x.uuid === uuid); if (!s) return;
+  const r = await scenModal({ title:'Delete star', html:`<p>Delete ${esc(s.dbk)} ${esc(s.name || '')}? You can undo this.</p>`, buttons:[['del', 'Delete star', true], ['cancel', 'Cancel']] });
+  if (r !== 'del') return; SCEN.nf = null; SCEN.placing = false; scenPreview(null);
+  scenEdit(doc => { doc.customStars = doc.customStars.filter(x => x.uuid !== uuid); });
+}
+// designate the star nearest a new star (the proximity warning and the snap)
+function scenDesignateFrom(o){ if (!o) return; SCEN.nf = null; SCEN.placing = false; SCEN.snapMsg = ''; scenPreview(null); renderScenPanel(); showObject(o); scenDfOpen(o); }
+async function scenFacSave(){
+  const F = SCEN.facForm; F.name = F.name.trim(); F.code = F.code.trim();
+  if (!F.name){ F.err = 'A faction needs a name.'; renderScenPanel(); return; }
+  if (F.code && SCEN.doc.factions.concat(SCEN_CHART_FAC).some(f => f.id !== F.id && (f.code || '').toLowerCase() === F.code.toLowerCase())){ F.err = 'Another faction already uses that short code.'; renderScenPanel(); return; }
+  const rec = { name:F.name, code:F.code, colour:F.colour, description:F.description.trim() }, id = F.id; SCEN.facForm = null;
+  scenEdit(doc => { if (id){ const f = doc.factions.find(x => x.id === id); if (f) Object.assign(f, rec); } else doc.factions.push(Object.assign({ id:scenUUID(), author:doc.author || '', scenario:doc.id }, rec)); });
+}
+async function scenFacDelete(id){
+  const f = scenFac(id); if (!f) return; const d = SCEN.doc;
+  const hit = d.designations.filter(x => x.faction === id).map(scenDName).concat(d.customStars.filter(x => x.faction === id).map(s => s.dbk + ' ' + (s.name || '')));
+  const r = await scenModal({ title:'Delete faction', html:`<p>Delete ${esc(f.name)}? ${hit.length} stars lose their faction and keep their status and notes${hit.length ? ': ' + esc(hit.slice(0, 30).join(', ')) + (hit.length > 30 ? ' …' : '') : ''}. You can undo this.</p>`,
+    buttons:[['del', 'Delete faction', true], ['cancel', 'Cancel']] });
+  if (r !== 'del') return; SCEN.facForm = null; FILT.fac.ex.delete('f:' + id);
+  scenEdit(doc => { doc.factions = doc.factions.filter(x => x.id !== id); for (const x of doc.designations) if (x.faction === id) x.faction = null; for (const s of doc.customStars) if (s.faction === id) s.faction = null; });
+}
+// panel events: clicks, typing (state only, so the field keeps focus), and committed changes
+$('#scenBody').addEventListener('click', async e => {
+  const b = e.target.closest('[data-sc]'); if (!b || b.tagName === 'INPUT' || b.tagName === 'SELECT') return; const a = b.dataset.sc;
+  if (a === 'new') return scenNewCmd(); if (a === 'open') return scenOpenCmd(); if (a === 'recent') return scenOpenCmd(b.dataset.path);
+  if (a === 'save') return scenSave(); if (a === 'saveas') return scenSaveAs(); if (a === 'export') return scenExportDialog(); if (a === 'import') return scenImportCmd();
+  if (a === 'undo') return scenUndo(); if (a === 'redo') return scenRedo();
+  if (a === 'dismiss'){ SCEN.importMsg = ''; return renderScenPanel(); }
+  if (a === 'facnew'){ SCEN.facForm = { id:null, name:'', code:'', colour:SCEN_PALETTE[SCEN.doc.factions.length % SCEN_PALETTE.length], description:'', err:'' }; return renderScenPanel(); }
+  if (a === 'facedit'){ const f = scenFac(b.dataset.id); if (f){ SCEN.facForm = { id:f.id, name:f.name, code:f.code || '', colour:f.colour, description:f.description || '', err:'' }; renderScenPanel(); } return; }
+  if (a === 'facsave') return scenFacSave(); if (a === 'faccancel'){ SCEN.facForm = null; return renderScenPanel(); } if (a === 'facdel') return scenFacDelete(SCEN.facForm.id);
+  if (a === 'nfnew'){ SCEN.nf = scenNfBlank(); SCEN.keepNear = false; SCEN.snapMsg = ''; return renderScenPanel(); }
+  if (a === 'nftab'){ const nf = SCEN.nf; scenNfSync(nf, scenNfPos(nf)); nf.place = b.dataset.tab; return renderScenPanel(); }
+  if (a === 'placehere'){ const g = scenGalOf(controls.target.clone().add(SHIFT)); SCEN.nf.x = scenFix(g[0], 1); SCEN.nf.y = scenFix(g[1], 1); return scenNfUpdate(); }
+  if (a === 'nfsave') return scenNfSave(); if (a === 'nfcancel'){ SCEN.nf = null; SCEN.placing = false; SCEN.snapMsg = ''; scenPreview(null); return renderScenPanel(); }
+  if (a === 'nfdel') return scenNfDelete(SCEN.nf.uuid);
+  if (a === 'nearkeep'){ SCEN.keepNear = true; const n = document.getElementById('scenNear'); if (n) n.innerHTML = ''; return; }
+  if (a === 'neardes') return scenDesignateFrom(SCEN.near && SCEN.near.o);
+  if (a === 'snap'){ const pos = scenNfPos(SCEN.nf); if (!pos) return; const n = scenNearest(scenWorldOf(...pos), 40, true); SCEN.snapCand = n ? n.o : null;
+    SCEN.snapMsg = n ? `Nearest match: ${esc(n.o.name)}, ${scenLy(n.d)} away. Designate it? <button class="btn" data-sc="snapgo">Designate ${esc(n.o.name)}</button>` : 'No F, G or K main-sequence star within 40 ly.';
+    const el = document.getElementById('scenSnap'); if (el) el.innerHTML = SCEN.snapMsg; return; }
+  if (a === 'snapgo') return scenDesignateFrom(SCEN.snapCand);
+  if (a === 'sel'){ const o = objById(b.dataset.id); if (o) showObject(o); return; }
+});
+$('#scenBody').addEventListener('input', e => {
+  const t = e.target, val = t.type === 'checkbox' ? t.checked : t.value;
+  if (t.dataset.ff && SCEN.facForm){ SCEN.facForm[t.dataset.ff] = val; return; }
+  if (t.dataset.nf && SCEN.nf){ const nf = SCEN.nf, k = t.dataset.nf; nf[k] = val; nf.err = '';
+    if (k === 'mapZ'){ const z = document.getElementById('scenMapZv'); if (z) z.textContent = val; }
+    if ((k === 'spec' || k === 'lum') && !nf.magTouched){ nf.absMag = String(scenDefaultAbsMag(+nf.spec, +nf.lum)); const m = $('#scenBody [data-nf="absMag"]'); if (m) m.value = nf.absMag; }
+    if (k === 'absMag') nf.magTouched = true;
+    if (['x','y','z','l','b','d','ra','dec','dr','mapZ'].includes(k)){ SCEN.keepNear = false; scenNfUpdate(); } }
+});
+$('#scenBody').addEventListener('change', e => {
+  const t = e.target;
+  if (t.dataset.sc === 'show'){ SCEN.on = t.checked; return; }
+  if (t.dataset.dd && SCEN.doc){ const k = t.dataset.dd, v = k === 'name' ? (t.value.trim() || 'Untitled scenario') : t.value.trim(); if ((SCEN.doc[k] || '') === v) return; scenEdit(doc => { doc[k] = v; }); if (k === 'author') lsSet('daybreak.author', v); }
+});
+$('#scenClose').onclick = () => setScen(false);
+$('#btnScen').onclick = () => setScen(!SCEN.open);
+
+// ---------- the object panel: designations ----------
+function scenTitle(o){ const d = o && o.scenD; return d && d.name && !d.chart ? d.name : o.name; }
+function scenDfOpen(o){ const k = scenKeyOf(o), d = o.scenD;
+  SCEN.df = { key:k.key, faction:d ? d.faction || '' : '', status:d ? d.status || '' : '', founded:d ? d.founded || '' : '', notes:d ? d.notes || '' : '', name:d ? d.name || '' : '' };
+  if (!SCEN.doc){ scenStartNew(true); scenRebuild(); }
+  showObject(o); }
+function scenBlock(o){
+  if (!SCEN || !SCEN.ready) return '';
+  let h = '';
+  if (o.kind === 'scen'){ const s = o.scen, cls = clsTextOf(s);
+    h += `<div class="grp">Scenario</div><p>${s.fictional === false ? 'Real but uncatalogued' : 'Fictional'} star added in the scenario ${esc(SCEN.doc ? SCEN.doc.name : '')}${s.author ? ' by ' + esc(s.author) : ''}.</p>`;
+    h += `<div class="kv"><div><span class="k">DBK id</span><span class="v">${esc(s.dbk)}</span></div><div><span class="k">Faction</span><span class="v">${esc(scenFacName(s.faction) || 'No faction')}</span></div>`
+      + `<div><span class="k">Status</span><span class="v">${s.status ? SCEN_STATUS_NAME[s.status] : '—'}</span></div>` + (s.founded ? `<div><span class="k">Founded</span><span class="v">${esc(s.founded)}</span></div>` : '')
+      + `<div><span class="k">Class</span><span class="v" style="white-space:normal;font-size:11.5px">${esc(cls)}</span></div><div><span class="k">Absolute mag</span><span class="v">${(+s.absMag).toFixed(2)}</span></div>`
+      + `<div><span class="k">Galactic X, Y, Z</span><span class="v" style="font-size:11px">${s.pos.map(v => v.toFixed(1)).join(', ')} ly</span></div>` + (s.notes ? `<div><span class="k">Notes</span><span class="v" style="white-space:normal;font-size:11.5px;text-align:left">${esc(s.notes)}</span></div>` : '') + `</div>`;
+    h += `<div class="acts"><button class="btn" data-scen="nfedit">Edit</button><button class="btn ghost" data-scen="nfdel">Delete star</button></div>`;
+    return h;
+  }
+  if (!scenDesignatable(o)) return '';
+  const d = o.scenD, chart = !!scenChartKey(o), F = SCEN.df && SCEN.df.key === scenKeyOf(o).key ? SCEN.df : null;
+  h += `<div class="grp">Scenario</div>`;
+  if (F){
+    h += `<div class="sform">` + (chart ? '' : `<label class="sl">Name (optional)</label><input type="text" data-df="name" value="${esc(F.name)}"><p class="shint">Shown on the map and in exports. The catalogue designations stay.</p>`)
+      + `<label class="sl">Faction</label><select data-df="faction">${scenFacOptions(F.faction)}</select>`
+      + `<label class="sl">Status</label><select data-df="status">${scenOpt('', '—', F.status)}${scenStatusOptions(F.status)}</select>`
+      + `<label class="sl">Founded (optional)</label><input type="text" data-df="founded" value="${esc(F.founded)}">`
+      + `<label class="sl">Notes</label><textarea data-df="notes" rows="3">${esc(F.notes)}</textarea>`
+      + (chart ? `<p class="shint">The chart name stays. A designation adds a faction and a status.</p>` : '')
+      + (scenKeyOf(o).posOnly ? `<p class="shint">This star has no catalogue number the map can key on, so the designation is held by position. If a future star field moves it, the map will say so.</p>` : '')
+      + `<div class="sbtns2"><button class="btn pr" data-scen="dsave">Save</button><button class="btn" data-scen="dcancel">Cancel</button></div></div>`;
+    return h;
+  }
+  if (!d){ h += `<p>Not part of this scenario.</p><div class="acts"><button class="btn" data-scen="dopen">Designate…</button></div>` + (SCEN.doc ? '' : `<p class="shint">Starts a new scenario.</p>`); return h; }
+  h += `<div class="kv"><div><span class="k">Faction</span><span class="v">${esc(scenFacName(d.faction) || 'No faction')}</span></div><div><span class="k">Status</span><span class="v">${d.status ? SCEN_STATUS_NAME[d.status] : '—'}</span></div>`
+    + (d.founded ? `<div><span class="k">Founded</span><span class="v">${esc(d.founded)}</span></div>` : '')
+    + (d.notes ? `<div><span class="k">Notes</span><span class="v" style="white-space:normal;font-size:11.5px;text-align:left">${esc(d.notes)}</span></div>` : '')
+    + (d.author ? `<div><span class="k">Added by</span><span class="v">${esc(d.author)}</span></div>` : '') + `</div>`;
+  if (d._moved > 1) h += `<p class="shint">This star has moved ${scenLy(d._moved)} since the designation was made.</p>`;
+  h += `<div class="acts"><button class="btn" data-scen="dopen">Edit</button><button class="btn ghost" data-scen="ddel">Remove designation</button></div>`;
+  return h;
+}
+function clsTextOf(s){ const lu = s.lum || 0, sp = s.spec || 0, L = (SCEN_SPEC.find(x => x[0] === sp) || [0, ''])[1];
+  if (lu === 5) return 'white dwarf'; if (lu === 6) return 'brown dwarf' + (sp >= 8 && sp <= 10 ? ' (' + L + '-type)' : '');
+  if (lu === 1) return sp === 7 ? 'red dwarf (M-type main sequence)' : sp === 6 ? 'orange dwarf (K-type main sequence)' : sp === 5 ? 'yellow dwarf (G-type main sequence)' : L + '-type main-sequence star';
+  return L + '-type ' + (SCEN_LUM.find(x => x[0] === lu) || [0, 'star'])[1].toLowerCase(); }
+ibody.addEventListener('click', async e => {
+  const b = e.target.closest('[data-scen]'); if (!b || !selected) return; const a = b.dataset.scen, o = selected;
+  if (a === 'dopen') return scenDfOpen(o);
+  if (a === 'dcancel'){ SCEN.df = null; return showObject(o); }
+  if (a === 'dsave'){ const F = SCEN.df, k = scenKeyOf(o); if (!F) return; SCEN.df = null;
+    const g = scenGalOf(o.pos), rec = { faction:F.faction || null, status:F.status || null, founded:F.founded.trim(), notes:F.notes.trim(), name:k.chart ? '' : F.name.trim(), label:o.name, chart:k.chart, ids:k.ids, pos:g.map(v => Math.round(v*1000)/1000) };
+    SCEN.resolved.set(k.key, o);
+    scenEdit(doc => { const x = doc.designations.find(d => d.key === k.key); if (x) Object.assign(x, rec); else doc.designations.push(Object.assign({ uuid:scenUUID(), key:k.key, author:doc.author || '', scenario:doc.id, created:scenNow() }, rec)); });
+    return; }
+  if (a === 'ddel'){ const d = o.scenD; if (!d) return; scenEdit(doc => { doc.designations = doc.designations.filter(x => x.uuid !== d.uuid); }); return; }
+  if (a === 'nfedit' && o.kind === 'scen'){ SCEN.nf = scenNfFrom(o.scen); SCEN.keepNear = true; SCEN.snapMsg = ''; setScen(true); return; }
+  if (a === 'nfdel' && o.kind === 'scen') return scenNfDelete(o.scen.uuid);
+});
+ibody.addEventListener('input', e => { const t = e.target; if (t.dataset.df && SCEN.df) SCEN.df[t.dataset.df] = t.value; });
+
+// ---------- the Factions filter tab ----------
+function scenFacRows(){
+  const rows = SCEN_CHART_FAC.map(f => ({ key:f.id, name:f.list, colour:f.colour, n:(f.id === 'chart:hum' ? starObjs.filter(s => s.halo && s.db).length : COVENANT.systems.length) + (SCEN.doc ? scenCounts(f.id) : 0) }));
+  if (SCEN.doc) for (const f of SCEN.doc.factions) rows.push({ key:'f:' + f.id, name:f.name, colour:f.colour, n:scenCounts(f.id) });
+  if (SCEN.doc) rows.push({ key:'none', name:'No faction', colour:'#7d8896', n:SCEN.doc.designations.filter(x => !scenFac(x.faction)).length + SCEN.doc.customStars.filter(x => !scenFac(x.faction)).length });
+  return rows;
+}
+function scenFacTree(){
+  fq.style.display = 'none'; const gh = $('#fghost'); gh.parentElement.style.display = ''; gh.checked = FILT.fac.ghost;
+  const rows = scenFacRows(), row = r => `<label class="fn l2" data-fac="${esc(r.key)}"><input type="checkbox" ${FILT.fac.ex.has(r.key) ? '' : 'checked'}><i class="fsw" style="background:${esc(r.colour)}"></i><span style="flex:1">${esc(r.name)}</span><span style="color:var(--mute);font-size:11px">${r.n.toLocaleString('en-GB')}</span></label>`;
+  let h = `<div class="fgrp">Chart</div>` + rows.filter(r => r.key.startsWith('chart:')).map(row).join('');
+  h += `<div class="fgrp">Scenario</div>` + (SCEN.doc ? rows.filter(r => !r.key.startsWith('chart:')).map(row).join('') : `<div class="fgrp" style="text-transform:none;letter-spacing:0;font-weight:400">No scenario open.</div>`);
+  ftree.innerHTML = h; const on = rows.filter(r => !FILT.fac.ex.has(r.key)).length; $('#fcnt').textContent = on === rows.length ? 'all factions' : `${on} of ${rows.length} factions`;
+}
+function scenFacAct(act){ const keys = scenFacRows().map(r => r.key);
+  if (act === 'all') FILT.fac.ex.clear(); else if (act === 'none') for (const k of keys) FILT.fac.ex.add(k); else for (const k of keys){ if (FILT.fac.ex.has(k)) FILT.fac.ex.delete(k); else FILT.fac.ex.add(k); }
+  applyFilter(); renderFilterTree(); }
+function scenFacChip(){ const on = scenFacRows().filter(r => !FILT.fac.ex.has(r.key)).map(r => r.name.replace(' (chart)', '')); return on.join(', ') || 'none'; }
+
+// ---------- export ----------
+// one row per chart system, designated star and new star. Values are read from what the map already holds.
+function scenRowsAll(){
+  const out = [], seen = new Set();
+  for (const s of starObjs) if (s.halo && s.db){ seen.add(s); out.push({ o:s, kind:'chart' }); }
+  for (const r of COVENANT.systems){ const o = r.obj || starObjs.find(s => s.cov === r) || COV.objs.find(x => x.cov === r); if (o && !seen.has(o)){ seen.add(o); out.push({ o, kind:'chart' }); } }
+  for (const o of SCEN.targets) if (!seen.has(o)){ seen.add(o); out.push({ o, kind:'desig' }); }
+  for (const o of SCEN.objs) out.push({ o, kind:'custom' });
+  return out;
+}
+function scenRowFacets(row){ const o = row.o, f = [];
+  if (row.kind === 'chart'){ if ((o.halo && o.db) || (o.cov && o.cov.hum)) f.push('chart:hum'); if (o.cov) f.push('chart:cov'); }
+  const it = row.kind === 'custom' ? o.scen : o.scenD; if (it) f.push(scenFacKey(it)); else if (row.kind !== 'chart') f.push('none');
+  return f; }
+const SCEN_COLS = ['name','secondary_name','chart_sphere','faction','status','founded','is_custom','fictional','dbk_id','hip','hd','hr','gliese','tyc','gaia_dr3','bayer','flamsteed','spectral_type','spectral_class','evolution_class','app_mag_v','abs_mag_v','ra_deg','dec_deg','parallax_mas','dist_sol_ly','dist_sol_pc','distance_source','gal_x_ly','gal_y_ly','gal_z_ly','gal_l_deg','gal_b_deg','elevation_ly','elevation_source','quadrant','sector','band','cov_domain','cov_quartal','source','notes','scenario_author','nearest_designated','nearest_designated_ly'];
+function scenRowValues(row, nearest){
+  const o = row.o, custom = row.kind === 'custom', it = custom ? o.scen : o.scenD, g = scenGalOf(o.viewPos || o.pos), [l, b, dly] = scenLB(...g), [ra, dec] = scenGalToEq(l, b), dpc = dly/LY_PER_PC;
+  const fi = custom ? -1 : scenFidx(o), rec = fi >= 0 && fi < fieldBase ? starIdRec(fi) : null, des = o.kind === 'star' && o.idx != null ? DES[o.idx] : null;
+  const pick = (...v) => { for (const x of v) if (x != null && x !== '') return String(x); return ''; };
+  let spec = '', lum = '';
+  if (custom){ spec = (SCEN_SPEC.find(x => x[0] === it.spec) || [0, ''])[1]; lum = (SCEN_LUM.find(x => x[0] === it.lum) || [0, ''])[1].toLowerCase(); }
+  else if (fi >= 0 && CLS.ready){ const c = CLS.a[fi]; if (c !== 127){ spec = c & 15 ? SPEC_NAME[c & 15] : ''; lum = c >> 4 ? LUM_NAME[c >> 4] : ''; } }
+  let absM = NaN, appM = NaN;
+  if (custom) absM = +it.absMag; else if (fi >= 0) absM = realPts.userData.M[fi]; else if (o.mag != null) appM = o.mag;
+  if (isFinite(absM)) appM = absM + 5*Math.log10(Math.max(dpc, 1e-6)) - 5; else if (isFinite(appM)) absM = appM - 5*Math.log10(Math.max(dpc, 1e-6)) + 5;
+  const src = fi >= 0 ? (STAR_SRC_NAME[realPts.userData.src[fi]] || 'catalogue') : custom ? 'scenario' : o.cov ? 'Covenant chart placement' : o.kind === 'sol' ? '' : 'Human Sphere chart';
+  const cv = o.cov || null, hd = (o.db) || (cv && cv.hum) || null;
+  const elevSrc = custom ? 'user' : cv && !o.db ? (cv.pinnedZ != null ? 'reference height' : (cv.basis === 'star' || cv.basis === 'fieldstar') ? 'catalogue' : 'coherent field') : (o.db && o.db.manual ? 'chart' : 'catalogue');
+  const sph = []; if ((o.halo && o.db) || (cv && cv.hum)) sph.push('Human'); if (cv) sph.push('Covenant');
+  const name = custom ? it.name || it.dbk : (it && it.name && !it.chart ? it.name : o.name);
+  const second = custom ? '' : it && it.name && !it.chart ? o.name : cv && o.kind !== 'cov' ? cv.name : cv ? (cv.alts || [])[0] || '' : o.covName || '';
+  const gaia = fi >= fieldBase && GAIA_ID ? String(GAIA_ID[fi - fieldBase]) : scenGaia(pick(des && des.gaia, rec && rec.gaia));
+  const near = nearest.get(o);
+  return [name, second, sph.join('; '), it ? scenFacName(it.faction) : '', it && it.status ? SCEN_STATUS_NAME[it.status] : '', it ? it.founded || '' : '', custom ? 'yes' : 'no', custom ? (it.fictional === false ? 'no' : 'yes') : '', custom ? it.dbk : '',
+    scenBare(pick(o.hip, fi >= 0 && HIP_OF ? HIP_OF[fi] || '' : '', rec && rec.hip)), scenBare(pick(des && des.hd, rec && rec.hd)), scenBare(pick(des && des.hr, rec && rec.hr)), pick(des && des.gl, rec && rec.gl), scenBare(pick(des && des.tyc, rec && rec.tyc)), gaia,
+    pick(des && des.bay, rec && rec.bayer), pick(des && des.fla, rec && rec.flam), pick(o.db && o.db.sp, des && des.spect, rec && rec.spect), spec, lum,
+    isFinite(appM) ? appM.toFixed(2) : '', isFinite(absM) ? absM.toFixed(2) : '', ra.toFixed(5), dec.toFixed(5), dly > 0 ? (1000/dpc).toFixed(4) : '', dly.toFixed(2), dpc.toFixed(2), src,
+    g[0].toFixed(2), g[1].toFixed(2), g[2].toFixed(2), l.toFixed(4), b.toFixed(4), g[2].toFixed(2), elevSrc,
+    hd ? hd.quad || '' : '', hd ? hd.sector || '' : '', hd ? hd.band || '' : '', cv ? cv.domain || '' : '', cv ? cv.quartal || '' : '',
+    custom ? 'scenario' : row.kind === 'chart' ? 'chart' : 'catalogue', it ? it.notes || '' : '', it ? it.author || '' : '', near ? near[0] : '', near ? near[1].toFixed(2) : ''];
+}
+function scenNearestMap(){ const items = SCEN.targets.map(o => [o, o.scenD]).concat(SCEN.objs.map(o => [o, o.scen])), m = new Map();
+  for (const [a, ia] of items){ let best = null, bd = Infinity; for (const [b, ib] of items){ if (a === b) continue; const d = a.pos.distanceTo(b.pos); if (d < bd){ bd = d; best = b.kind === 'scen' ? (ib.name || ib.dbk) : (ib.name && !ib.chart ? ib.name : b.name); } } if (best) m.set(a, [best, bd]); }
+  return m; }
+function scenExportRows(keys, onlyShown){
+  return scenRowsAll().filter(row => { const f = scenRowFacets(row); if (!f.some(k => keys.has(k))) return false;
+    if (!onlyShown) return true; const o = row.o;
+    if (row.kind === 'custom') return o.scenVis === 1;
+    if (o.fvis === false) return false;
+    if (row.kind === 'desig' && !scenItemVis(o.scenD)) return false;
+    if (CLSF.on && CLS.ready && (o.kind === 'field' || (o.kind === 'star' && !o.halo))){ const fi = scenFidx(o); if (fi >= 0 && !clsOK(CLS.a[fi])) return false; }
+    return true; });
+}
+async function scenWriteExport(name, text){
+  if (!SFS.desktop){ SFS.download(name, text, 'text/csv'); return name; }
+  const dir = await SFS.ensureFolder(); if (!dir) return null; const p = await SFS.join(dir, name);
+  try { await SFS.write(p, text); } catch(e){ await scenError(`Couldn't save to ${esc(p)}: ${esc(e)}.`); return null; } return p;
+}
+async function scenExportDialog(){
+  if (!SCEN.doc) return;
+  const rows = scenFacRows(), count = (keys, only) => scenExportRows(keys, only).length;
+  const html = `<div class="sform"><label class="sl">What</label>
+    <label class="schk2"><input type="radio" name="sxw" value="sys" checked> Systems (CSV)</label>
+    <label class="schk2"><input type="radio" name="sxw" value="hou"> Houdini points (CSV)</label>
+    <label class="schk2"><input type="radio" name="sxw" value="json"> Scenario file (.json, same as Save as)</label>
+    <label class="sl">Factions</label>${rows.map(r => `<label class="schk2"><input type="checkbox" data-xk="${esc(r.key)}" checked><i class="fsw" style="background:${esc(r.colour)}"></i> ${esc(r.name)}</label>`).join('')}
+    <label class="schk2"><input type="checkbox" id="sxOnly"> Only what the current filters show</label>
+    <p class="shint" id="sxCount"></p></div>`;
+  const read = el => ({ what:(el.querySelector('input[name=sxw]:checked') || {}).value, keys:new Set([...el.querySelectorAll('[data-xk]')].filter(c => c.checked).map(c => c.dataset.xk)), only:el.querySelector('#sxOnly').checked });
+  const res = await scenModal({ title:'Export', html, buttons:[['go', 'Export', true], ['cancel', 'Cancel']], read,
+    onOpen:el => { const upd = () => { const v = read(el); el.querySelector('#sxCount').textContent = v.what === 'json' ? '' : `${count(v.keys, v.only).toLocaleString('en-GB')} systems will be exported`; }; el.addEventListener('change', upd); upd(); } });
+  if (res.id !== 'go') return; const v = res.v;
+  if (v.what === 'json') return scenSaveAs();
+  const x = scenExportText(v.what, v.keys, v.only);
+  const p = await scenWriteExport(x.name, x.text); if (!p) return;
+  SCEN.importMsg = `Exported ${x.count.toLocaleString('en-GB')} rows to ${esc(scenFileName(p))}`; renderScenPanel();
+}
+function scenExportText(what, keys, only){
+  const list = scenExportRows(keys, only), base = scenSafeName(SCEN.doc.name); let text, name;
+  if (what === 'hou'){
+    text = scenCsv([['name','faction','status','spectral_class','evolution_class','is_custom','P_x','P_y','P_z','Cd_r','Cd_g','Cd_b']].concat(list.map(row => {
+      const o = row.o, custom = row.kind === 'custom', it = custom ? o.scen : o.scenD, g = scenGalOf(o.viewPos || o.pos), vals = scenRowValues(row, new Map());
+      const col = it && scenFac(it.faction) ? scenHexRGB(scenFac(it.faction).colour) : (o.cov && !o.db) ? scenHexRGB(SCEN_CHART_FAC[1].colour) : (o.halo || o.kind === 'sol') ? scenHexRGB(SCEN_CHART_FAC[0].colour) : [0.81, 0.84, 0.88];
+      // Y-up, Sol at the origin, light years: P = (X, Z, -Y) in galactic terms, a proper rotation of the galactic frame
+      return [vals[0], vals[3], vals[4], vals[18], vals[19], custom ? 1 : 0, g[0].toFixed(3), g[2].toFixed(3), (-g[1]).toFixed(3), col[0].toFixed(3), col[1].toFixed(3), col[2].toFixed(3)]; })));
+    name = base + ' houdini points.csv';
+  } else { const near = scenNearestMap(); text = scenCsv([SCEN_COLS].concat(list.map(row => scenRowValues(row, near)))); name = base + ' systems.csv'; }
+  return { text, name, count:list.length };
+}
+// ---------- import designations from a CSV ----------
+// Rows are matched on chart system name (with chart_sphere set) or on a catalogue id (Gaia DR3, HIP, HD, Tycho-2,
+// Gliese). New stars and routes travel in the scenario file only.
+function scenFindByIds(ids){
+  if (ids.hip){ const k = HIP_POS.get(+scenDigits(ids.hip)); if (k !== undefined) return fieldObjOrNamed(k); }
+  if (ids.gaia){ const k = gaiaFind(scenGaia(ids.gaia)); if (k >= 0) return fieldObjOrNamed(k); }
+  if (!SID.ready) return null;
+  const tries = [['gaia', 'gaia', ids.gaia && scenGaia(ids.gaia)], ['hd', 'hd', ids.hd && scenBare(ids.hd)], ['tyc', 'tyc', ids.tyc && scenBare(ids.tyc)], ['gl', 'gl', ids.gl]];
+  for (const [col, , v] of tries){ if (!v) continue; for (const i of fieldSearch(nrm(String(v)), 20)){ const r = starIdRec(i); if (r && (col === 'gaia' ? scenGaia(r.gaia) === v : col === 'gl' ? nrm(r.gl) === nrm(String(v)) : scenBare(r[col]) === String(v))) return fieldObjOrNamed(i); } }
+  return null;
+}
+async function scenImportCmd(){
+  if (!SCEN.doc) return; let text = null, nm = '';
+  if (SFS.desktop){ let p = null; try { p = await SFS.T().dialog.open({ defaultPath:SFS.folder() || undefined, multiple:false, filters:[{ name:'CSV', extensions:['csv'] }] }); } catch(e){}
+    if (!p || Array.isArray(p)) return; try { text = await SFS.read(p); nm = scenFileName(p); } catch(e){ await scenError(`Couldn't read ${esc(p)}: ${esc(e)}.`); return; } }
+  else { const f = await SFS.upload('.csv,text/csv'); if (!f) return; text = f.text; nm = f.name; }
+  scenImportText(text); renderScenPanel();
+}
+function scenImportText(text){
+  const rows = scenCsvParse(text); if (rows.length < 2){ SCEN.importMsg = '0 designations added, 0 updated, 0 skipped.'; return { added:0, updated:0, skipped:[] }; }
+  const H = rows[0].map(x => x.trim().toLowerCase()), col = k => H.indexOf(k), get = (r, k) => { const i = col(k); return i >= 0 ? (r[i] || '').trim() : ''; };
+  const facBy = s => { s = (s || '').trim().toLowerCase(); if (!s) return ''; const f = SCEN.doc.factions.find(f => f.name.toLowerCase() === s || (f.code || '').toLowerCase() === s)
+    || SCEN_CHART_FAC.find(f => f.name.toLowerCase() === s || f.list.toLowerCase() === s || f.code.toLowerCase() === s); return f ? f.id : null; };
+  const stBy = s => { s = (s || '').trim().toLowerCase(); if (!s) return ''; const x = SCEN_STATUS.find(t => t[0] === s || t[1].toLowerCase() === s); return x ? x[0] : null; };
+  const plan = [], skipped = [];
+  for (let n = 1; n < rows.length; n++){ const r = rows[n], line = n + 1, nmv = get(r, 'name');
+    if (/^yes$/i.test(get(r, 'is_custom'))){ skipped.push([line, nmv, 'new stars travel in the scenario file, not the CSV']); continue; }
+    const fac = facBy(get(r, 'faction')), st = stBy(get(r, 'status'));
+    if (fac === null){ skipped.push([line, nmv, 'no faction called ' + get(r, 'faction')]); continue; }
+    if (st === null){ skipped.push([line, nmv, 'unknown status ' + get(r, 'status')]); continue; }
+    if (!fac && !st){ skipped.push([line, nmv, 'no faction or status to designate']); continue; }
+    let o = null; const sph = get(r, 'chart_sphere');
+    if (sph){ const keyName = nmv; o = starObjs.find(s => s.halo && s.db && s.name === keyName) || COV.objs.find(x => x.cov && x.cov.name === keyName) || starObjs.find(s => s.cov && s.cov.name === keyName) || null; }
+    if (!o) o = scenFindByIds({ gaia:get(r, 'gaia_dr3'), hip:get(r, 'hip'), hd:get(r, 'hd'), tyc:get(r, 'tyc'), gl:get(r, 'gliese') });
+    if (!o){ skipped.push([line, nmv, SID.ready ? 'no star on the map matches its catalogue numbers' : 'the identifier table is still loading']); continue; }
+    plan.push({ o, fac, st, founded:get(r, 'founded'), notes:get(r, 'notes'), name:sph ? '' : (get(r, 'secondary_name') ? nmv : '') });
+  }
+  let added = 0, updated = 0;
+  if (plan.length) scenEdit(doc => { for (const p of plan){ const k = scenKeyOf(p.o); SCEN.resolved.set(k.key, p.o); const x = doc.designations.find(d => d.key === k.key);
+    const rec = { faction:p.fac || null, status:p.st || null, founded:p.founded, notes:p.notes, name:k.chart ? '' : p.name, label:p.o.name, chart:k.chart, ids:k.ids, pos:scenGalOf(p.o.pos).map(v => Math.round(v*1000)/1000) };
+    if (x){ Object.assign(x, rec); updated++; } else { doc.designations.push(Object.assign({ uuid:scenUUID(), key:k.key, author:doc.author || '', scenario:doc.id, created:scenNow() }, rec)); added++; } } });
+  SCEN.importMsg = `${added} designations added, ${updated} updated, ${skipped.length} skipped.` + (skipped.length ? ` Skipped rows are listed below with the reason.<ul class="sskip">${skipped.slice(0, 200).map(s => `<li>Row ${s[0]}${s[1] ? ' (' + esc(s[1]) + ')' : ''}: ${esc(s[2])}</li>`).join('')}</ul>` : '');
+  return { added, updated, skipped };
+}
+// ---------- the route calculator: new stars as start, stop or destination (never as automatic stopovers) ----------
+function slipPickables(){ const b = slipSystems(); return SCEN && SCEN.objs.length ? b.concat(SCEN.objs) : b; }
+// ---------- Settings: Files ----------
+function scenSettingsRow(){ const t = document.getElementById('scenLocTxt'), b = document.getElementById('scenLocBtn'); if (!t) return;
+  if (!SFS.desktop){ t.textContent = 'In the browser, files download instead, so there is no folder to choose.'; if (b) b.style.display = 'none'; return; }
+  const f = SFS.folder(); t.textContent = f || "Not chosen yet. You'll be asked the first time you save or export."; t.title = f; }
+$('#scenLocBtn').onclick = () => { if (SFS.desktop) SFS.pickFolder(); };
+// ---------- keys and closing ----------
+addEventListener('keydown', e => {
+  if (!(e.ctrlKey || e.metaKey) || scenModalOpen) return; const t = e.target;
+  if (t && (/INPUT|TEXTAREA|SELECT/.test(t.tagName) || t.isContentEditable)) return;
+  const k = e.key.toLowerCase();
+  if (k === 'z' && !e.shiftKey){ if (SCEN.doc){ e.preventDefault(); scenUndo(); } }
+  else if (k === 'y' || (k === 'z' && e.shiftKey)){ if (SCEN.doc){ e.preventDefault(); scenRedo(); } }
+  else if (k === 's'){ if (SCEN.doc){ e.preventDefault(); scenSave(); } }
+});
+addEventListener('beforeunload', e => { if (SCEN && SCEN.dirty && !SFS.desktop){ scenWriteRecovery(); e.preventDefault(); e.returnValue = ''; } });
+// ---------- start: recovery first, then the last scenario ----------
+async function scenStartup(){
+  SCEN.ready = true; scenSettingsRow(); scenBuildMarkers();
+  if (SFS.desktop){ try { const W = window.__TAURI__.window; if (W && W.getCurrentWindow) await W.getCurrentWindow().onCloseRequested(async ev => {
+      if (!SCEN.dirty) return; const ok = await scenConfirmDiscard(); if (!ok) ev.preventDefault(); }); } catch(e){ console.warn('close handler unavailable', e); } }
+  const rec = await scenReadRecovery();
+  if (rec && rec.doc){
+    let newer = true;
+    if (rec.path && SFS.desktop){ try { const cur = JSON.parse(await SFS.read(rec.path)); newer = (rec.doc.modified || '') > (cur.modified || ''); } catch(e){ newer = true; } }
+    if (newer){ const when = new Date(rec.savedAt || rec.doc.modified || Date.now());
+      const r = await scenModal({ title:'Recover your unsaved scenario?', html:`<p>${esc(rec.doc.name || 'Untitled scenario')} has changes from ${when.toLocaleDateString('en-GB')}, ${when.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' })} that were never saved.</p>`,
+        buttons:[['rec', 'Recover', true], ['discard', 'Discard']], escape:'rec' });
+      if (r === 'rec'){ try { scenLoad(scenCheck(rec.doc), rec.path || null, 'recovered'); scenDirty(); return; } catch(e){ await scenError(`That file isn't a Daybreak scenario, or it is damaged: ${esc(e.message || e)}.`); } }
+      await scenClearRecovery(); }
+    else await scenClearRecovery();
+  }
+  try {
+    if (SFS.desktop){ const p = lsGet('daybreak.lastScenario'); if (p && await SFS.exists(p)){ scenLoad(scenCheck(JSON.parse(await SFS.read(p))), p, 'reopened'); return; } }
+    else { const t = lsGet('daybreak.lastdoc'); if (t){ scenLoad(scenCheck(JSON.parse(t)), null, 'reopened'); return; } }
+  } catch(e){ console.warn('last scenario could not be reopened', e); }
+  scenRebuild();
+}
+scenStartup();
+
 buildRefPlane(); buildGalPlane(); applyRefLabels();
 window.DAYBREAK_MAP = { GAIA_SHELL, setGaiaShell, CLS, CLSF, applyClassFilter, clsText, clsPhrase, clsPreset, clsCount, RPL, GPL, refItems, rebuildRefPlane, rebuildRefDrops, applyRefLabels, refStep, offPlaneTxt,
   stepRefPlane, stepGalPlane, RPL_STARS, GPL_RINGS, GPL_INNER,
@@ -10516,7 +11521,9 @@ window.DAYBREAK_MAP = { GAIA_SHELL, setGaiaShell, CLS, CLSF, applyClassFilter, c
   get selected(){ return selected; }, get sysActive(){ return sysActive; }, get activeSys(){ return activeSys; },
   SLIP, SLIP_DRIVES, SLIP_NAV, SLIP_DIL, SLIP_CAP, SLIP_EDDY, slipCap, slipRanges, slipLegCap, slipVfmt, slipSolveDirect, slipSolve, slipSolveChain, slipSystems, slipCharted, slipDriveById, slipNavById, slipSet, slipGo, setSlip, slipT, slipAddStop, slipRemoveStop, slipWaypoints, slipReady, slipReverse,
   slipFieldCat, slipFieldCands, slipFieldObj, SLIP_FIELD_MAX, DAYBREAK,
-  get ark(){ return ark; }, get arkLocal(){ return arkLocal; }, labelled, labelOrder, LGRID, lgFree, lgMark, SLAB, regionHit, haloShow, covShow, get SCALE_LY(){ return SCALE_LY; }, TIER_LY, COV_TIER_LY, viewOf, gc, sol, COV_REF_IDS };
+  get ark(){ return ark; }, get arkLocal(){ return arkLocal; }, labelled, labelOrder, LGRID, lgFree, lgMark, SLAB, regionHit, haloShow, covShow, get SCALE_LY(){ return SCALE_LY; }, TIER_LY, COV_TIER_LY, viewOf, gc, sol, COV_REF_IDS,
+  SCEN, SFS, SCEN_COLS, SCEN_STATUS, scenEdit, scenRebuild, scenLoad, scenCheck, scenBlankDoc, scenStartNew, scenSave, scenUndo, scenRedo, scenKeyOf, scenResolve, scenGalToEq, scenGalOf, scenWorldOf,
+  scenExportText, scenExportRows, scenRowValues, scenNearestMap, scenImportText, scenCsvParse, scenNearest, setScen, scenFacVis, scenWriteRecovery, scenReadRecovery, scenClearRecovery, scenStartup, slipPickables, scenNfPos, scenNfSync, scenParseRA, scenParseDec, scenModal, fieldObjOrNamed };
 function route(){ const m = location.hash.match(/#\/obj\/([a-z0-9-]+)/); if (m){ const o=objById(m[1]); if (o){ showObject(o); return true; } } return false; }
 showCatalogue();
 if (!route()){ camera.position.copy(home.pos).multiplyScalar(1.6); flyTo(home.target, home.pos, 3200); }
