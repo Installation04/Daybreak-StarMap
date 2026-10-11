@@ -481,7 +481,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
     <div class="sl sub"><label>Covenant local relief <span id="covsv">1.00</span></label><input type="range" id="covs" min="0.5" max="2.5" step="0.05" value="1"></div>
     <div class="sub" id="covrel">—</div>
     <label><input type="checkbox" data-layer="level" checked> Level system plane</label>
-    <label><input type="checkbox" data-layer="idle" checked> Idle orbit when locked on</label>
+    <label><input type="checkbox" data-layer="idle"> Idle orbit when locked on</label>
     <label><input type="checkbox" data-layer="grid"> Reference rings</label>
     <label><input type="checkbox" data-layer="plane"> Sector plane</label>
     <div class="sl sub"><label>Plane</label><select id="planeSel"><option value="gal">Galactic (Daybreak sectors)</option><option value="ecl">Ecliptic (Solar System)</option></select></div>
@@ -667,6 +667,26 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 .sskip{margin:4px 0 0;padding-left:16px;max-height:160px;overflow:auto}
 #ibody .sform{margin-top:4px}
 .lab.scen{font-size:10.5px}
+/* v1.2.1: notes */
+.snotes{margin:2px 0 4px;font:13px/1.55 var(--f-ui);color:var(--ink2)}
+.snotes p{margin:0 0 9px}
+.snotes h4{margin:14px 0 5px;font:700 12px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:#fff;padding-bottom:3px;border-bottom:1px solid var(--line)}
+.snotes h4:first-child{margin-top:4px}
+.snotes h5{margin:10px 0 3px;font:600 13px var(--f-ui);color:var(--halo)}
+.snotes ul{margin:0 0 9px;padding-left:18px}
+.snotes li{margin:0 0 3px}
+.snotes strong{color:var(--ink);font-weight:600}
+.nwrap{display:flex;flex-direction:column;gap:4px}
+.ntool{display:flex;flex-wrap:wrap;gap:4px}
+.ntool button,.ntool select{height:26px;font:600 11px var(--f-ui);border-radius:7px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink2);cursor:pointer;padding:0 8px}
+#scen .ntool select,#ibody .sform .ntool select{width:auto;min-height:26px;flex:1 1 130px;padding:0 6px}
+.ntool button.on{background:rgba(127,227,255,.16);border-color:rgba(127,227,255,.45);color:#fff}
+.ntool button[data-nt=b]{font-weight:800;min-width:30px}
+.nwrap textarea{font:12.5px/1.5 var(--f-ui)}
+.nprev{border:1px dashed var(--line2);border-radius:8px;padding:8px 10px;max-height:340px;overflow:auto}
+.nprev.snotes,.nprev{font:13px/1.55 var(--f-ui);color:var(--ink2)}
+.nprev p{margin:0 0 9px}.nprev h4{margin:10px 0 5px;font:700 12px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:#fff;border-bottom:1px solid var(--line);padding-bottom:3px}.nprev h4:first-child{margin-top:0}
+.nprev h5{margin:8px 0 3px;font:600 13px var(--f-ui);color:var(--halo)}.nprev ul{margin:0 0 9px;padding-left:18px}.nprev strong{color:var(--ink);font-weight:600}
 #ovScen .sheet{max-width:520px}
 #ovScen .sb>p{margin:0 0 11px;font-size:13.5px;line-height:1.55;color:var(--ink2)}
 .smbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
@@ -680,7 +700,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 <!-- d20: the About sheet -->
 <div class="ov" id="ovAbout" hidden>
  <div class="sheet narrow" role="dialog" aria-modal="true" aria-labelledby="aboutH">
-  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 1.2.0. What it is, and where everything came from</p></div>
+  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 1.2.1. What it is, and where everything came from</p></div>
    <button class="x" id="aboutX" aria-label="Close">&times;</button></div>
   <div class="sb">
 
@@ -745,6 +765,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>Left mouse drags the view round. Scroll moves you in and out, and it zooms towards your cursor rather than the middle of the screen, so point at what you want before you scroll.</p>
    <p>Click something to select it. You get a ring round it, its name in the top right, and a panel of everything the map knows about it. That includes the anonymous dots of the star field: click one and the panel names it by its best designation and lists every catalogue identifier it carries, from HIP and HD down to Gaia, 2MASS and the survey names. Stars beyond 100 pc that come from the Gaia DR3 shell carry their Gaia source id only, with G, colour and a V worked out from them. Settings has a switch if you would rather clicks only landed on named things, and another, "Gaia deep field to 400 pc", that drops the field back to the 634,031-star catalogue on a machine that struggles with the full 5,589,167; off is remembered between launches. The Filters panel has a Star classes tab: tick the spectral and evolution classes you want and the field and the named stars narrow to them, with Daybreak systems always shown; typing a class into search ("red dwarfs", "K giants", "white dwarf", "O stars", "main sequence") offers the same filter as the first result, and every star's panel carries a Class row saying what it is and where that came from.</p>
    <p>Selecting doesn't move you anywhere. It hands the camera something to pivot around, so you can circle a thing without drifting off it. When you want to go there, click it again, or press <span class="kbd">Fly to</span>.</p>
+   <p>Charted systems take priority. A click near a Human Sphere or Covenant system's dot picks that system even when its name is not showing, unless a catalogue star or nebula is plainly closer to the pointer.</p>
    <p>There are plus and minus buttons in the bottom right if your trackpad is being difficult.</p>
    <figure><img src="help/select.webp" width="1500" height="943" loading="lazy" decoding="async" alt="The Soell system selected at 43 light years range, with its object panel open on the right"><figcaption>Soell selected. The panel names the system, its catalogue star and how it was placed.</figcaption></figure>
 
@@ -777,6 +798,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>Factions come first. Give one a name, a short code and a colour. The Human Sphere and the Covenant are already there as chart factions, read-only, so you can filter and export them alongside your own.</p>
    <p>To designate a star, select it and press Designate in its panel. A Daybreak system keeps its chart name and gains a faction and a status. A catalogue star can take a name of its own as well, and keeps every designation it already had. The status is one of surveyed, claimed, outpost, colony, contested or abandoned. One faction per star, for now.</p>
    <p>New star puts a star where the catalogues have none. Type its position in galactic X, Y and Z, in l, b and distance, or in RA, Dec and distance, or click the map and set the height with the slider. It gets a DBK number, takes its colour from the class you give it, and is drawn with a ring so nobody mistakes it for a real star. If you place it on top of a real one, the map asks whether you meant that star.</p>
+   <p>Notes can be laid out. A line starting ## is a section heading and ### a sub-heading for a world or a station; a line starting - is a bullet, a blank line starts a new paragraph and **text** is bold. The toolbar over the box adds these for you, with preset sections (Overview, Worlds, History, Population, Government, Military, Economy, Forerunner sites, Human sites, Covenant sites, Points of interest), and Preview shows how the panel will read.</p>
    <p>Save writes the scenario to your save folder, which you choose the first time. Undo and redo cover every edit, and a recovery copy is kept while you work, so a crash costs you a minute at most. Export writes the systems you choose to a CSV, every catalogue designation, class, distance from Sol and height above the plane included, or a points file for Houdini.</p>
    <p>If you want your work in Daybreak, send me the scenario file.</p>
 
@@ -791,7 +813,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>Installation 04 sits on Soell and has a full system around it. The ring is drawn broken, with its debris field on the line between Threshold and Basis, because Daybreak has it destroyed on 22 September 2552 and the field under joint quarantine. Installation 05 sits where the galaxy map puts it, 8,984 light years out, with the Coelest system built around it from the worlds table. Installation 02 gets the Galar system, because Daybreak names both the system and the anchor.</p>
    <p>The other four are ellipses. Daybreak names no system for them, so I have drawn the region and stopped there rather than inventing a star. Click anywhere inside an ellipse to select it, and fly to it to have it framed from above.</p>
    <p>Installation 00, the Ark, sits 262,144 light years from the galactic core, which is the one figure the wiki gives; the map lifts it 42° above the plane on a bearing fixed relative to Installation 04, and says so in its panel. Its model is measured from a scale diagram and stands at true scale, 127,530 km across, once you enter it.</p>
-   <p>Labels come in by tier so the map stays readable. Sol, the installations, the Ark, the Covenant cradle worlds and the three capitals (Zhoist, Radiant Zenith, Nanakil) carry a plate and show from 2,500 light years out. Every other system name waits until the scale bar reads 20 light years or less, and in a crowd the higher tier keeps its name and the rest fill in as you zoom. Human names read over Covenant ones, and both over nebulae and clusters.</p>
+   <p>Labels come in by tier so the map stays readable. Sol, the installations, the Ark, the Covenant cradle worlds and the three capitals (Zhoist, Radiant Zenith, Nanakil) carry a plate and show from 2,500 light years out. Every other system name waits until the scale bar would read 20 light years or less at that system's own distance, so the names of systems close to you show even while you pivot on something far away, and in a crowd the higher tier keeps its name and the rest fill in as you zoom. Human names read over Covenant ones, and both over nebulae and clusters.</p>
    <p>Every ring in Daybreak sits between a giant planet and one of its moons. Where the wiki names the anchor, that is the anchor. Where it doesn't, the panel says the placement is constructed and tells you what it was constructed from. The dashed shapes with no ring inside them are the hatched areas off the same galaxy map: possible, unconfirmed, and labelled as such.</p>
    <figure><img src="help/array.webp" width="1500" height="943" loading="lazy" decoding="async" alt="Installation 02 selected on the galaxy view, its estimated region drawn as an ellipse, with the panel explaining the placement"><figcaption>Installation 02. The ellipse is the region the Daybreak galaxy map draws, not a position.</figcaption></figure>
 
@@ -806,6 +828,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>The Covenant charts carry no elevation at all, so every Covenant height on this map is invented. Until d10 each system drew its own at random, which is why the Siakar Expanse used to stand up like a hedge: 197 systems inside a box 200 light years across, each at its own unrelated height.</p>
    <p>Height now comes from a smooth field sampled at the system's chart position, so neighbours sit at similar heights and the ground rises and falls instead of jumping. Two sliders in settings drive it. The cap sets how far off the plane the field can reach, and the local relief slider scales the three short octaves, so it sets how much the ground rises and falls between neighbours. Under them is a line telling you what the current settings actually do to systems 75 to 100 light years apart. None of this is canon. It is a plausible shape standing in for elevation data that does not exist yet.</p>
    <p>From version 1.0 the field also listens to reference heights: thirty-one Covenant systems carry a height set by hand, and the field around each is drawn towards it, strongly nearby and fading out a few hundred light years away, so the Siakar Expanse now sits about 300 light years below the plane instead of above it. Twenty-three of those systems sit on real F, G or K main-sequence stars from the catalogue field, chosen as the nearest such star to the chart position at the set height; their panels name the star and its class. The seven beyond the field's reach are pinned to the figure itself.</p>
+<p>Since version 1.2.1 a second, local pass makes the ground within 100 light years of each reference follow it: systems a few light years away take almost its height, half its difference at 50 light years, and nothing beyond 100. Between two references the systems slope from one to the other, so a reference no longer stands out from its neighbours.</p>
    <p>The purple territory is the map's own estimate, not a Daybreak chart. Every Covenant system claims the space within 200 light years of it across the galactic plane (the slider under the switch changes the reach), and neighbouring claims blend into one shape. The 36 Covenant systems that sit inside human space, on human stars or placed from the Human Sphere chart, claim nothing, and any point nearer a human system than a Covenant one stays human. The shape follows the Covenant elevation field, so it rises and falls with the systems inside it. The older Covenant Sphere outline, an ellipse fitted to the placed systems, is still in Settings beside it.</p>
    <p>Urs comes out 3,870 light years from Sol on the 2576 chart's own scale bar against the wiki's 3,500. The map uses the chart. Fifteen systems have no real star behind them at all.</p>
    <p>None of it is hidden. It is all in the panels.</p>
@@ -814,6 +837,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>Gear icon, top right.</p>
    <p>Every layer has a switch. Turning things off is the fastest fix for a view that has become unreadable, and it is almost always the constellations or the labels doing it.</p>
    <p>Two things in here are worth finding on purpose. Marker distances switches the whole map between Gaia DR3 and Hipparcos, which moves several hundred stars and is the quickest way to see how much the catalogues argue. Sector plane draws Daybreak's own geometry through Sol, with the 30 degree sector spokes and drop lines to the plane, and it makes the sector assignments legible in a way no amount of rotating does.</p>
+   <p>Idle orbit, which slowly circles the selected object after fifteen seconds without input, is off by default. Tick "Idle orbit when locked on" if you want it.</p>
    <p>Galaxy volume is the setting that costs real money in frame rate. Auto benchmarks your machine on load and usually picks right.</p>
    <figure class="pane"><img src="help/settings.webp" width="540" height="2472" loading="lazy" decoding="async" alt="The settings panel, with layer switches at the top and rendering controls below"><figcaption>Layer switches at the top, rendering controls below.</figcaption></figure>
 
@@ -7907,7 +7931,7 @@ const COV_HEIGHT = {
 // and a half scales from the last anchor. Averaging rather than interpolating means a cluster of references settles
 // into its range rather than each hitting its number; the three local relief octaves still ride on top. The base
 // field scales with the cap slider, the correction does not, so at cap 0 the map shows the pure reference surface.
-const COV_PULL = { L0:250, L1:600, d0:1000, d1:4000, floor:0.05, anchors:[] };
+const COV_PULL = { L0:250, L1:600, d0:1000, d1:4000, floor:0.05, R:100, p:1.5, anchors:[] };
 function covPullScale(d){ return COV_PULL.L0 + (COV_PULL.L1 - COV_PULL.L0) * clamp((d - COV_PULL.d0) / (COV_PULL.d1 - COV_PULL.d0), 0, 1); }
 function buildCovAnchors(){
   const A = [];
@@ -7917,16 +7941,42 @@ function buildCovAnchors(){
     else if (r.basis === 'star'){ const st = r.obj || starObjs.find(s => s.name === r.star) || starObjs.find(s => s.alt === r.star); if (!st) continue; gx = st.pos.x + R0; gy = -st.pos.z; z = st.pos.y; }
     else continue;
     const d = Math.hypot(gx, gy), L = covPullScale(d);
-    A.push({ id:r.id, gx, gy, z, L, L2:L*L, res: z - covBaseZ(gx, gy) - covOffset(r) });
+    A.push({ id:r.id, gx, gy, z, L, L2:L*L, off:covOffset(r), res: z - covBaseZ(gx, gy) - covOffset(r) });
   }
-  COV_PULL.anchors = A; return A;
+  COV_PULL.anchors = A;
+  for (const a of A) a.res2 = a.z - a.off - covBaseZ(a.gx, a.gy) - covCorr(a.gx, a.gy);   // what the regional pull leaves over
+  return A;
 }
 function covCorr(gx, gy){
   let num = 0, den = COV_PULL.floor;
   for (const a of COV_PULL.anchors){ const dx = gx - a.gx, dy = gy - a.gy, k = Math.exp(-(dx*dx + dy*dy) / a.L2); num += k * a.res; den += k; }
   return num / den;
 }
-function covFieldZ(gx, gy){ return covBaseZ(gx, gy) + covCorr(gx, gy); }
+// v1.2.1: the local pass. The regional pull above averages the references over a few hundred light years, which
+// flattened the Siakar Expanse to about -305 ly while Charipa (-258) and Kolapes (-343) sat on their own stars, so
+// each stood 30 to 55 ly off neighbours only 6 to 8 ly away. Here each reference's leftover (its height minus what
+// the base field and the regional pull give at its position) is spread to the ground around it by inverse-distance
+// weights with compact support (Franke and Little): ((R - d) / (R d))^p inside R = 100 ly, nothing beyond. A fixed
+// weight of (1/R)^p for the regional surface is added to the denominator, so a point 50 ly from a lone reference
+// takes half its leftover and the effect reaches zero at 100 ly. Close to a reference its weight dominates, so the
+// ground meets the reference instead of averaging it away; between two references it slopes from one to the other.
+// It is a weighted average, so it never overshoots a reference. p = 1.5 rather than the textbook 2: with 2 the
+// ground goes flat round each reference and steepens between them (worst local misfit 16 ly in the Siakar Expanse,
+// at Dain Seboi); 1.5 keeps the slope even (none over 15 ly). Ram chose the 100 ly radius (10 Oct 2026).
+function covLocal(gx, gy){
+  const R = COV_PULL.R; if (!(R > 0)) return 0;
+  const p = COV_PULL.p || 1.5; let num = 0, den = Math.pow(1/R, p);
+  for (const a of COV_PULL.anchors){ const dx = gx - a.gx, dy = gy - a.gy; if (Math.abs(dx) >= R || Math.abs(dy) >= R) continue;
+    const d = Math.hypot(dx, dy); if (d >= R) continue; if (d < 1e-3) return a.res2;
+    const w = Math.pow((R - d)/(R*d), p); num += w*a.res2; den += w; }
+  return num/den;
+}
+function covFieldZ(gx, gy){ return covBaseZ(gx, gy) + covCorr(gx, gy) + covLocal(gx, gy); }
+// v1.2.1: the flare guard binds the generated field (base and regional pull) and the local pass is added after it.
+// The references were never guarded (d33), and Kolapes at -343 ly is past the guard for its distance (-336 ly), so
+// guarding the local pass as well stacked its neighbours at the limit. The local pass is a weighted average of the
+// references' leftovers, so it cannot carry a point further than a reference already is.
+function covGuardZ(gx, gy, off){ const d = Math.hypot(gx, gy); return clamp((off || 0) + covBaseZ(gx, gy) + covCorr(gx, gy), -0.35*d, 0.35*d) + covLocal(gx, gy); }
 // Per-region elevation offsets, in light years, most specific winning: the chart's printed region
 // label, then the wiki's Location column, then the domain, then the quartal. Empty until Ram's
 // domain elevation document exists; one line here moves a whole domain or a whole region up or
@@ -7946,7 +7996,7 @@ function covOffset(r){
 function covZ(r){
   if (r.pinnedZ != null) return r.pinnedZ;
   const d = Math.hypot(r.gx, r.gy);
-  return clamp(covOffset(r) + covFieldZ(r.gx, r.gy), -0.35*d, 0.35*d);
+  return covGuardZ(r.gx, r.gy, covOffset(r));   // v1.2.1
 }
 // d10: waypoints. Route vertices that are not systems, plus anything added here later, so future
 // routes and markers have a real point to attach to instead of a bare coordinate. Entries are
@@ -7996,7 +8046,7 @@ function buildCovenant(){
     r.obj = o; COV.objs.push(o); objects.push(o); });
   const p = makePoints(pos, col, sz, {tex:TEX_STAR, opacity:0.95, order:4, sqrt:true, minPx:2.4, maxPx:9, fade:1}); scene.add(p); COV.pts = p; layers.cov = [p];
   for (const r of S) if (r.basis === 'star'){ const st = starObjs.find(s => s.name === r.star) || starObjs.find(s => s.alt === r.star); if (st){ st.cov = r; r.obj = st; } else console.warn('Covenant: star not found', r.star); }
-  for (const g of COVENANT.regions){ const d = Math.hypot(g.gx, g.gy); COV.regs.push({ name:g.name, kind:'covreg', reg:g, tier:g.tier, pos:covWorld(g.gx, g.gy, clamp(covFieldZ(g.gx, g.gy), -0.35*d, 0.35*d)) }); }
+  for (const g of COVENANT.regions){ const d = Math.hypot(g.gx, g.gy); COV.regs.push({ name:g.name, kind:'covreg', reg:g, tier:g.tier, pos:covWorld(g.gx, g.gy, covGuardZ(g.gx, g.gy)) }); }
   buildCovPairs();
 }
 function applyCovZ(z, scale){
@@ -8006,7 +8056,7 @@ function applyCovZ(z, scale){
   if (!COV.pts) return; const A = COV.pts.geometry.attributes.position;
   for (const o of COV.objs){ const p = covWorld(o.cov.gx, o.cov.gy, covZ(o.cov)); o.pos.copy(p); o.dSol = p.distanceTo(SUN); A.array[o.idx*3]=p.x; A.array[o.idx*3+1]=p.y; A.array[o.idx*3+2]=p.z; }
   A.needsUpdate = true; COV.pts.geometry.computeBoundingSphere();
-  for (const o of COV.regs){ const d = Math.hypot(o.reg.gx, o.reg.gy); o.pos.y = clamp(covFieldZ(o.reg.gx, o.reg.gy), -0.35*d, 0.35*d); }
+  for (const o of COV.regs){ const d = Math.hypot(o.reg.gx, o.reg.gy); o.pos.y = covGuardZ(o.reg.gx, o.reg.gy); }
   if (typeof rebuildRoutes === 'function' && ROUTES.group) rebuildRoutes();
   drapeCovTerritory();   // d34
   showCovRelief();
@@ -8097,11 +8147,11 @@ function buildCovTerritory(){
 function drapeCovTerritory(){
   const T = COV_TERR; if (!T || !T.pos) return;
   const g = T.gxy, A = T.pos.array, L = T.lat, H = L.step, cache = new Float32Array(L.lx*L.ly).fill(NaN);
-  const at = (i, j) => { const k = j*L.lx + i; let z = cache[k]; if (z !== z){ z = cache[k] = covFieldZ(L.x0 + i*H, L.y0 + j*H); } return z; };
+  const at = (i, j) => { const k = j*L.lx + i; let z = cache[k]; if (z !== z){ z = cache[k] = covGuardZ(L.x0 + i*H, L.y0 + j*H); } return z; };   // v1.2.1: guarded at the lattice points
   for (let v = 0, n = g.length >> 1; v < n; v++){
     const gx = g[2*v], gy = g[2*v + 1], u = (gx - L.x0)/H, w = (gy - L.y0)/H, i = Math.floor(u), j = Math.floor(w), fu = u - i, fw = w - j;
     const zf = (at(i, j)*(1 - fu) + at(i + 1, j)*fu)*(1 - fw) + (at(i, j + 1)*(1 - fu) + at(i + 1, j + 1)*fu)*fw;
-    const d = Math.hypot(gx, gy), z = clamp(zf, -0.35*d, 0.35*d);
+    const z = zf;
     A[3*v] = gx - R0; A[3*v + 1] = z; A[3*v + 2] = -gy;   // as covWorld(gx, gy, z)
   }
   T.pos.needsUpdate = true; T.fill.geometry.computeBoundingSphere(); T.line.geometry.computeBoundingSphere();
@@ -8155,7 +8205,7 @@ function buildRoutes(){
     if (WP.byId[w.id]) continue;
     const o = { id:w.id, name:w.name, kind:'wp', wp:w, pos:covWorld(w.gx, w.gy, 0), dSol:0, tier:3,
       type:'Route waypoint \u00b7 Project Daybreak', desig:'Route waypoint' + (w.note ? ' \u00b7 ' + w.note : '') };
-    o.pos.y = clamp(covFieldZ(w.gx, w.gy), -0.35*Math.hypot(w.gx, w.gy), 0.35*Math.hypot(w.gx, w.gy));
+    o.pos.y = covGuardZ(w.gx, w.gy);
     o.dSol = o.pos.distanceTo(SUN); WP.objs.push(o); WP.byId[w.id] = o; objects.push(o);
   }
   if (WP.objs.length){
@@ -8179,7 +8229,7 @@ function routePartPoints(o, nodes){
       // with real positions, and the field has no business moving them.
       let z;
       if (o.route.src === 'human'){ const zs = nodes.map(routeNodeObj).filter(Boolean).map(x => x.pos.y); z = zs.length ? zs.reduce((a,b)=>a+b,0)/zs.length : 0; }
-      else { const dz = Math.hypot(nd.gx, nd.gy); z = clamp(covFieldZ(nd.gx, nd.gy), -0.35*dz, 0.35*dz); }
+      else { z = covGuardZ(nd.gx, nd.gy); }
       const p = covWorld(nd.gx, nd.gy, z);
       if (nd.stub){ const k = nodes.indexOf(nd), ref = routeNodeObj(nodes[k > 0 ? k-1 : k+1]); if (!ref) continue;
         const dir = p.clone().sub(ref.pos); const L = dir.length(); if (L > 0) dir.multiplyScalar(Math.min(L, 45)/L); p.copy(ref.pos).add(dir); p.stub = true; }
@@ -9065,7 +9115,7 @@ function covRows(o){
     const z = covZ(r); h += `<div><span class="k">Elevation</span><span class="v" style="white-space:normal;font-size:11px">${z>=0?'+':''}${fmt(z)} ly, the star's own · reference ${r.refZ>=0?'+':''}${fmt(r.refZ)} ly</span></div>`;
     h += `<div><span class="k">Chart position</span><span class="v dim" style="white-space:normal;font-size:10.5px;text-align:right">${COV_BASIS[r.snap.basis] || r.snap.basis}${r.map ? ', ' + r.map[0] + ', ' + r.map[1] + ' pt' : ''}; the star is ${r.snap.d} ly from that point at the reference height</span></div>`;
   }
-  else if (r.basis !== 'star'){ const z = covZ(r), off = covOffset(r), pull = r.pinnedZ == null ? covCorr(r.gx, r.gy) : 0;
+  else if (r.basis !== 'star'){ const z = covZ(r), off = covOffset(r), pull = r.pinnedZ == null ? covCorr(r.gx, r.gy) + covLocal(r.gx, r.gy) : 0;
     h += `<div><span class="k">Elevation</span><span class="v q" style="white-space:normal;font-size:11px">${r.refZ != null && r.pinnedZ != null ? `${z>=0?'+':''}${fmt(z)} ly · reference height${r.snapNote ? ' (' + r.snapNote + ')' : ''}` : r.pinnedZ != null ? fmt(z)+' ly (from its Daybreak band and sector)' : `${z>=0?'+':''}${fmt(z)} ly · elevation field${Math.abs(pull) >= 1 ? `, drawn ${pull>=0?'+':''}${fmt(pull)} ly by nearby reference heights` : ''}${off ? `, including a ${off>=0?'+':''}${fmt(off)} ly regional offset` : ''}, cap ±${COV.z} ly`}</span></div>`;
     if (r.map) h += `<div><span class="k">Chart position</span><span class="v dim">${r.map[0]}, ${r.map[1]} pt</span></div>`; }
   if (r.band) h += `<div><span class="k">Daybreak band</span><span class="v">${r.band.replace(' LY',' ly')}${r.sector ? ' · '+r.sector : ''}</span></div>`;
@@ -9440,7 +9490,14 @@ canvas.addEventListener('pointerup', e => {
   // inside the disc's apparent radius selects Sagittarius A* (the map's Milky Way object, with its Wide view button)
   // ahead of the satellite dwarfs and Sol that share the same few pixels.
   if (!best && !sysActive && camD(GC) > 150000){ const v = screenOf(gc); if (v.z <= 1){ const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const px = Math.max(22, 50000/camD(GC)*(innerHeight/2)/Math.tan(camera.fov/2*D2R)); if (Math.hypot(x-e.clientX, y-e.clientY) < px){ best = gc; bd = -1; } } }
-  if (!best) for (const o of objects){ if (o.kind==='star' && !brightSet.has(o) && !o.inMag && !starLabelSet.has(o)) continue; if (o.kind==='star' && !o.halo && CLSF.on && !clsShowNamed(o)) continue; if (o.kind==='star' && o.halo && !haloShow(o)) continue; if (o.kind==='cov' && !covShow(o)) continue; if (o.kind==='con' || o.kind==='route') continue; if (o.kind==='scen' && !scenObjShow(o)) continue; if (o.kind==='wp' && (sysActive || !ROUTES.on || camD(o.pos) > 450)) continue; if (o.kind==='body' && !sysActive) continue; if (o.kind==='deep' && (!deepGroup.visible || (!o.inMag && camD(o.pos) > 90000))) continue; const v=screenOf(o); if (v.z>1) continue; const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const d=Math.hypot(x-e.clientX, y-e.clientY); if (d<bd){bd=d; best=o;} }
+  // v1.2.1: a charted system's dot is clickable whenever it is drawn, label or not (it used to need its label to be
+  // allowed at that range, so a click near an unlabelled Covenant system took the nearest catalogue star). Charted
+  // systems (human, Covenant, scenario stars and designated stars) win a click within 22 px unless another object is
+  // under half their distance from the pointer.
+  if (!best){ let bl = null, dl = 22, bo = null, dO = 22;
+    for (const o of objects){ if (o.kind==='star' && !o.halo && !o.scenD && !brightSet.has(o) && !o.inMag && !starLabelSet.has(o)) continue; if (o.kind==='star' && !o.halo && CLSF.on && !clsShowNamed(o)) continue; if (o.kind==='star' && o.halo && !haloPick(o)) continue; if (o.kind==='cov' && !covPick(o)) continue; if (o.kind==='con' || o.kind==='route') continue; if (o.kind==='scen' && !scenObjShow(o)) continue; if (o.kind==='wp' && (sysActive || !ROUTES.on || camD(o.pos) > 450)) continue; if (o.kind==='body' && !sysActive) continue; if (o.kind==='deep' && (!deepGroup.visible || (!o.inMag && camD(o.pos) > 90000))) continue; const v=screenOf(o); if (v.z>1) continue; const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const d=Math.hypot(x-e.clientX, y-e.clientY);
+      if (isCharted(o)){ if (d<dl){dl=d; bl=o;} } else if (d<dO){dO=d; bo=o;} }
+    best = bl && (!bo || dO*2 >= dl) ? bl : bo; if (best) bd = best === bl ? dl : dO; }
   // v16: the first click selects, opens the right panel and moves the orbit pivot onto the object; the camera
   // does not move at all. A second click on the same object is the only thing here that flies.
   // d21: nothing named under the click, so try the star field itself (within 10 px; brighter wins a tie)
@@ -9458,11 +9515,19 @@ const camD = p => camG.distanceTo(p);
 // per 100 px), so the figure is the same on any screen. A shown label holds to 1.1 times its threshold (d18).
 const TIER_LY = [0, 2500, 900, 320], TIER_GATE = 50;
 let SCALE_LY = 1000;   // light years per 100 px of screen at the pivot, written every frame by niceScale()
-const tierShow = (o, T, hyst) => { const t = o.tier || 3; if (t >= 2 && SCALE_LY >= TIER_GATE*(hyst ? 1.1 : 1)) return false; return camD(o.pos) < T[t]*(hyst ? 1.1 : 1); };
+// v1.2.1: the 20 ly gate is judged at each system's own distance from the camera, not at the pivot. Measured at the
+// pivot, a selection 720 ly away hid the names of tier 2 and 3 systems right in front of the camera and made them
+// unclickable until something nearer was selected. Near the pivot the two measures agree, so nothing else moves.
+let SCALE_K = 1;      // light years per 100 px per light year of distance, written every frame by niceScale()
+const tierShow = (o, T, hyst) => { const t = o.tier || 3, d = camD(o.pos), h = hyst ? 1.1 : 1; if (t >= 2 && d*SCALE_K >= TIER_GATE*h) return false; return d < T[t]*h; };
 const haloShow = (o, hyst) => o.fvis !== false && !sysActive && tierShow(o, TIER_LY, hyst);
 // d4: Covenant systems. Tier 1 = cradle world or named capital (d29), 2 = hub, reliquary, bastion or a world with its own page, 3 = the rest.
 const COV_TIER_LY = [0, 2500, 900, 320], COVREG_LY = [0, 20000, 6000, 2500, 1200];
 const covShow = (o, hyst) => o.fvis !== false && !sysActive && COV.on && tierShow(o, COV_TIER_LY, hyst);
+// v1.2.1: clickable whenever the dot is drawn (filters and layers still apply; ghosted systems stay display-only)
+const covPick = o => o.fvis !== false && !sysActive && COV.on;
+const haloPick = o => o.fvis !== false && !sysActive;
+const isCharted = o => o.halo || o.kind === 'cov' || o.kind === 'scen' || o.kind === 'sol' || !!o.scenD;
 // v16: with selection no longer moving the camera, the reticle is what says which object the pivot is on.
 // It rides the projected screen position every frame and hides itself the moment the object goes off screen
 // or behind the camera, so it never floats over empty sky with nothing under it.
@@ -9479,7 +9544,7 @@ function stepXhair(){
 function niceScale(){
   const dist = camera.position.distanceTo(controls.target), per100 = 2*dist*Math.tan(camera.fov/2*D2R)/innerHeight*100;
   const pow = Math.pow(10, Math.floor(Math.log10(per100))), m = per100/pow, nice = (m<2?1:m<5?2:5)*pow;
-  SCALE_LY = per100;
+  SCALE_LY = per100; SCALE_K = 2*Math.tan(camera.fov/2*D2R)/innerHeight*100;
   { const t = fmtLy(nice), w = (100*nice/per100).toFixed(1)+'px'; if (RO.sc !== t){ RO.sc = t; RO.eSc.textContent = t; } if (RO.bar !== w){ RO.bar = w; RO.eBar.style.width = w; } }
 }
 function resize(){ renderer.setPixelRatio(RS.scale); composer.setPixelRatio(RS.scale); renderer.setSize(innerWidth, innerHeight, false); composer.setSize(innerWidth, innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); syncGcam(); }
@@ -9491,7 +9556,7 @@ let hintT = performance.now(), lastT = 0, fpsAcc = 0, fpsN = 0, fpsShown = 0;
 // v26: idle orbit. Measured against Galaxium, which orbits the locked object at constant range and starts within
 // 10 to 20 seconds of the camera settling; its rate looked to be roughly a degree a second. Ram's rule here is that
 // with nothing selected the camera stays put, so this only ever runs when there is something to orbit.
-const IDLE = { on:true, delay:15000, rate:2.0 };   // ms before it starts, degrees per second
+const IDLE = { on:false, delay:15000, rate:2.0 };   // v1.2.1: off by default (Ram, 10 Oct 2026); the Settings box turns it on   // ms before it starts, degrees per second
 let lastInput = performance.now();
 const WORLD_UP = new THREE.Vector3(0,1,0);
 const idleOff = new THREE.Vector3();
@@ -11152,7 +11217,7 @@ function scenNfHtml(){ const nf = SCEN.nf, P = nf.place, tab = (k, t) => `<butto
     <label class="sl">Faction</label><select data-nf="faction">${scenFacOptions(nf.faction)}</select>
     <label class="sl">Status</label><select data-nf="status">${scenOpt('', '—', nf.status)}${scenStatusOptions(nf.status)}</select>
     ${fld('founded', 'Founded (optional)')}
-    <label class="sl">Notes</label><textarea data-nf="notes" rows="2">${esc(nf.notes)}</textarea>
+    <label class="sl">Notes</label>${notesEditor('data-nf', 'notes', nf.notes, 6)}
     <label class="schk2"><input type="checkbox" data-nf="fictional"${nf.fictional ? ' checked' : ''}> Fictional</label><p class="shint">Off means a real object the map's catalogues do not carry, such as a missing brown dwarf.</p>
     <div class="s2col"><div><label class="sl">Spectral class</label><select data-nf="spec">${SCEN_SPEC.map(s => scenOpt(s[0], s[1], nf.spec)).join('')}</select></div>
     <div><label class="sl">Evolution class</label><select data-nf="lum">${SCEN_LUM.map(s => scenOpt(s[0], s[1], nf.lum)).join('')}</select></div></div>
@@ -11261,6 +11326,56 @@ $('#scenClose').onclick = () => setScen(false);
 $('#btnScen').onclick = () => setScen(!SCEN.open);
 
 // ---------- the object panel: designations ----------
+// ---------- v1.2.1: formatted notes ----------
+// Notes stay plain text in the scenario file and the CSV. A line starting "## " is a section heading, "### " a
+// sub-heading (a world, a station), "- " or "* " a bullet; a blank line starts a new paragraph, a single line break
+// is kept; **text** is bold. The toolbar writes the same markup, so a file edited by hand reads the same.
+const NOTE_SECTIONS = ['Overview', 'Worlds', 'History', 'Population', 'Government', 'Military', 'Economy', 'Forerunner sites', 'Human sites', 'Covenant sites', 'Points of interest'];
+function notesInline(t){ return esc(t).replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>'); }
+function notesHtml(text){
+  const lines = String(text || '').replace(/\r\n?/g, '\n').split('\n'); let h = '', para = [], list = [];
+  const flushP = () => { if (para.length){ h += '<p>' + para.map(notesInline).join('<br>') + '</p>'; para = []; } };
+  const flushL = () => { if (list.length){ h += '<ul>' + list.map(x => '<li>' + notesInline(x) + '</li>').join('') + '</ul>'; list = []; } };
+  for (const raw of lines){ const ln = raw.replace(/\s+$/, ''); let m;
+    if (!ln.trim()){ flushP(); flushL(); continue; }
+    if ((m = /^\s*###\s+(.*)$/.exec(ln))){ flushP(); flushL(); h += '<h5>' + notesInline(m[1]) + '</h5>'; continue; }
+    if ((m = /^\s*##\s+(.*)$/.exec(ln))){ flushP(); flushL(); h += '<h4>' + notesInline(m[1]) + '</h4>'; continue; }
+    if ((m = /^\s*[-*]\s+(.*)$/.exec(ln))){ flushP(); list.push(m[1]); continue; }
+    flushL(); para.push(ln.trim()); }
+  flushP(); flushL(); return h;
+}
+function notesBlock(text){ return text ? `<div class="grp">Notes</div><div class="snotes">${notesHtml(text)}</div>` : ''; }
+// the editor: a toolbar over the textarea, and a preview under it
+function notesEditor(attr, key, value, rows){
+  return `<div class="nwrap"><div class="ntool"><select class="nsec" title="Add a section heading"><option value="">Add section…</option>${NOTE_SECTIONS.map(x => `<option>${esc(x)}</option>`).join('')}<option value="*">Other heading…</option></select>`
+    + `<button type="button" data-nt="h3" title="Add a sub-heading for a world, moon or station">World</button><button type="button" data-nt="li" title="Start a bullet">• Bullet</button><button type="button" data-nt="b" title="Bold the selected text">B</button><button type="button" data-nt="prev" title="Show how the notes will read">Preview</button></div>`
+    + `<textarea ${attr}="${key}" rows="${rows}">${esc(value)}</textarea><div class="nprev" hidden></div>`
+    + `<p class="shint">## Heading, ### Sub-heading, - bullet, **bold**, a blank line for a new paragraph.</p></div>`;
+}
+function notesInsert(ta, before, after, ph){
+  const v = ta.value, a = ta.selectionStart ?? v.length, b = ta.selectionEnd ?? v.length, sel = v.slice(a, b) || ph || '';
+  ta.value = v.slice(0, a) + before + sel + after + v.slice(b);
+  ta.focus(); ta.selectionStart = a + before.length; ta.selectionEnd = a + before.length + sel.length;
+  ta.dispatchEvent(new Event('input', { bubbles:true }));
+  const pv = ta.parentNode.querySelector('.nprev'); if (pv && !pv.hidden) pv.innerHTML = notesHtml(ta.value) || '<p class="shint">Nothing yet.</p>';
+}
+// a block element starts on its own line, with a blank line before it unless the box is empty there
+function notesLineStart(ta){ const v = ta.value, a = ta.selectionStart ?? v.length, pre = v.slice(0, a); return !pre ? '' : pre.endsWith('\n\n') ? '' : pre.endsWith('\n') ? '\n' : '\n\n'; }
+document.addEventListener('click', e => {
+  const b = e.target.closest('.ntool [data-nt]'); if (!b) return; e.preventDefault();
+  const w = b.closest('.nwrap'), ta = w && w.querySelector('textarea'); if (!ta) return; const k = b.dataset.nt;
+  if (k === 'h3') return notesInsert(ta, notesLineStart(ta) + '### ', '\n', 'World name');
+  if (k === 'li'){ const v = ta.value, a = ta.selectionStart ?? v.length, pre = v.slice(0, a); return notesInsert(ta, (!pre || pre.endsWith('\n') ? '' : '\n') + '- ', '', ''); }
+  if (k === 'b') return notesInsert(ta, '**', '**', 'bold text');
+  if (k === 'prev'){ const pv = w.querySelector('.nprev'); pv.hidden = !pv.hidden; b.classList.toggle('on', !pv.hidden); if (!pv.hidden) pv.innerHTML = notesHtml(ta.value) || '<p class="shint">Nothing yet.</p>'; }
+});
+document.addEventListener('change', e => {
+  const sel = e.target.closest && e.target.closest('.ntool .nsec'); if (!sel) return; e.stopPropagation();
+  const w = sel.closest('.nwrap'), ta = w && w.querySelector('textarea'), v = sel.value; sel.value = ''; if (!ta || !v) return;
+  if (v === '*') return notesInsert(ta, notesLineStart(ta) + '## ', '\n', 'Heading');
+  notesInsert(ta, notesLineStart(ta) + '## ' + v + '\n', '', '');
+}, true);
+document.addEventListener('input', e => { const ta = e.target; if (ta.tagName !== 'TEXTAREA' || !ta.closest('.nwrap')) return; const pv = ta.parentNode.querySelector('.nprev'); if (pv && !pv.hidden) pv.innerHTML = notesHtml(ta.value) || '<p class="shint">Nothing yet.</p>'; });
 function scenTitle(o){ const d = o && o.scenD; return d && d.name && !d.chart ? d.name : o.name; }
 function scenDfOpen(o){ const k = scenKeyOf(o), d = o.scenD;
   SCEN.df = { key:k.key, faction:d ? d.faction || '' : '', status:d ? d.status || '' : '', founded:d ? d.founded || '' : '', notes:d ? d.notes || '' : '', name:d ? d.name || '' : '' };
@@ -11274,7 +11389,7 @@ function scenBlock(o){
     h += `<div class="kv"><div><span class="k">DBK id</span><span class="v">${esc(s.dbk)}</span></div><div><span class="k">Faction</span><span class="v">${esc(scenFacName(s.faction) || 'No faction')}</span></div>`
       + `<div><span class="k">Status</span><span class="v">${s.status ? SCEN_STATUS_NAME[s.status] : '—'}</span></div>` + (s.founded ? `<div><span class="k">Founded</span><span class="v">${esc(s.founded)}</span></div>` : '')
       + `<div><span class="k">Class</span><span class="v" style="white-space:normal;font-size:11.5px">${esc(cls)}</span></div><div><span class="k">Absolute mag</span><span class="v">${(+s.absMag).toFixed(2)}</span></div>`
-      + `<div><span class="k">Galactic X, Y, Z</span><span class="v" style="font-size:11px">${s.pos.map(v => v.toFixed(1)).join(', ')} ly</span></div>` + (s.notes ? `<div><span class="k">Notes</span><span class="v" style="white-space:normal;font-size:11.5px;text-align:left">${esc(s.notes)}</span></div>` : '') + `</div>`;
+      + `<div><span class="k">Galactic X, Y, Z</span><span class="v" style="font-size:11px">${s.pos.map(v => v.toFixed(1)).join(', ')} ly</span></div>` + `</div>` + notesBlock(s.notes);
     h += `<div class="acts"><button class="btn" data-scen="nfedit">Edit</button><button class="btn ghost" data-scen="nfdel">Delete star</button></div>`;
     return h;
   }
@@ -11286,7 +11401,7 @@ function scenBlock(o){
       + `<label class="sl">Faction</label><select data-df="faction">${scenFacOptions(F.faction)}</select>`
       + `<label class="sl">Status</label><select data-df="status">${scenOpt('', '—', F.status)}${scenStatusOptions(F.status)}</select>`
       + `<label class="sl">Founded (optional)</label><input type="text" data-df="founded" value="${esc(F.founded)}">`
-      + `<label class="sl">Notes</label><textarea data-df="notes" rows="3">${esc(F.notes)}</textarea>`
+      + `<label class="sl">Notes</label>` + notesEditor('data-df', 'notes', F.notes, 8)
       + (chart ? `<p class="shint">The chart name stays. A designation adds a faction and a status.</p>` : '')
       + (scenKeyOf(o).posOnly ? `<p class="shint">This star has no catalogue number the map can key on, so the designation is held by position. If a future star field moves it, the map will say so.</p>` : '')
       + `<div class="sbtns2"><button class="btn pr" data-scen="dsave">Save</button><button class="btn" data-scen="dcancel">Cancel</button></div></div>`;
@@ -11295,8 +11410,7 @@ function scenBlock(o){
   if (!d){ h += `<p>Not part of this scenario.</p><div class="acts"><button class="btn" data-scen="dopen">Designate…</button></div>` + (SCEN.doc ? '' : `<p class="shint">Starts a new scenario.</p>`); return h; }
   h += `<div class="kv"><div><span class="k">Faction</span><span class="v">${esc(scenFacName(d.faction) || 'No faction')}</span></div><div><span class="k">Status</span><span class="v">${d.status ? SCEN_STATUS_NAME[d.status] : '—'}</span></div>`
     + (d.founded ? `<div><span class="k">Founded</span><span class="v">${esc(d.founded)}</span></div>` : '')
-    + (d.notes ? `<div><span class="k">Notes</span><span class="v" style="white-space:normal;font-size:11.5px;text-align:left">${esc(d.notes)}</span></div>` : '')
-    + (d.author ? `<div><span class="k">Added by</span><span class="v">${esc(d.author)}</span></div>` : '') + `</div>`;
+    + (d.author ? `<div><span class="k">Added by</span><span class="v">${esc(d.author)}</span></div>` : '') + `</div>` + notesBlock(d.notes);
   if (d._moved > 1) h += `<p class="shint">This star has moved ${scenLy(d._moved)} since the designation was made.</p>`;
   h += `<div class="acts"><button class="btn" data-scen="dopen">Edit</button><button class="btn ghost" data-scen="ddel">Remove designation</button></div>`;
   return h;
@@ -11517,11 +11631,11 @@ buildRefPlane(); buildGalPlane(); applyRefLabels();
 window.DAYBREAK_MAP = { GAIA_SHELL, setGaiaShell, CLS, CLSF, applyClassFilter, clsText, clsPhrase, clsPreset, clsCount, RPL, GPL, refItems, rebuildRefPlane, rebuildRefDrops, applyRefLabels, refStep, offPlaneTxt,
   stepRefPlane, stepGalPlane, RPL_STARS, GPL_RINGS, GPL_INNER,
   PLANE, DIST, applyDistSrc, conflictsOf, COV, applyCovZ, covAll, ROUTES, rebuildRoutes, BAND_FIX, SYSTEMS, objects, camera, gcam, SHIFT, camG, controls, composer, volPass,
-  covZ, covFieldZ, covBaseZ, covCorr, covOffset, covRelief, COVF, COV_OFFSET, COV_HEIGHT, COV_PULL, buildCovAnchors, COV_FIELD, linkCovFieldStars, realPtsPos: () => realPts.userData.pos, COV_WAYPOINTS, WP, COV_TERR, COV_TERR_SKIP, buildCovTerritory, drapeCovTerritory, RINGS, layers, resetMap, showObject, conGroup, hudPass, sysPass, VOL, PERF, showObject, flyToObject, resetMap, layers,
+  covZ, covFieldZ, covGuardZ, covBaseZ, covCorr, covLocal, covOffset, covRelief, COVF, COV_OFFSET, COV_HEIGHT, COV_PULL, buildCovAnchors, COV_FIELD, linkCovFieldStars, realPtsPos: () => realPts.userData.pos, COV_WAYPOINTS, WP, COV_TERR, COV_TERR_SKIP, buildCovTerritory, drapeCovTerritory, RINGS, layers, resetMap, showObject, conGroup, hudPass, sysPass, VOL, PERF, showObject, flyToObject, resetMap, layers,
   get selected(){ return selected; }, get sysActive(){ return sysActive; }, get activeSys(){ return activeSys; },
   SLIP, SLIP_DRIVES, SLIP_NAV, SLIP_DIL, SLIP_CAP, SLIP_EDDY, slipCap, slipRanges, slipLegCap, slipVfmt, slipSolveDirect, slipSolve, slipSolveChain, slipSystems, slipCharted, slipDriveById, slipNavById, slipSet, slipGo, setSlip, slipT, slipAddStop, slipRemoveStop, slipWaypoints, slipReady, slipReverse,
   slipFieldCat, slipFieldCands, slipFieldObj, SLIP_FIELD_MAX, DAYBREAK,
-  get ark(){ return ark; }, get arkLocal(){ return arkLocal; }, labelled, labelOrder, LGRID, lgFree, lgMark, SLAB, regionHit, haloShow, covShow, get SCALE_LY(){ return SCALE_LY; }, TIER_LY, COV_TIER_LY, viewOf, gc, sol, COV_REF_IDS,
+  get ark(){ return ark; }, get arkLocal(){ return arkLocal; }, labelled, labelOrder, LGRID, lgFree, lgMark, SLAB, regionHit, notesHtml, NOTE_SECTIONS, haloShow, covShow, covPick, haloPick, isCharted, get SCALE_LY(){ return SCALE_LY; }, get SCALE_K(){ return SCALE_K; }, IDLE, TIER_LY, COV_TIER_LY, viewOf, gc, sol, COV_REF_IDS,
   SCEN, SFS, SCEN_COLS, SCEN_STATUS, scenEdit, scenRebuild, scenLoad, scenCheck, scenBlankDoc, scenStartNew, scenSave, scenUndo, scenRedo, scenKeyOf, scenResolve, scenGalToEq, scenGalOf, scenWorldOf,
   scenExportText, scenExportRows, scenRowValues, scenNearestMap, scenImportText, scenCsvParse, scenNearest, setScen, scenFacVis, scenWriteRecovery, scenReadRecovery, scenClearRecovery, scenStartup, slipPickables, scenNfPos, scenNfSync, scenParseRA, scenParseDec, scenModal, fieldObjOrNamed };
 function route(){ const m = location.hash.match(/#\/obj\/([a-z0-9-]+)/); if (m){ const o=objById(m[1]); if (o){ showObject(o); return true; } } return false; }
