@@ -1,6 +1,6 @@
 # Credits and sources
 
-Daybreak Star Map, version 1.2.2.
+Daybreak Star Map, version 1.3.0.
 
 This file mirrors the app's About sheet (the ⓘ button). If the two differ, the About sheet in the shipped page is the one to fix.
 
@@ -39,6 +39,16 @@ Halo © Microsoft Corporation. The Daybreak Star Map was created under Microsoft
 - **Galactic plane grid**: after the NASA/JPL-Caltech (R. Hurt) annotated Milky Way diagram; computed, not traced.
 - **Sol**: planetary positions from the JPL approximate Keplerian elements (Standish, J2000 ± 2 centuries).
 - **Star display names**: cross-checked during the build against taiyin-star-catalog-lite by RedSC1 (MPL-2.0); no code from it ships.
+
+## System designer references
+
+- **Main-sequence and brown dwarf stars**: Pecaut, M. J. & Mamajek, E. E. 2013, ApJS, 208, 9, and E. Mamajek, "A Modern Mean Dwarf Stellar Color and Effective Temperature Sequence", version 2022.04.16 (https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt): temperature, luminosity, radius and mass by spectral type.
+- **Habitable zone**: Kopparapu, R. K., et al. 2014, ApJL, 787, L29, with the coefficients from the authors' own calculator.
+- **Planet mass from radius**: Chen, J. & Kipping, D. 2017, ApJ, 834, 17 (the central relation only).
+- **Orbit spacing**: Chambers, J. E., Wetherill, G. W. & Boss, A. P. 1996, Icarus, 119, 261.
+- **Stable moon orbits**: Domingos, R. C., Winter, O. C. & Yokoyama, T. 2006, MNRAS, 373, 1227.
+- **Frost line**: Hayashi, C. 1981, Progress of Theoretical Physics Supplement, 70, 35.
+- Subgiants, giants, supergiants, white dwarfs, neutron stars, Wolf-Rayet and carbon stars and protostars use typical values for their class, marked as approximate. Every surface in the designer is procedural, made for this project.
 
 ## Art
 

@@ -435,6 +435,16 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font
   <div class="sbody" id="scenBody"></div>
 </aside>
 
+<!-- v1.3.0: the system designer, outliner on the left and inspector on the right -->
+<aside id="syd" class="ui">
+  <div class="hd"><div class="tx"><h2 id="sydTitle">System designer</h2></div><button class="x" id="sydClose" aria-label="Close the system designer">&times;</button></div>
+  <div class="sbody" id="sydBody"></div>
+</aside>
+<aside id="sydi" class="ui">
+  <div class="hd"><div class="tx"><h2 id="sydiTitle"></h2><p id="sydiSub"></p></div></div>
+  <div class="sbody" id="sydiBody"></div>
+</aside>
+
 <aside id="info" class="ui hidden">
   <div class="hd"><div class="tx"><h2 id="ititle">Nothing selected</h2><p id="isub">Click a marker or a row</p></div><button class="x" id="iclose" aria-label="Close object panel">×</button></div>
   <div class="bd" id="ibody"></div>
@@ -664,6 +674,52 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 .sbtns2 .btn{height:30px;font-size:12px}
 .smsg{position:relative;padding:7px 26px 7px 9px;border:1px solid rgba(127,227,255,.3);border-radius:8px;background:rgba(127,227,255,.06);font-size:11.5px;line-height:1.45;color:var(--ink2)}
 .smsg .x{position:absolute;top:2px;right:2px}
+/* ---------- v1.3.0: the system designer ---------- */
+/* The outliner takes the left edge on its own, like the scenario dock; the inspector sits where the object panel does. */
+#syd{position:fixed;z-index:5;top:64px;bottom:110px;left:14px;width:350px;max-width:calc(100vw - 28px);
+  background:var(--glass);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(12px);
+  display:none;flex-direction:column;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+#sydi{position:fixed;z-index:5;top:64px;bottom:110px;right:14px;width:340px;max-width:calc(100vw - 28px);
+  background:var(--glass);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(12px);
+  display:none;flex-direction:column;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+#syd.open,#sydi.open{display:flex}
+#syd .hd,#sydi .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:14px 16px 10px;flex:none}
+#syd .hd h2,#sydi .hd h2{margin:0;font:700 16px var(--f-ui);letter-spacing:-.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
+#syd .hd p,#sydi .hd p{margin:2px 0 0;font-size:11.5px;color:var(--mute)}
+#syd .sbody,#sydi .sbody{display:flex;flex-direction:column;gap:7px;flex:1;min-height:0;padding:0 12px 14px;overflow-y:auto;overscroll-behavior:contain}
+#syd .stool{display:flex;flex-wrap:wrap;gap:5px}
+#syd .stool .ibtn,#syd .sclock .ibtn,.ymenu .ibtn,.ypg .ibtn{height:26px;font-size:11.5px;padding:0 8px}
+#syd .stool .sp{flex:1}
+#syd .ibtn[disabled]{opacity:.35;cursor:default}
+.sclock{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+.sclock .crd{font:11px var(--f-mono);color:var(--ink2);padding:0 4px;min-width:120px}
+.yrow{display:flex;align-items:center;gap:4px;border-radius:8px}
+.yrow.on{background:rgba(127,227,255,.12);outline:1px solid rgba(127,227,255,.35)}
+.yrow.hid .ynm{opacity:.45}
+.yeye,.ymore{flex:none;width:24px;height:26px;border:0;background:none;color:var(--mute);cursor:pointer;font-size:12px;border-radius:6px}
+.yeye:hover,.ymore:hover{background:rgba(255,255,255,.08);color:#fff}
+.ynm{flex:1;min-width:0;display:flex;justify-content:space-between;gap:8px;align-items:center;background:none;border:0;color:var(--ink);cursor:pointer;font:12px var(--f-ui);padding:5px 4px;text-align:left}
+.ynm span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ynm .t{font-size:10.5px;color:var(--mute);white-space:nowrap}
+.yw{font-style:normal;color:#ffc46b;font-size:9px}
+.ymenu{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 4px}
+.ypal .sl{font:600 10px var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:6px 0 3px}
+.ypg{display:flex;flex-wrap:wrap;gap:4px}
+#sydi .grp{padding:10px 2px 2px;font:600 10px var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);border-top:1px solid var(--line);margin-top:4px}
+#syd label.sl,#sydi label.sl{font:600 10px var(--f-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);display:block;margin:5px 0 1px}
+#sydi input[type=text],#sydi select,#sydi textarea{width:100%;box-sizing:border-box;min-height:30px;
+  background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);font:12.5px var(--f-ui);border-radius:8px;padding:5px 8px;outline:none;color-scheme:dark}
+#sydi textarea{resize:vertical}
+#sydi select option{background:#181c24;color:#eef2f6}
+#sydi input:focus,#sydi select:focus,#sydi textarea:focus{border-color:var(--line2);background:rgba(255,255,255,.09)}
+#sydi input[type=color]{width:56px;height:28px;padding:0 2px;background:none;border:1px solid var(--line);border-radius:6px}
+.yin{display:flex;gap:5px;align-items:center}
+.yin input[type=text]{flex:1}
+.yin select{flex:none;width:auto!important;min-width:64px}
+.yin .ibtn{height:30px;font-size:11.5px;flex:none}
+.ybadge{display:inline-block;margin:2px 0 0;font:10.5px var(--f-ui);color:#8de9ff;opacity:.8}
+.ylink{display:inline-block;margin:2px 0 0;padding:0;background:none;border:0;color:#ffc46b;font:10.5px var(--f-ui);cursor:pointer;text-decoration:underline}
+.lab.dbody{font-size:11px}
 .sskip{margin:4px 0 0;padding-left:16px;max-height:160px;overflow:auto}
 #ibody .sform{margin-top:4px}
 .lab.scen{font-size:10.5px}
@@ -700,7 +756,7 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
 <!-- d20: the About sheet -->
 <div class="ov" id="ovAbout" hidden>
  <div class="sheet narrow" role="dialog" aria-modal="true" aria-labelledby="aboutH">
-  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 1.2.2. What it is, and where everything came from</p></div>
+  <div class="sh"><div><h2 id="aboutH">About this map</h2><p>Version 1.3.0. What it is, and where everything came from</p></div>
    <button class="x" id="aboutX" aria-label="Close">&times;</button></div>
   <div class="sb">
 
@@ -729,6 +785,15 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p class="src"><b>Galactic plane grid</b>Longitude spokes and distance rings after the NASA/JPL-Caltech (R. Hurt) annotated Milky Way diagram; the grid is computed, not traced.</p>
    <p class="src"><b>Sol</b>Planetary positions from the JPL approximate Keplerian elements (Standish, J2000 &plusmn; 2 centuries).</p>
    <p class="src"><b>Star display names</b>Cross-checked during the build against <a href="https://github.com/RedSC1/taiyin-star-catalog-lite" target="_blank" rel="noopener noreferrer">taiyin-star-catalog-lite</a> by RedSC1 (MPL-2.0). No code from it ships with this map.</p>
+
+   <h3>System designer references</h3>
+   <p class="src"><b>Main-sequence and brown dwarf stars</b>Pecaut, M. J. &amp; Mamajek, E. E. 2013, ApJS, 208, 9, and E. Mamajek, <a href="https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt" target="_blank" rel="noopener noreferrer">"A Modern Mean Dwarf Stellar Color and Effective Temperature Sequence"</a>, version 2022.04.16: temperature, luminosity, radius and mass by spectral type.</p>
+   <p class="src"><b>Habitable zone</b>Kopparapu, R. K., et al. 2014, ApJL, 787, L29, with the coefficients from the authors' own calculator.</p>
+   <p class="src"><b>Planet mass from radius</b>Chen, J. &amp; Kipping, D. 2017, ApJ, 834, 17 (the central relation only).</p>
+   <p class="src"><b>Orbit spacing</b>Chambers, J. E., Wetherill, G. W. &amp; Boss, A. P. 1996, Icarus, 119, 261.</p>
+   <p class="src"><b>Stable moon orbits</b>Domingos, R. C., Winter, O. C. &amp; Yokoyama, T. 2006, MNRAS, 373, 1227.</p>
+   <p class="src"><b>Frost line</b>Hayashi, C. 1981, Progress of Theoretical Physics Supplement, 70, 35.</p>
+   <p class="src"><b>Everything else</b>Subgiants, giants, supergiants, white dwarfs, neutron stars, Wolf-Rayet and carbon stars and protostars use typical values for their class, marked as approximate. Every surface in the designer is procedural, made for this project.</p>
 
    <h3>Art and design</h3>
    <p class="src"><b>Planet textures</b><a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener noreferrer">Solar System Scope</a> textures, CC BY 4.0: Mercury, Venus, Earth (day, night and specular), the Moon, Mars, Jupiter, Saturn and its rings, Uranus and Neptune.</p>
@@ -801,6 +866,14 @@ p.snote{margin:10px 0 0;font-size:11px;line-height:1.5;color:var(--mute);border-
    <p>Notes can be laid out. A line starting ## is a section heading and ### a sub-heading for a world or a station; a line starting - is a bullet, a blank line starts a new paragraph and **text** is bold. The toolbar over the box adds these for you, with preset sections (Overview, Worlds, History, Population, Government, Military, Economy, Forerunner sites, Human sites, Covenant sites, Points of interest), and Preview shows how the panel will read.</p>
    <p>Save writes the scenario to your save folder, which you choose the first time. Undo and redo cover every edit, and a recovery copy is kept while you work, so a crash costs you a minute at most. Export writes the systems you choose to a CSV, every catalogue designation, class, distance from Sol and height above the plane included, or a points file for Houdini.</p>
    <p>If you want your work in Daybreak, send me the scenario file.</p>
+
+   <h3>Designing systems</h3>
+   <p>Any star can have a system of your own: a catalogue star, a Daybreak system, a new star, or an empty point in space for something with no star at all.</p>
+   <p>Select it and press <span class="kbd">Design system</span>. On a system the map already models, such as Sol, Epsilon Eridani or Soell, you start from a copy, and the original stays as it is. <span class="kbd">Revert to built-in</span> brings it back.</p>
+   <p>The designer opens inside the system view. Bodies are on the left, the selected body's details are on the right, and Add has everything from stars and gas giants to comets, Oort clouds and orbital rings. A body either orbits something, sits at a fixed position, or rides along on another body. Drag a body along its orbit to move it, or drag the orbit to resize it.</p>
+   <p>Realistic fills in what real astronomy would give you: a star's mass, size and brightness from its spectral type, a planet's mass from its size, a period from the orbit. It also warns you when a moon is too close to survive or two planets are packed too tightly. Every value can be overridden. Free turns all of that off, so you can put a ring world round a black hole if you want to.</p>
+   <p>The clock lets you pause, speed up or step through time. It goes back to today's date when you leave.</p>
+   <p>Designs save with the scenario, undo and redo cover them, and Export writes a system's bodies to a CSV. If you want a system in Daybreak, send me the scenario file.</p>
 
    <h3>Going into a star system</h3>
    <p>Get within about a third of a light year of a star and the map stops treating it as a point of light and builds the system around it, with planets, moons and orbit lines.</p>
@@ -7401,7 +7474,7 @@ function stepSystem(sys, jd, dt){
       H.worldPos.copy(sys.anchor).addScaledVector(p, 1/AU_PER_LY); if (sys.ringObj) sys.ringObj.sysPos = H.worldPos; }
   }
 }
-function stepSystems(jd, dt){ for (const s of SYSTEMS) if (s === activeSys || s.id === 'sol') stepSystem(s, jd, dt); }
+function stepSystems(jd, dt){ for (const s of SYSTEMS) if (!s.overridden && (s === activeSys || s.id === 'sol')) stepSystem(s, jd, dt); if (activeSys && activeSys.design) stepDesign(activeSys, jd, dt); }
 // v16: hysteresis. One threshold chatters when the camera drifts along the boundary, flipping the whole scene
 // between galaxy-scale markers and the true-scale system from one frame to the next.
 const SYS_ENTER = 0.35, SYS_LEAVE = 0.42;
@@ -7430,12 +7503,12 @@ function updateConHiding(sys){
 function renderSystems(){
   // pick the nearest anchor and switch the scene to it
   let best = null, bd = Infinity;
-  for (const s of SYSTEMS){ const d = camG.distanceTo(s.anchor); if (d < bd){ bd = d; best = s; } }
+  for (const s of sydCands()){ const d = camG.distanceTo(s.anchor); if (d < bd){ bd = d; best = s; } }   // v1.3.0: designs, and no overridden built-in
   const on = sysActive ? bd < SYS_LEAVE : bd < SYS_ENTER;
   if (activeSys !== (on ? best : null)){
     if (activeSys) activeSys.group.visible = false;
-    activeSys = on ? best : null;
-    if (activeSys){ activeSys.group.visible = true; stepSystem(activeSys, JD_NOW(), 0); }
+    activeSys = on ? best : null; sydClockReset();   // v1.3.0: the designer's clock goes back to today on leaving a system
+    if (activeSys){ activeSys.group.visible = true; (activeSys.design ? stepDesign : stepSystem)(activeSys, sysJD(), 0); }
     updateConHiding(activeSys);
     // v46: move the floating origin to the new anchor. Everything the controls hold is local, so it all shifts by
     // the same delta: camera, pivot, a flight or pivot-ease in progress, and the watchdog's last good state.
@@ -7454,6 +7527,7 @@ function renderSystems(){
   const dT = controls.target.distanceTo(camera.position)*AU_PER_LY;
   sysCam.near = Math.max(1e-8, dT*0.002); sysCam.far = Math.max(400, dT*6000); sysCam.updateProjectionMatrix();   // v45: 1.5 km near floor, was 30 km
   // orbit lines fade when you are close to a body so they do not slice through the view
+  if (activeSys.design){ sydFade(activeSys); return; }
   for (const o of activeSys.bodies){ if (o.star || o.belt) continue; const d = o.posAU.distanceTo(sysCam.position), r = o.R/AU_KM; const near = smooth(r*4, r*60, d);
     if (o.line) o.line.material.opacity = (o.moon ? (o.minor ? 0.14 : 0.30) : activeSys.def.holo ? 0.30 : 0.42) * near;
     for (const m of (o.moons||[])){ if (!m.line) continue; const dm = m.posAU.distanceTo(sysCam.position); m.line.visible = layers.orbitsOn !== false && dm < (o.def.moons[o.def.moons.length-1].a/AU_KM)*40; } }
@@ -8728,10 +8802,10 @@ function stepFly(now){
 function viewOf(o){
   const p = o.pos;
   if (o.kind==='sol') return { target:p, pos:p.clone().add(new THREE.Vector3(60, 140, 260)) };
-  if (o.kind==='body'){ const A = o.sys.anchor, up = o.sys.up.clone();
+  if (o.kind==='body' || o.kind==='dbody'){ const A = o.sys.anchor, up = o.sys.up.clone();
     if (o.star) return { target:p, pos:p.clone().addScaledVector(o.sys.toWorld(1,0,0), 40/AU_PER_LY).addScaledVector(up, 30/AU_PER_LY) };
     if (o.belt){ const r = 0.35/AU_PER_LY; return { target:p, pos:p.clone().addScaledVector(up, r*0.6).addScaledVector(p.clone().sub(A).normalize(), r) }; }
-    const r = Math.max(o.R, 200)/LY_KM, out = p.clone().sub(A).normalize(), side = new THREE.Vector3().crossVectors(up, out).normalize();
+    const r = Math.max(o.kind === 'dbody' ? (o.Rs || 0)*AU_KM : o.R, 200)/LY_KM, out = p.clone().sub(A).normalize(), side = new THREE.Vector3().crossVectors(up, out).normalize();
     return { target:p, pos:p.clone().addScaledVector(side, r*5).addScaledVector(up, r*2.5).addScaledVector(out, -r*3) }; }
   if (o.kind==='deep'){ const dir = p.clone().sub(SUN).normalize(), up = new THREE.Vector3(0,1,0), side = new THREE.Vector3().crossVectors(up, dir).normalize(); const r = Math.max(o.size*2.6, 6); return { target:p, pos:p.clone().addScaledVector(dir, -r*0.9).addScaledVector(up, r*0.5).addScaledVector(side, r*0.4) }; }
   if (o.kind==='con'){ const dir = o.cen.clone().sub(SUN).normalize(); return { target:SUN.clone(), pos:SUN.clone().addScaledVector(dir, -0.4) }; }
@@ -8822,10 +8896,10 @@ function syncGutters(){ const rs = document.documentElement.style;
   const fOpen = $('#filters').classList.contains('open');
   // d12: the slipspace calculator is a third left dock, but it never shares the edge with the other two
   const sEl = document.getElementById('slip');
-  const sOpen = !!(sEl && sEl.classList.contains('open')) || !!document.querySelector('#scen.open');   // d35: the scenario dock sits where the calculator does
+  const sOpen = !!(sEl && sEl.classList.contains('open')) || !!document.querySelector('#scen.open') || !!document.querySelector('#syd.open');   // d35: the scenario dock sits where the calculator does
   rs.setProperty('--fl', bOpen ? '350px' : '14px');
   rs.setProperty('--lw', (sOpen ? 364 : ((bOpen ? 350 : 14) + (fOpen ? 336 : 0))) + 'px');
-  rs.setProperty('--rw', info.classList.contains('hidden') ? '14px' : '368px');
+  rs.setProperty('--rw', info.classList.contains('hidden') && !document.querySelector('#sydi.open') ? '14px' : '368px');
   setChip(selected); }
 // d8: below this width two left columns and the object panel do not fit together, so whichever of Browse
 // and Filters the user just asked for takes the left edge and the other stands down.
@@ -8842,6 +8916,7 @@ function tidyLeft(keep){
     }
   }
   if (keep !== 'scen' && SCEN && SCEN.open) setScen(false);   // d35
+  if (keep !== 'syd' && SYD && SYD.open) sydClose();   // v1.3.0
   // below MOBILE the panels reflow to the full width of the window, so the settings stack cannot share the
   // screen with them at all and stands down whenever a panel opens
   if (innerWidth < MOBILE) $('#layers').classList.remove('open');
@@ -8883,8 +8958,9 @@ const NEB_SUBS = ['emission','reflection','dark','hii-complex','molecular-cloud'
 const covRow = o => { const r = o.cov, n = r.worlds.length; return navRow(o, icDot(o.kind==='cov' ? '#dcbcff' : '#9ff5c8', 6), `${r.worlds.map(w=>w.n).slice(0,3).join(', ')}${n>3?' +'+(n-3):''} · ${COV_BASIS[r.basis]}`); };
 const dbRow = st => navRow(st, icDot('#9ff5c8',6), `${st.db && st.db.alts.length ? st.db.alts[0]+' · ' : ''}${st.db && st.db.worlds.length ? st.db.worlds.filter(w=>w.d===2).length+' world'+(st.db.worlds.filter(w=>w.d===2).length===1?'':'s') : (st.hip ? 'HIP '+st.hip : 'no HIP')}`);
 const NAVCATS = [
-  { id:'systems', name:'Star systems', sub:'Drawn at true scale, enter to explore', n:()=>SYSTEMS.filter(sy=>!sy.arkLocal).length,
-    body:()=>SYSTEMS.filter(sy=>!sy.arkLocal).map(sy=>catRow(`sys:${sy.id}`, sy.def.group, sy.anchorObj?sy.anchorObj.name:'', sy.bodies.filter(b=>!b.minor && !b.moon).length)).join('') },
+  { id:'systems', name:'Star systems', sub:'Drawn at true scale, enter to explore', n:()=>SYSTEMS.filter(sy=>!sy.arkLocal && !sy.overridden).length,
+    body:()=>SYSTEMS.filter(sy=>!sy.arkLocal && !sy.overridden).map(sy=>catRow(`sys:${sy.id}`, sy.def.group, sy.anchorObj?sy.anchorObj.name:'', sy.bodies.filter(b=>!b.minor && !b.moon).length)).join('') },
+  { id:'syd', name:'Designed systems', sub:'Systems in your scenario', n:()=>SYD ? SYD.list.length : 0, hideEmpty:true, body:()=>sydNavBody() },   // v1.3.0
   { id:'milkyway', name:'Milky Way', sub:'Sol and the galactic core', n:()=>2,
     body:()=>{ const so = objects.find(x=>x.id==='sol'), gco = objects.find(x=>x.id==='galactic-core');
       return navRow(so, icDot('#ffe08a'), 'Earth · home', '0 ly') + navRow(gco, icDot('#ffb060'), 'Galactic core', fmtLy(R0)); } },
@@ -8935,7 +9011,7 @@ const NAVCATS = [
 
 function navNode(id){
   if (id === 'root') return { id, title:'Browse', sub:'Everything on the map, by category',
-    body:()=>NAVCATS.map(c=>catRow(c.id, c.name, typeof c.sub==='function'?c.sub():c.sub, c.n())).join('') };
+    body:()=>NAVCATS.filter(c=>!c.hideEmpty || c.n()).map(c=>catRow(c.id, c.name, typeof c.sub==='function'?c.sub():c.sub, c.n())).join('') };
   if (id.startsWith('sys:')){
     const sy = SYSTEMS.find(x => x.id === id.slice(4)); if (!sy) return null;
     return { id, title: sy.def.group, sub:'Star, planets and moons at true scale',
@@ -9154,11 +9230,12 @@ function showObject(o, noFly){
   if (o.kind==='deep') h += `<p>${o.note}${o.inMag ? ' Placed on the Cloud mid-plane along the line of sight from Sol.' : ''}</p>`;
   if (o.kind==='con') h += `<p>${o.name} (${o.abbr}), "${o.alt}". Lines follow the Stellarium modern sky culture (CC BY-SA 4.0), joining the stars at their real 3D positions from the Hipparcos catalogue, so the figure only looks right from near Sol; it fades out beyond ~2,000 ly.${o.missing?' '+o.missing+' segment'+(o.missing>1?'s':'')+' skipped (star without a distance).':''}</p>`;
   if (o.kind==='body') h += ourP(o, o.text);
+  if (o.kind==='dbody') h += sydBodyBlock(o);   // v1.3.0
   h += `<div class="kv">`;
-  if (o.kind!=='body' && o.kind!=='route') h += `<div><span class="k">Distance (Sol)</span><span class="v">${fmt(dS)} ly</span></div><div><span class="k">Distance (core)</span><span class="v">${fmt(dG)} ly</span></div>`;
+  if (o.kind!=='body' && o.kind!=='dbody' && o.kind!=='route') h += `<div><span class="k">Distance (Sol)</span><span class="v">${fmt(dS)} ly</span></div><div><span class="k">Distance (core)</span><span class="v">${fmt(dG)} ly</span></div>`;
   // d14: galactic coordinates and height above the plane, on everything the reference plane can measure. World y
   // is galactic height in light years, so the third row is the object's own y and nothing is recomputed here.
-  if (o.kind!=='body' && o.kind!=='route') h += `<div><span class="k">Galactic l, b</span><span class="v">${l.toFixed(2)}°, ${b>=0?'+':''}${b.toFixed(2)}°</span></div><div><span class="k">Height above plane</span><span class="v${Math.abs(o.pos.y)>200?' q':''}">${signLy(Math.round(o.pos.y))} ${o.pos.y>=0?'N':'S'}</span></div>`;
+  if (o.kind!=='body' && o.kind!=='dbody' && o.kind!=='route') h += `<div><span class="k">Galactic l, b</span><span class="v">${l.toFixed(2)}°, ${b>=0?'+':''}${b.toFixed(2)}°</span></div><div><span class="k">Height above plane</span><span class="v${Math.abs(o.pos.y)>200?' q':''}">${signLy(Math.round(o.pos.y))} ${o.pos.y>=0?'N':'S'}</span></div>`;
   if (o.kind==='ring') h += ringRows(o);
   if (o.kind==='ark') h += arkRows(o);
   if (o.kind==='wp') h += `<div><span class="k">Kind</span><span class="v">${o.wp.kind}</span></div><div><span class="k">Route</span><span class="v">${o.wp.route || '\u2014'}</span></div><div><span class="k">Chart position</span><span class="v dim">${o.wp.gx.toFixed(1)}, ${o.wp.gy.toFixed(1)} ly</span></div><div><span class="k">Elevation</span><span class="v q">${o.pos.y>=0?'+':''}${fmt(o.pos.y)} ly</span></div><div><span class="k">Reference</span><span class="v dim">${o.id}</span></div>`;
@@ -9188,9 +9265,12 @@ function showObject(o, noFly){
   h += `<button class="btn ghost" data-act="back">All objects</button></div>`;
   if (o.kind==='body' && !o.star) h += `<div class="note">True scale: bodies are drawn at their real size and the orbit lines fade as you close in. ${o.sys.holo ? 'The sources give no orbital data for this system, so the orbit is a construction chosen to be plausible; any stated figures are named in the description. These worlds have no textures, so they are drawn as holograms. The plane the system is drawn on is constructed too: no orbital plane orientation is published for any of these stars, so each system takes a fixed pole of its own rather than sharing one.' : 'Positions follow the real clock (JPL approximate elements).'}</div>`;
   h += scenBlock(o);   // d35
+  h += sydHostBlock(o);   // v1.3.0
   h += relatedBlock(o) + provenanceBlock(o);
   h += `</div>`;
-  ibody.innerHTML = h; ibody.scrollTop = 0; info.classList.remove('hidden'); syncGutters(); navMark();
+  ibody.innerHTML = h; ibody.scrollTop = 0;
+  if (SYD.open){ if (o.kind === 'dbody' && o.sys === SYD.sys){ SYD.sel = o.def.uuid; SYD.err = ''; sydRender(); } } else info.classList.remove('hidden');   // v1.3.0: the inspector stands in for the panel
+  syncGutters(); navMark();
   // v16: selecting no longer travels. The pivot moves so that dragging rotates around the selection and the
   // hold-to-zoom buttons close on it, but the camera stays where the user left it. The noFly argument is kept
   // so the dozen internal callers that pass it still read correctly; nothing flies from here any more.
@@ -9198,8 +9278,8 @@ function showObject(o, noFly){
 }
 // the only route that travels. Fly to, a second click on a marker, and Enter system all come through here.
 function flyToObject(o){
-  const v = viewOf(o); flyTo(v.target, v.pos, undefined, o.kind === 'body' ? o : null);
-  if (o.kind === 'body' && !o.star) setTimeout(() => { if (selected === o){ follow = o; o.lastPos = null; o.lastL = null; } }, 2700);   // v46: lastL cleared too, or a stale one throws the camera the whole way the body has travelled since
+  const v = viewOf(o); flyTo(v.target, v.pos, undefined, o.kind === 'body' || o.kind === 'dbody' ? o : null);
+  if ((o.kind === 'body' || o.kind === 'dbody') && !o.star) setTimeout(() => { if (selected === o){ follow = o; o.lastPos = null; o.lastL = null; } }, 2700);   // v46: lastL cleared too, or a stale one throws the camera the whole way the body has travelled since
 }
 // v16: the browse panel drills and selects; every action button now lives in the right panel
 pbody.addEventListener('click', e => {
@@ -9213,11 +9293,12 @@ ibody.addEventListener('click', e => {
   if (b.dataset.id){ const o = objects.find(x=>x.id===b.dataset.id); if (o) showObject(o); return; }
   const act = b.dataset.act;
   if (act==='fly'){ flyToObject(selected); }
-  if (act==='enter'){ const sy = SYSTEMS.find(s=>s.id===selected.sysId);
+  if (act==='enter'){ const sy = sydCands().find(s=>s.id===selected.sysId) || SYSTEMS.find(s=>s.id===selected.sysId);
     if (sy && sy.localView){ const v = sy.localView(); flyTo(v.target, v.pos, 3400); return; }   // d29: the Ark's local view has no bodies to land on
     // Sol has no installation to host, so Earth is the landing point rather than whichever planet is first
     const host = sy.haloHost || sy.bodies.find(b => b.id === 'body-earth') || sy.bodies.find(b=>!b.star && !b.moon && !b.belt);
-    if (host){ showObject(host, true); const v = viewOf(host); flyTo(v.target, v.pos, 3400, host); setTimeout(()=>{ if (selected===host){ follow = host; host.lastPos = null; host.lastL = null; } }, 3500); } }
+    if (host){ showObject(host, true); const v = viewOf(host); flyTo(v.target, v.pos, 3400, host); setTimeout(()=>{ if (selected===host){ follow = host; host.lastPos = null; host.lastL = null; } }, 3500); }
+    else if (sy && sy.design){ const t = sy.star || sy.bodies[0]; if (t){ showObject(t, true); const v = viewOf(t); flyTo(v.target, v.pos, 3400); } else flyTo(sy.anchor.clone(), sy.anchor.clone().add(new THREE.Vector3(0, 1.5/AU_PER_LY, 3/AU_PER_LY)), 3400); } }
   if (act==='orbit'){ flyTo(selected.pos, selected.pos.clone().add(new THREE.Vector3(12000, 22000, 30000)), 2200); }
   if (act==='back'){ showCatalogue(); }
 });
@@ -9277,7 +9358,7 @@ results.addEventListener('click', e => { const cb = e.target.closest('button[dat
   // v20: search still does not fly, with one exception. A planet or moon is a few thousand kilometres across
   // on a map measured in light years, so selecting one from search without travelling locks the pivot to
   // something with no visible size. Bodies fly; everything else is unchanged.
-  if (o.kind === 'body') flyToObject(o);
+  if (o.kind === 'body' || o.kind === 'dbody') flyToObject(o);
 });
 document.addEventListener('click', e => { if (!e.target.closest('#search')) results.style.display='none'; });
 
@@ -9482,7 +9563,7 @@ canvas.addEventListener('pointerup', e => {
   // systems (human, Covenant, scenario stars and designated stars) win a click within 22 px unless another object is
   // under half their distance from the pointer.
   if (!best){ let bl = null, dl = 22, bo = null, dO = 22;
-    for (const o of objects){ if (o.kind==='star' && !o.halo && !o.scenD && !brightSet.has(o) && !o.inMag && !starLabelSet.has(o)) continue; if (o.kind==='star' && !o.halo && CLSF.on && !clsShowNamed(o)) continue; if (o.kind==='star' && o.halo && !haloPick(o)) continue; if (o.kind==='cov' && !covPick(o)) continue; if (o.kind==='con' || o.kind==='route') continue; if (o.kind==='scen' && !scenObjShow(o)) continue; if (o.kind==='wp' && (sysActive || !ROUTES.on || camD(o.pos) > 450)) continue; if (o.kind==='body' && !sysActive) continue; if (o.kind==='deep' && (!deepGroup.visible || (!o.inMag && camD(o.pos) > 90000))) continue; const v=screenOf(o); if (v.z>1) continue; const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const d=Math.hypot(x-e.clientX, y-e.clientY);
+    for (const o of objects){ if (o.kind==='star' && !o.halo && !o.scenD && !brightSet.has(o) && !o.inMag && !starLabelSet.has(o)) continue; if (o.kind==='star' && !o.halo && CLSF.on && !clsShowNamed(o)) continue; if (o.kind==='star' && o.halo && !haloPick(o)) continue; if (o.kind==='cov' && !covPick(o)) continue; if (o.kind==='con' || o.kind==='route') continue; if (o.kind==='scen' && !scenObjShow(o)) continue; if (o.kind==='wp' && (sysActive || !ROUTES.on || camD(o.pos) > 450)) continue; if (o.kind==='body' && (!sysActive || o.sys !== activeSys)) continue; if (o.kind==='dbody' && (!sysActive || o.sys !== activeSys || o.hidden)) continue; if (o.kind==='deep' && (!deepGroup.visible || (!o.inMag && camD(o.pos) > 90000))) continue; const v=screenOf(o); if (v.z>1) continue; const x=(v.x+1)/2*innerWidth, y=(1-v.y)/2*innerHeight; const d=Math.hypot(x-e.clientX, y-e.clientY);
       if (isCharted(o)){ if (d<dl){dl=d; bl=o;} } else if (d<dO){dO=d; bo=o;} }
     best = bl && (!bo || dO*2 >= dl) ? bl : bo; if (best) bd = best === bl ? dl : dO; }
   // v16: the first click selects, opens the right panel and moves the orbit pivot onto the object; the camera
@@ -9632,7 +9713,7 @@ function frame(now){
   { const on = layers.starsOn !== false, cl = layers.cloudsOn === true;
     if (starGroup.visible !== (cl && !sysActive)) starGroup.visible = cl && !sysActive;
     for (let i=1;i<layers.stars.length;i++) if (layers.stars[i].visible !== on) layers.stars[i].visible = on; }
-  stepDeep(camD, uScale); stepConstellations(camD(SUN)); renderSystems(); stepSystems(JD_NOW(), dt); stepHaloRings(); stepCovTerr(); stepScen(); stepArk(now); stepSlip(now);
+  stepDeep(camD, uScale); stepConstellations(camD(SUN)); renderSystems(); stepSystems(sysJD(), dt); stepHaloRings(); stepCovTerr(); stepScen(); stepSyd(); stepArk(now); stepSlip(now);
   if (follow && !fly){ const lp = lposOf(follow); if (follow.lastL){ const delta = lp.clone().sub(follow.lastL); controls.target.add(delta); camera.position.add(delta); } follow.lastL = lp.clone(); }   // v46: local delta, exact
   const solD = camD(SUN);
   stepSectorPlane(solD); stepRefPlane(solD); stepGalPlane(solD);
@@ -9657,6 +9738,7 @@ function frame(now){
     if (L.cls==='rgrid') show = RPL.vis > 0.3 && !o.hide;
     if (L.cls==='rstar') show = RPL.vis > 0.3 && RPL.stars && o.it.inR;
     if (L.cls==='ggrid') show = GPL.vis > 0.3 && (!o.inner || (GPL.inner && solD < 30000));
+    if (L.cls==='dbody') show = sydLabelShow(o);   // v1.3.0
     if (L.cls==='body' || L.cls==='moon'){ const d = camD(o.pos); show = sysActive && o.sys===activeSys && (o.moon ? d < (o.parent.def.moons[o.parent.def.moons.length-1].a/AU_KM)*40/AU_PER_LY : (o.star ? d > 0.02/AU_PER_LY*10 : o.belt ? true : d*AU_PER_LY < Math.max(20, o.def.el[0]*45))) && !o.hideLabel && d > o.R/LY_KM*3; }
     // v20: every one of these writes used to happen on every label on every frame, whether or not the value
     // had changed. At 240 fps that is around 200,000 style mutations a second on 833 elements, and the
@@ -10362,6 +10444,7 @@ function setSlip(open){
     if ($('#filters').classList.contains('open')) setFilters(false);
     if (innerWidth < MOBILE) $('#layers').classList.remove('open');
     if (SCEN && SCEN.open) setScen(false);   // d35
+    if (SYD && SYD.open) sydClose();   // v1.3.0
   }
   $('#btnSlip').classList.toggle('on', open);
   syncGutters();
@@ -10676,7 +10759,7 @@ if (sol) slipSet('From', sol);
 // remembered in localStorage 'daybreak.savedir'; a recovery copy in the app's local data folder); in a plain browser
 // files download and upload instead, and the recovery copy and the last scenario live in localStorage.
 var SCEN = null;
-const SCEN_SCHEMA = 1, SCEN_APP = '1.2.0', SCEN_FORMAT = 'daybreak-scenario';
+const SCEN_SCHEMA = 2, SCEN_APP = '1.3.0', SCEN_FORMAT = 'daybreak-scenario';
 const SCEN_STATUS = [
   ['surveyed', 'Surveyed', 'Visited and charted. Nobody holds it.'],
   ['claimed', 'Claimed', 'Claimed by the faction, with no one living there.'],
@@ -10800,12 +10883,14 @@ addEventListener('keydown', e => { if (!scenModalOpen) return; if (e.key === 'Es
   if (e.target && /INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName)) return; e.stopPropagation(); }, true);
 
 // ---------- the document ----------
-function scenBlankDoc(){ const t = scenNow(); return { format:SCEN_FORMAT, schema:SCEN_SCHEMA, id:scenUUID(), name:'Untitled scenario', author:lsGet('daybreak.author') || '', description:'',
-  licence:'CC BY-SA 4.0', created:t, modified:t, mapVersion:SCEN_APP, factions:[], designations:[], customStars:[], routes:[] }; }
+function scenBlankDoc(){ const t = scenNow(); return { format:SCEN_FORMAT, schema:1, id:scenUUID(), name:'Untitled scenario', author:lsGet('daybreak.author') || '', description:'',
+  licence:'CC BY-SA 4.0', created:t, modified:t, mapVersion:SCEN_APP, factions:[], designations:[], customStars:[], routes:[], systems:[] }; }
 function scenCheck(doc){
   if (!doc || typeof doc !== 'object' || doc.format !== SCEN_FORMAT) throw new Error('it has no Daybreak scenario header');
   if ((doc.schema || 0) > SCEN_SCHEMA){ const e = new Error('newer'); e.newer = doc.mapVersion || 'unknown'; throw e; }
-  for (const k of ['factions', 'designations', 'customStars', 'routes']) if (!Array.isArray(doc[k])) doc[k] = [];
+  for (const k of ['factions', 'designations', 'customStars', 'routes', 'systems']) if (!Array.isArray(doc[k])) doc[k] = [];
+  for (const D of doc.systems){ if (!D || !Array.isArray(D.bodies)) throw new Error('a designed system has no bodies'); if (!D.uuid) D.uuid = scenUUID(); if (!D.mode) D.mode = 'realistic';
+    for (const b of D.bodies){ if (!b.uuid) b.uuid = scenUUID(); b.place = b.place || { mode:'orbit' }; b.phys = b.phys || {}; b.look = b.look || {}; b.over = b.over || {}; b.units = b.units || {}; } }
   if (!doc.id) doc.id = scenUUID(); if (!doc.licence) doc.licence = 'CC BY-SA 4.0';
   for (const s of doc.customStars){ if (!Array.isArray(s.pos) || s.pos.length !== 3 || s.pos.some(v => !isFinite(v))) throw new Error('new star ' + (s.dbk || s.name || '?') + ' has no valid position'); if (!s.uuid) s.uuid = scenUUID(); }
   for (const d of doc.designations){ if (!d.key) throw new Error('a designation has no key'); if (!d.uuid) d.uuid = scenUUID(); }
@@ -10818,7 +10903,7 @@ function scenNextDBK(){ let n = 0; for (const s of SCEN.doc.customStars){ const 
 function scenEdit(fn){
   if (!SCEN.doc) scenStartNew(true);
   SCEN.undo.push(JSON.stringify(SCEN.doc)); if (SCEN.undo.length > 200) SCEN.undo.shift(); SCEN.redo.length = 0;
-  fn(SCEN.doc); SCEN.doc.modified = scenNow(); SCEN.doc.mapVersion = SCEN_APP; scenDirty();
+  fn(SCEN.doc); SCEN.doc.schema = (SCEN.doc.systems || []).length ? 2 : 1; SCEN.doc.modified = scenNow(); SCEN.doc.mapVersion = SCEN_APP; scenDirty();
   scenRebuild();
 }
 function scenDirty(){ SCEN.dirty = true; clearTimeout(SCEN.recTimer); SCEN.recTimer = setTimeout(scenWriteRecovery, 60000); scenStatus(); }
@@ -11024,11 +11109,12 @@ function scenRebuild(){
     for (const s of doc.customStars){
       const w = scenWorldOf(s.pos[0], s.pos[1], s.pos[2]);
       const o = { id:'scen-' + s.uuid.replace(/[^a-f0-9]/gi, '').slice(0, 12).toLowerCase(), name:s.name || s.dbk, alt:s.dbk, kind:'scen', scen:s, pos:w, dSol:w.distanceTo(SUN),
-        type:'Scenario star · ' + s.dbk, desig:'Scenario star · ' + s.dbk + (scenFacName(s.faction) ? ' · ' + scenFacName(s.faction) : '') };
+        type:(s.point ? 'Empty point · ' : 'Scenario star · ') + s.dbk, desig:(s.point ? 'Empty point · ' : 'Scenario star · ') + s.dbk + (scenFacName(s.faction) ? ' · ' + scenFacName(s.faction) : '') };
       o.nkey = nrm(o.name); o.skey = nrm([o.name, s.dbk, scenFacName(s.faction), 'scenario star'].join(' | '));
       objects.push(o); SCEN.objs.push(o); scenMkLabel(o, o.name, s);
     }
   }
+  sydRebuild();   // v1.3.0: designed systems, after the new stars they may hang off
   scenBuildMarkers(); scenPaint();
   if (typeof SLIP === 'object' && SLIP){   // a new star that has gone stops being a route endpoint
     for (const w of ['From', 'To']){ const f = slipField(w); const o = f && f.get(); if (o && o.kind === 'scen' && !SCEN.objs.includes(o)) slipSet(w, null); }
@@ -11040,6 +11126,7 @@ function scenRebuild(){
   applyFilter();
   if (FTREE.tab === 'fac' && $('#filters').classList.contains('open')) renderFilterTree();
   renderScenPanel(); scenStatus();
+  if (SYD.open) sydAfter();
 }
 function scenFacCss(fid){ const f = scenFac(fid); return f ? f.colour : '#cfd6e0'; }
 function scenMkLabel(o, text, it){
@@ -11070,7 +11157,7 @@ function scenBuildMarkers(){
   const n = SCEN.objs.length;
   if (n){ const pos = new Float32Array(n*3), col = new Float32Array(n*3), sz = new Float32Array(n);
     SCEN.objs.forEach((o, i) => { const s = o.scen, c = SCEN_SPEC_RGB[s.spec] || [1, 1, 1], M = isFinite(s.absMag) ? s.absMag : scenDefaultAbsMag(s.spec, s.lum);
-      pos[i*3] = o.pos.x; pos[i*3+1] = o.pos.y; pos[i*3+2] = o.pos.z; col[i*3] = c[0]; col[i*3+1] = c[1]; col[i*3+2] = c[2]; sz[i] = Math.min(60, Math.pow(10, -0.1*M)); });
+      pos[i*3] = o.pos.x; pos[i*3+1] = o.pos.y; pos[i*3+2] = o.pos.z; col[i*3] = c[0]; col[i*3+1] = c[1]; col[i*3+2] = c[2]; sz[i] = s.point ? 0 : Math.min(60, Math.pow(10, -0.1*M)); });
     SCEN.pts = makePoints(pos, col, sz, { tex:TEX_STAR, opacity:STAR.gain, order:4, star:true }); SCEN.pts.userData.base = sz.slice(); scene.add(SCEN.pts); }
 }
 function scenHexRGB(h){ const m = /^#?([0-9a-f]{6})$/i.exec(h || ''); if (!m) return [0.81, 0.84, 0.88]; const v = parseInt(m[1], 16); return [(v >> 16 & 255)/255, (v >> 8 & 255)/255, (v & 255)/255]; }
@@ -11081,7 +11168,7 @@ function scenPaint(){
     pts.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3)); pts.geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(col), 3)); pts.geometry.computeBoundingSphere(); };
   const ring = [], dia = [], ghostOn = FILT.fac.ghost;
   for (const o of SCEN.targets){ const d = o.scenD; if (!d) continue; const v = scenItemVis(d); if (!v && !ghostOn) continue; ring.push([o.viewPos || o.pos, d, !v]); }
-  SCEN.objs.forEach((o, i) => { const s = o.scen, cv = !CLSF.on || clsOK((s.spec || 0) | ((s.lum || 0) << 4)), v = scenItemVis(s) && cv;
+  SCEN.objs.forEach((o, i) => { const s = o.scen, cv = s.point || !CLSF.on || clsOK((s.spec || 0) | ((s.lum || 0) << 4)), v = scenItemVis(s) && cv;
     o.scenVis = v ? 1 : (ghostOn && cv) ? 2 : 0;
     if (SCEN.pts){ const a = SCEN.pts.geometry.attributes.size; a.array[i] = o.scenVis === 1 ? SCEN.pts.userData.base[i] : o.scenVis === 2 ? SCEN.pts.userData.base[i]*0.25 : 0; a.needsUpdate = true; }
     if (o.scenVis) dia.push([o.pos, s, o.scenVis === 2]); });
@@ -11117,7 +11204,7 @@ function scenNearest(w, maxD, fgk){
 // ---------- the scenario panel ----------
 function setScen(open){
   const el = $('#scen'); el.classList.toggle('open', open); SCEN.open = open;
-  if (open){ panel.classList.add('hidden'); if ($('#filters').classList.contains('open')) setFilters(false); if (typeof setSlip === 'function' && SLIP.open) setSlip(false);
+  if (open){ if (SYD && SYD.open) sydClose(); panel.classList.add('hidden'); if ($('#filters').classList.contains('open')) setFilters(false); if (typeof setSlip === 'function' && SLIP.open) setSlip(false);
     if (innerWidth < MOBILE) $('#layers').classList.remove('open'); renderScenPanel(); }
   else { SCEN.placing = false; }
   $('#btnScen').classList.toggle('on', open); syncGutters();
@@ -11154,6 +11241,7 @@ function renderScenPanel(){
   for (const s of d.customStars){ const o = SCEN.objs.find(x => x.scen === s);
     h += `<button class="srow2" data-sc="sel" data-id="${o ? o.id : ''}" title="Select on the map"><span><b>${esc(s.dbk)}</b> ${esc(s.name || '')}</span><span class="t">${esc(scenFacName(s.faction) || 'No faction')}${s.status ? ' · ' + SCEN_STATUS_NAME[s.status] : ''}</span></button>`; }
   if (SCEN.nf) h += scenNfHtml(); else h += `<button class="ibtn sadd2" data-sc="nfnew">+ New star</button>`;
+  h += sydScenSection();   // v1.3.0
   // designations
   h += `<div class="sgrp">Designated stars (${d.designations.length})</div>`;
   for (const x of d.designations){ const o = SCEN.resolved.get(x.key), bad = !o || SCEN.unresolved.includes(x);
@@ -11171,9 +11259,9 @@ function scenFacFormHtml(){ const F = SCEN.facForm;
     <div class="sbtns2"><button class="btn pr" data-sc="facsave">Save faction</button><button class="btn" data-sc="faccancel">Cancel</button>${F.id ? `<button class="btn ghost" data-sc="facdel">Delete faction</button>` : ''}</div></div>`; }
 // ---- New star form ----
 function scenNfBlank(){ const t = controls.target.clone().add(SHIFT), g = scenGalOf(t);
-  return { uuid:null, name:'', faction:'', status:'', founded:'', notes:'', fictional:true, spec:5, lum:1, absMag:'4.8', magTouched:false,
+  return { uuid:null, point:false, name:'', faction:'', status:'', founded:'', notes:'', fictional:true, spec:5, lum:1, absMag:'4.8', magTouched:false,
     place:'xyz', x:scenFix(g[0], 1), y:scenFix(g[1], 1), z:scenFix(g[2], 1), l:'', b:'', d:'', ra:'', dec:'', dr:'', mapZ:Math.round(g[2]), err:'' }; }
-function scenNfFrom(s){ const nf = scenNfBlank(); Object.assign(nf, { uuid:s.uuid, name:s.name || '', faction:s.faction || '', status:s.status || '', founded:s.founded || '', notes:s.notes || '', fictional:s.fictional !== false,
+function scenNfFrom(s){ const nf = scenNfBlank(); Object.assign(nf, { uuid:s.uuid, point:!!s.point, name:s.name || '', faction:s.faction || '', status:s.status || '', founded:s.founded || '', notes:s.notes || '', fictional:s.fictional !== false,
   spec:s.spec || 5, lum:s.lum || 1, absMag:String(isFinite(s.absMag) ? s.absMag : scenDefaultAbsMag(s.spec, s.lum)), magTouched:true, x:scenFix(s.pos[0], 2), y:scenFix(s.pos[1], 2), z:scenFix(s.pos[2], 2), mapZ:Math.round(s.pos[2]) }); return nf; }
 // the position the form currently describes, from whichever tab is active
 function scenNfPos(nf){
@@ -11197,15 +11285,16 @@ function scenNfHtml(){ const nf = SCEN.nf, P = nf.place, tab = (k, t) => `<butto
     + `<button class="ibtn" data-sc="placehere" title="Use the point the view is centred on">Place here</button>`;
   return `<div class="sform sbox"><div class="sfh">${nf.uuid ? 'Edit ' + esc((SCEN.doc.customStars.find(s => s.uuid === nf.uuid) || {}).dbk || '') : 'New star'}</div>
     ${fld('name', 'Name')}
+    <label class="sl">Kind</label><div class="stabs"><button class="${nf.point ? '' : 'on'}" data-sc="nfkind" data-k="star">Star</button><button class="${nf.point ? 'on' : ''}" data-sc="nfkind" data-k="point">Empty point</button></div>${nf.point ? '<p class="shint">For a system with no catalogue star: a rogue planet, a lone station, a black hole later on.</p>' : ''}
     <label class="sl">Faction</label><select data-nf="faction">${scenFacOptions(nf.faction)}</select>
     <label class="sl">Status</label><select data-nf="status">${scenOpt('', '—', nf.status)}${scenStatusOptions(nf.status)}</select>
     ${fld('founded', 'Founded (optional)')}
     <label class="sl">Notes</label>${notesEditor('data-nf', 'notes', nf.notes, 6)}
-    <label class="schk2"><input type="checkbox" data-nf="fictional"${nf.fictional ? ' checked' : ''}> Fictional</label><p class="shint">Off means a real object the map's catalogues do not carry, such as a missing brown dwarf.</p>
+    ${nf.point ? '' : `<label class="schk2"><input type="checkbox" data-nf="fictional"${nf.fictional ? ' checked' : ''}> Fictional</label><p class="shint">Off means a real object the map's catalogues do not carry, such as a missing brown dwarf.</p>
     <div class="s2col"><div><label class="sl">Spectral class</label><select data-nf="spec">${SCEN_SPEC.map(s => scenOpt(s[0], s[1], nf.spec)).join('')}</select></div>
     <div><label class="sl">Evolution class</label><select data-nf="lum">${SCEN_LUM.map(s => scenOpt(s[0], s[1], nf.lum)).join('')}</select></div></div>
     <p class="shint">These drive the star's colour, the class filter and the CSV.</p>
-    ${fld('absMag', 'Absolute magnitude')}<p class="shint">How bright it draws. Change it if you want a brighter or fainter star.</p>
+    ${fld('absMag', 'Absolute magnitude')}<p class="shint">How bright it draws. Change it if you want a brighter or fainter star.</p>`}
     <label class="sl">Place by</label><div class="stabs">${tab('xyz', 'Galactic X, Y, Z')}${tab('lbd', 'Galactic l, b, distance')}${tab('radec', 'RA, Dec, distance')}${tab('map', 'On the map')}</div>
     ${pl}
     <div class="sread" id="scenRead"></div><div id="scenNear"></div>
@@ -11238,7 +11327,7 @@ function scenNfSave(){
   const nf = SCEN.nf, pos = scenNfPos(nf);
   if (!nf.name.trim()){ nf.err = 'A new star needs a name.'; renderScenPanel(); return; }
   if (!pos || Math.hypot(...pos) > 200000){ nf.err = 'Enter a position.'; renderScenPanel(); return; }
-  const M = scenNum(nf.absMag), rec = { name:nf.name.trim(), faction:nf.faction || null, status:nf.status || null, founded:nf.founded.trim(), notes:nf.notes.trim(), fictional:!!nf.fictional,
+  const M = scenNum(nf.absMag), rec = { point:!!nf.point, name:nf.name.trim(), faction:nf.faction || null, status:nf.status || null, founded:nf.founded.trim(), notes:nf.notes.trim(), fictional:!!nf.fictional,
     spec:+nf.spec, lum:+nf.lum, absMag:isFinite(M) ? M : scenDefaultAbsMag(+nf.spec, +nf.lum), pos:pos.map(v => Math.round(v*1000)/1000) };
   const uuid = nf.uuid; SCEN.nf = null; SCEN.placing = false; SCEN.snapMsg = ''; scenPreview(null);
   scenEdit(doc => { if (uuid){ const s = doc.customStars.find(x => x.uuid === uuid); if (s) Object.assign(s, rec); }
@@ -11279,6 +11368,7 @@ $('#scenBody').addEventListener('click', async e => {
   if (a === 'facedit'){ const f = scenFac(b.dataset.id); if (f){ SCEN.facForm = { id:f.id, name:f.name, code:f.code || '', colour:f.colour, description:f.description || '', err:'' }; renderScenPanel(); } return; }
   if (a === 'facsave') return scenFacSave(); if (a === 'faccancel'){ SCEN.facForm = null; return renderScenPanel(); } if (a === 'facdel') return scenFacDelete(SCEN.facForm.id);
   if (a === 'nfnew'){ SCEN.nf = scenNfBlank(); SCEN.keepNear = false; SCEN.snapMsg = ''; return renderScenPanel(); }
+  if (a === 'nfkind'){ SCEN.nf.point = b.dataset.k === 'point'; return renderScenPanel(); }
   if (a === 'nftab'){ const nf = SCEN.nf; scenNfSync(nf, scenNfPos(nf)); nf.place = b.dataset.tab; return renderScenPanel(); }
   if (a === 'placehere'){ const g = scenGalOf(controls.target.clone().add(SHIFT)); SCEN.nf.x = scenFix(g[0], 1); SCEN.nf.y = scenFix(g[1], 1); return scenNfUpdate(); }
   if (a === 'nfsave') return scenNfSave(); if (a === 'nfcancel'){ SCEN.nf = null; SCEN.placing = false; SCEN.snapMsg = ''; scenPreview(null); return renderScenPanel(); }
@@ -11368,10 +11458,10 @@ function scenBlock(o){
   if (!SCEN || !SCEN.ready) return '';
   let h = '';
   if (o.kind === 'scen'){ const s = o.scen, cls = clsTextOf(s);
-    h += `<div class="grp">Scenario</div><p>${s.fictional === false ? 'Real but uncatalogued' : 'Fictional'} star added in the scenario ${esc(SCEN.doc ? SCEN.doc.name : '')}${s.author ? ' by ' + esc(s.author) : ''}.</p>`;
+    h += `<div class="grp">Scenario</div><p>${s.point ? 'Empty point' : (s.fictional === false ? 'Real but uncatalogued' : 'Fictional') + ' star'} added in the scenario ${esc(SCEN.doc ? SCEN.doc.name : '')}${s.author ? ' by ' + esc(s.author) : ''}.</p>`;
     h += `<div class="kv"><div><span class="k">DBK id</span><span class="v">${esc(s.dbk)}</span></div><div><span class="k">Faction</span><span class="v">${esc(scenFacName(s.faction) || 'No faction')}</span></div>`
       + `<div><span class="k">Status</span><span class="v">${s.status ? SCEN_STATUS_NAME[s.status] : '—'}</span></div>` + (s.founded ? `<div><span class="k">Founded</span><span class="v">${esc(s.founded)}</span></div>` : '')
-      + `<div><span class="k">Class</span><span class="v" style="white-space:normal;font-size:11.5px">${esc(cls)}</span></div><div><span class="k">Absolute mag</span><span class="v">${(+s.absMag).toFixed(2)}</span></div>`
+      + (s.point ? '' : `<div><span class="k">Class</span><span class="v" style="white-space:normal;font-size:11.5px">${esc(cls)}</span></div><div><span class="k">Absolute mag</span><span class="v">${(+s.absMag).toFixed(2)}</span></div>`)
       + `<div><span class="k">Galactic X, Y, Z</span><span class="v" style="font-size:11px">${s.pos.map(v => v.toFixed(1)).join(', ')} ly</span></div>` + `</div>` + notesBlock(s.notes);
     h += `<div class="acts"><button class="btn" data-scen="nfedit">Edit</button><button class="btn ghost" data-scen="nfdel">Delete star</button></div>`;
     return h;
@@ -11500,15 +11590,18 @@ async function scenExportDialog(){
   const html = `<div class="sform"><label class="sl">What</label>
     <label class="schk2"><input type="radio" name="sxw" value="sys" checked> Systems (CSV)</label>
     <label class="schk2"><input type="radio" name="sxw" value="hou"> Houdini points (CSV)</label>
+    ${(SCEN.doc.systems || []).length ? `<label class="schk2"><input type="radio" name="sxw" value="bod"> System bodies (CSV)</label><div style="margin-left:22px"><label class="schk2"><input type="radio" name="sxs" value="this"${SYD.sys || (activeSys && activeSys.design) ? ' checked' : ' disabled'}> Only this system</label><label class="schk2"><input type="radio" name="sxs" value="all"${SYD.sys || (activeSys && activeSys.design) ? '' : ' checked'}> All designed systems</label></div>` : ''}
     <label class="schk2"><input type="radio" name="sxw" value="json"> Scenario file (.json, same as Save as)</label>
     <label class="sl">Factions</label>${rows.map(r => `<label class="schk2"><input type="checkbox" data-xk="${esc(r.key)}" checked><i class="fsw" style="background:${esc(r.colour)}"></i> ${esc(r.name)}</label>`).join('')}
     <label class="schk2"><input type="checkbox" id="sxOnly"> Only what the current filters show</label>
     <p class="shint" id="sxCount"></p></div>`;
-  const read = el => ({ what:(el.querySelector('input[name=sxw]:checked') || {}).value, keys:new Set([...el.querySelectorAll('[data-xk]')].filter(c => c.checked).map(c => c.dataset.xk)), only:el.querySelector('#sxOnly').checked });
+  const read = el => ({ scope:(el.querySelector('input[name=sxs]:checked') || {}).value || 'all', what:(el.querySelector('input[name=sxw]:checked') || {}).value, keys:new Set([...el.querySelectorAll('[data-xk]')].filter(c => c.checked).map(c => c.dataset.xk)), only:el.querySelector('#sxOnly').checked });
   const res = await scenModal({ title:'Export', html, buttons:[['go', 'Export', true], ['cancel', 'Cancel']], read,
-    onOpen:el => { const upd = () => { const v = read(el); el.querySelector('#sxCount').textContent = v.what === 'json' ? '' : `${count(v.keys, v.only).toLocaleString('en-GB')} systems will be exported`; }; el.addEventListener('change', upd); upd(); } });
+    onOpen:el => { const upd = () => { const v = read(el); el.querySelector('#sxCount').textContent = v.what === 'json' ? '' : v.what === 'bod' ? `${sydExportRows(v.scope).length.toLocaleString('en-GB')} bodies will be exported` : `${count(v.keys, v.only).toLocaleString('en-GB')} systems will be exported`; }; el.addEventListener('change', upd); upd(); } });
   if (res.id !== 'go') return; const v = res.v;
   if (v.what === 'json') return scenSaveAs();
+  if (v.what === 'bod'){ const rows = sydExportRows(v.scope), p = await scenWriteExport(scenSafeName(SCEN.doc.name) + ' system bodies.csv', scenCsv([SYD_COLS].concat(rows))); if (!p) return;
+    SCEN.importMsg = `Exported ${rows.length.toLocaleString('en-GB')} bodies to ${esc(scenFileName(p))}`; renderScenPanel(); return; }
   const x = scenExportText(v.what, v.keys, v.only);
   const p = await scenWriteExport(x.name, x.text); if (!p) return;
   SCEN.importMsg = `Exported ${x.count.toLocaleString('en-GB')} rows to ${esc(scenFileName(p))}`; renderScenPanel();
@@ -11608,6 +11701,1148 @@ async function scenStartup(){
   } catch(e){ console.warn('last scenario could not be reopened', e); }
   scenRebuild();
 }
+// ---------- v1.3.0: the system designer ----------
+// Designed systems live in the scenario file (doc.systems). Each one is drawn by the designer's own engine, built
+// to the same shape as a built-in system so entering, selection, flights and labels all work as they do for the
+// systems the map ships with. A design on a star the map already models (Sol, Epsilon Eridani, Soell and the rest)
+// starts as a copy of that model and overrides it while it exists; the built-in model is never changed.
+//
+// Physics for realistic mode, every relation cited in the About sheet and CREDITS.md:
+//  - main-sequence and brown dwarf stars: E. Mamajek, "A Modern Mean Dwarf Stellar Color and Effective Temperature
+//    Sequence", version 2022.04.16 (much of it published as Table 5 of Pecaut & Mamajek 2013, ApJS 208, 9). Columns
+//    kept: spectral type, Teff (K), log L (solar), R (solar), M (solar). Read 19 November 2026.
+//  - habitable zone: Kopparapu et al. 2014, ApJL 787, L29, equations 4 and 5, coefficients for 1 Earth mass from the
+//    authors' own code (recent Venus, runaway greenhouse, maximum greenhouse, early Mars).
+//  - planet mass from radius: Chen & Kipping 2017, ApJ 834, 17, the central power laws only (Terran below 2.04 Earth
+//    masses, Neptunian to 132), inverted. Not used above about 14.3 Earth radii, where radius barely changes with mass.
+//  - orbit spacing: Chambers, Wetherill & Boss 1996, Icarus 119, 261 (adjacent planets under about 10 mutual Hill
+//    radii apart tend not to last).
+//  - stable moon orbits: Domingos, Winter & Yokoyama 2006, MNRAS 373, 1227 (prograde 0.4895, retrograde 0.9309 of the
+//    Hill radius, reduced by the eccentricities).
+//  - frost line: Hayashi 1981, Prog. Theor. Phys. Suppl. 70, 35 (2.7 AU for the Sun, the 170 K black-body distance,
+//    so it scales with the square root of luminosity).
+//  - Roche limit: the fluid-body form, 2.44 R (rho_planet / rho_moon)^(1/3).
+// Evolved stars (subgiants, giants, supergiants), white dwarfs, neutron stars, Wolf-Rayet, carbon stars and
+// protostars use typical values for their class and say so; they are approximate.
+const SYD_MSUN = 332946.0487, SYD_MJUP = 317.83, SYD_RSUN = 695700, SYD_RJUP = 71492, SYD_REAR = 6371, SYD_TSUN = 5772;
+const SYD_LET = 'OBAFGKMLTY';
+// [code, Teff, log L, R, M]; code = letter index x 10 + subclass. null where the table has no value.
+const SYD_MS = [[3,44900,5.82,13.43,59],[4,42900,5.65,12.13,48],[5,41400,5.54,11.45,43],[5.5,40500,5.44,10.71,38],[6,39500,5.36,10.27,35],[6.5,38300,5.27,9.82,31],
+  [7,37100,5.18,9.42,28],[7.5,36100,5.09,8.95,26],[8,35100,4.99,8.47,23.6],[8.5,34300,4.91,8.06,21.9],[9,33300,4.82,7.72,20.2],[9.5,31900,4.72,7.5,18.7],
+  [10,31400,4.65,7.16,17.7],[10.5,29000,4.43,6.48,14.8],[11,26000,4.13,5.71,11.8],[11.5,24500,3.91,5.02,9.9],[12,20600,3.43,4.06,7.3],[12.5,18500,3.2,3.89,6.1],
+  [13,17000,2.99,3.61,5.4],[14,16400,2.89,3.46,5.1],[15,15700,2.77,3.36,4.7],[16,14500,2.57,3.27,4.3],[17,14000,2.48,2.94,3.92],[18,12300,2.19,2.86,3.38],
+  [19,10700,1.86,2.49,2.75],[19.5,10400,1.8,2.45,2.68],[20,9700,1.58,2.193,2.18],[21,9300,1.49,2.136,2.05],[22,8800,1.38,2.117,1.98],[23,8600,1.23,1.861,1.86],
+  [24,8250,1.13,1.794,1.93],[25,8100,1.09,1.785,1.88],[26,7910,1.05,1.775,1.83],[27,7760,1.0,1.75,1.77],[28,7590,0.96,1.747,1.81],[29,7400,0.92,1.747,1.75],
+  [30,7220,0.86,1.728,1.61],[31,7020,0.79,1.679,1.5],[32,6820,0.71,1.622,1.46],[33,6750,0.67,1.578,1.44],[34,6670,0.62,1.533,1.38],[35,6550,0.56,1.473,1.33],
+  [36,6350,0.43,1.359,1.25],[37,6280,0.39,1.324,1.21],[38,6180,0.29,1.221,1.18],[39,6050,0.22,1.167,1.13],[39.5,5990,0.18,1.142,1.08],[40,5930,0.13,1.1,1.06],
+  [41,5860,0.08,1.06,1.03],[42,5770,0.01,1.012,1.0],[43,5720,-0.01,1.002,0.99],[44,5680,-0.04,0.991,0.985],[45,5660,-0.05,0.977,0.98],[46,5600,-0.1,0.949,0.97],
+  [47,5550,-0.13,0.927,0.95],[48,5480,-0.17,0.914,0.94],[49,5380,-0.26,0.853,0.9],[50,5270,-0.34,0.813,0.88],[51,5170,-0.39,0.797,0.86],[52,5100,-0.43,0.783,0.82],
+  [53,4830,-0.55,0.755,0.78],[54,4600,-0.69,0.713,0.73],[55,4440,-0.76,0.701,0.7],[56,4300,-0.86,0.669,0.69],[57,4100,-1.0,0.63,0.64],[58,3990,-1.06,0.615,0.62],
+  [59,3930,-1.1,0.608,0.59],[60,3850,-1.16,0.588,0.57],[60.5,3770,-1.27,0.544,0.54],[61,3660,-1.39,0.501,0.5],[61.5,3620,-1.44,0.482,0.47],[62,3560,-1.54,0.446,0.44],
+  [62.5,3470,-1.64,0.421,0.4],[63,3430,-1.79,0.361,0.37],[63.5,3270,-2.03,0.3,0.27],[64,3210,-2.14,0.274,0.23],[64.5,3110,-2.4,0.217,0.184],[65,3060,-2.52,0.196,0.162],
+  [65.5,2930,-2.79,0.156,0.123],[66,2810,-2.98,0.137,0.102],[66.5,2740,-3.1,0.126,0.093],[67,2680,-3.19,0.12,0.09],[67.5,2630,-3.24,0.116,0.088],[68,2570,-3.28,0.114,0.085],
+  [68.5,2420,-3.47,0.104,0.08],[69,2380,-3.52,0.102,0.079],[69.5,2350,-3.57,0.101,0.078],[70,2270,-3.6,0.102,null],[71,2160,-3.71,0.0995,null],[72,2060,-3.82,0.097,null],
+  [73,1920,-3.96,0.0942,null],[74,1870,-4.01,0.094,null],[75,1710,-4.2,0.0909,null],[76,1550,-4.38,0.0891,null],[77,1530,-4.41,0.0886,null],[78,1420,-4.55,0.0875,null],
+  [79,1370,-4.61,0.0877,null],[80,1255,-4.66,0.098,null],[81,1240,-4.69,0.1,null],[82,1220,-4.73,0.1,null],[83,1200,-4.77,0.102,null],[84,1180,-4.84,0.101,null],
+  [84.5,1170,-4.9,0.099,null],[85,1160,-4.95,0.101,null],[85.5,1040,-5.04,0.099,null],[86,950,-5.12,0.1,null],[87,825,-5.37,0.098,null],[87.5,750,-5.54,0.095,null],
+  [88,680,-5.71,0.095,null],[88.5,600,-5.93,0.097,null],[89,560,-6.15,0.1,null],[89.5,510,null,null,null],[90,450,-6.52,0.104,null],[90.5,400,null,null,null],
+  [91,360,null,null,null],[91.5,325,null,null,null],[92,320,null,null,null],[94,250,null,null,null]];
+// typical values for evolved classes, approximate: [code, Teff, R (solar), M (solar)]
+const SYD_GIANT = [[10,29000,15,20],[15,15000,8,7],[20,10100,5,4],[30,7150,4,2.5],[40,5850,6,1.0],[45,5150,10,1.1],[50,4750,15,1.1],[55,3950,25,1.2],[60,3800,40,1.2],[65,3330,100,1.2]];
+const SYD_SUPER = [[5,40000,30,70],[10,26000,30,25],[15,13600,50,20],[20,9980,60,16],[25,8610,60,13],[30,7460,80,12],[35,6370,100,10],[40,5370,120,10],[45,4930,150,12],
+  [50,4550,200,13],[55,3990,400,13],[60,3620,500,13],[62,3370,800,19],[65,2900,1000,20]];
+// the star kinds that are not set by a spectral type at all: [Teff, R (solar), M (solar)]
+const SYD_FIXED = { wd:[10000, 0.0125, 0.6], ns:[600000, 10/SYD_RSUN, 1.4], wr:[50000, 2.0, 15], carbon:[3000, 200, 1.5], proto:[4300, 2.5, 0.8] };
+// Kopparapu et al. 2014, 1 Earth mass: recent Venus, runaway greenhouse, maximum greenhouse, early Mars
+const SYD_HZ = { s:[1.776, 1.107, 0.356, 0.320], a:[2.136e-4, 1.332e-4, 6.171e-5, 5.547e-5], b:[2.533e-8, 1.580e-8, 1.698e-9, 1.526e-9],
+  c:[-1.332e-11, -8.308e-12, -3.198e-12, -2.874e-12], d:[-3.097e-15, -1.931e-15, -5.575e-16, -5.011e-16] };
+
+function sydInterp(T, code, cols){
+  if (!isFinite(code)) return null;
+  let lo = null, hi = null;
+  for (const r of T){ if (r[0] <= code) lo = r; if (r[0] >= code && !hi) hi = r; }
+  if (!lo) lo = hi; if (!hi) hi = lo; if (!lo) return null;
+  const f = hi[0] === lo[0] ? 0 : (code - lo[0])/(hi[0] - lo[0]);
+  return cols.map(c => lo[c] == null || hi[c] == null ? (f < 0.5 ? lo[c] : hi[c]) : lo[c] + (hi[c] - lo[c])*f);
+}
+// "G2V", "K1.5 V", "M4.5Ve", "G8III", "B8V eclipsing binary", "DA", "sdM1" -> { code, lc }
+function sydSpec(s){
+  s = String(s || '').trim();
+  if (/^D[ABOQZCX]?/i.test(s) && !/^DM/i.test(s)) return { wd:true, code:NaN, lc:'D' };
+  const m = /^(?:sd)?([OBAFGKMLTY])\s*(\d+(?:\.\d+)?)?\s*(Ia\+|Iab|Ia|Ib|0|III|II|IV|VI|V|I)?/i.exec(s);
+  if (!m) return null;
+  const L = SYD_LET.indexOf(m[1].toUpperCase()), sub = m[2] != null ? +m[2] : 5;
+  let lc = (m[3] || '').toUpperCase(); if (lc === 'VI') lc = 'V'; if (/^(I[AB]?\+?|IAB|0)$/.test(lc)) lc = 'I';
+  return { code:L*10 + Math.min(9.9, sub), lc };
+}
+// star properties for a kind and a spectral type. Teff K, lum solar, R km, M Earth masses.
+function sydStarProps(kind, spec){
+  const F = SYD_FIXED[kind];
+  if (F) return { teff:F[0], R:F[1]*SYD_RSUN, M:F[2]*SYD_MSUN, lum:F[1]*F[1]*Math.pow(F[0]/SYD_TSUN, 4), src:'typical' };
+  const p = sydSpec(spec); if (!p || p.wd) return null;
+  let lc = p.lc || (kind === 'giant' ? 'III' : kind === 'supergiant' ? 'I' : kind === 'subgiant' ? 'IV' : 'V');
+  if (kind === 'ms' || kind === 'bd') lc = 'V';
+  if (lc === 'V'){ const r = sydInterp(SYD_MS, p.code, [1, 2, 3, 4]); if (!r) return null;
+    const [t, lg, R, M] = r, lum = lg != null ? Math.pow(10, lg) : (R != null ? R*R*Math.pow(t/SYD_TSUN, 4) : null);
+    return { teff:t, lum, R:R != null ? R*SYD_RSUN : null, M:M != null ? M*SYD_MSUN : null, src:'table', noMass:M == null }; }
+  const typ = (T, k) => { const r = sydInterp(T, p.code, [1, 2, 3]); return r ? { teff:r[0], R:r[1]*k*SYD_RSUN, M:r[2]*SYD_MSUN, lum:Math.pow(r[1]*k, 2)*Math.pow(r[0]/SYD_TSUN, 4), src:'typical' } : null; };
+  if (lc === 'III') return typ(SYD_GIANT, 1);
+  if (lc === 'I') return typ(SYD_SUPER, 1);
+  if (lc === 'II'){ const a = typ(SYD_GIANT, 1), b = typ(SYD_SUPER, 1); if (!a || !b) return a || b;
+    const g = (x, y) => Math.sqrt(x*y); const R = g(a.R, b.R), t = (a.teff + b.teff)/2; return { teff:t, R, M:g(a.M, b.M), lum:Math.pow(R/SYD_RSUN, 2)*Math.pow(t/SYD_TSUN, 4), src:'typical' }; }
+  if (lc === 'IV'){ const v = sydInterp(SYD_MS, p.code, [1, 3, 4]); if (!v) return null; const R = (v[1] || 1)*1.7, M = (v[2] || 1)*1.1;
+    return { teff:v[0]*0.97, R:R*SYD_RSUN, M:M*SYD_MSUN, lum:R*R*Math.pow(v[0]*0.97/SYD_TSUN, 4), src:'typical' }; }
+  return null;
+}
+// Chen & Kipping 2017, central relation, inverted: radius (km) -> mass (Earth masses), or null for giant planets
+function sydMassFromR(Rkm){
+  const R = Rkm/SYD_REAR; if (!(R > 0)) return null;
+  const R1 = 1.008*Math.pow(2.04, 0.279), R2 = R1*Math.pow(132/2.04, 0.589);
+  if (R <= R1) return Math.pow(R/1.008, 1/0.279);
+  if (R <= R2) return 2.04*Math.pow(R/R1, 1/0.589);
+  return null;
+}
+// Kopparapu et al. 2014: [recent Venus, runaway greenhouse, maximum greenhouse, early Mars] in AU
+function sydHZ(teff, lum){
+  if (!(teff > 0) || !(lum > 0)) return null;
+  const T = Math.min(7200, Math.max(2600, teff)) - 5780, H = SYD_HZ;
+  return H.s.map((s, i) => Math.sqrt(lum/(s + H.a[i]*T + H.b[i]*T*T + H.c[i]*T*T*T + H.d[i]*T*T*T*T)));
+}
+const sydFrost = lum => 2.7*Math.sqrt(lum);
+const sydPeriod = (aAU, Mparent, m) => (Mparent + (m || 0)) > 0 && aAU > 0 ? 365.25*Math.sqrt(aAU*aAU*aAU/((Mparent + (m || 0))/SYD_MSUN)) : null;   // days
+const sydHill = (aAU, e, m, M) => m > 0 && M > 0 ? aAU*(1 - (e || 0))*Math.cbrt(m/(3*M)) : null;
+const sydDens = (mE, Rkm) => mE > 0 && Rkm > 0 ? mE*5.9722e24/(4/3*Math.PI*Math.pow(Rkm*1000, 3)) : null;   // kg/m3
+const sydTeq = (teff, Rkm, dAU, A) => teff > 0 && Rkm > 0 && dAU > 0 ? teff*Math.sqrt(Rkm/(2*dAU*AU_KM))*Math.pow(1 - Math.min(0.99, A || 0), 0.25) : null;
+// star colour from temperature, through the map's own spectral-class colours (the same as the new-star points)
+const SYD_TRGB = [[40000,1],[20000,2],[9000,3],[6800,4],[5600,5],[4500,6],[3200,7],[1900,8],[1100,9]];
+function sydTempRGB(T){
+  if (!(T > 0)) return [1, 0.96, 0.92];
+  if (T >= SYD_TRGB[0][0]) return SCEN_SPEC_RGB[1].slice();
+  for (let i = 1; i < SYD_TRGB.length; i++){ const [t1, s1] = SYD_TRGB[i - 1], [t2, s2] = SYD_TRGB[i];
+    if (T >= t2){ const f = (T - t2)/(t1 - t2), a = SCEN_SPEC_RGB[s2], b = SCEN_SPEC_RGB[s1]; return [0, 1, 2].map(k => a[k] + (b[k] - a[k])*f); } }
+  const y = SCEN_SPEC_RGB[9]; return [y[0]*0.8, y[1]*0.5, y[2]*0.7];
+}
+const sydHex = rgb => '#' + rgb.map(v => Math.round(Math.max(0, Math.min(1, v))*255).toString(16).padStart(2, '0')).join('');
+
+// ---------- the kinds of body the designer can place ----------
+// cat: star, planet, moon, ring, belt (belts, discs and clouds), comet, art (artificial), halo (copied ring installations)
+// look: the procedural surface type; R km; M Earth masses; a in AU (or km for moons, via the parent)
+const SYD_GROUPS = [['star', 'Stars'], ['planet', 'Planets'], ['sat', 'Satellites'], ['small', 'Small bodies'], ['art', 'Artificial']];
+const SYD_KINDS = {
+  ms:{ g:'star', cat:'star', n:'Main-sequence star', tip:'Hydrogen-burning, O to M. Set the spectral type and the rest follows.', spec:'G2V' },
+  subgiant:{ g:'star', cat:'star', n:'Subgiant', tip:'Leaving the main sequence, brighter and larger.', spec:'G5IV' },
+  giant:{ g:'star', cat:'star', n:'Giant', tip:'A swollen, cooler star late in life.', spec:'K0III' },
+  supergiant:{ g:'star', cat:'star', n:'Supergiant', tip:'The largest and brightest stars.', spec:'M2I' },
+  wd:{ g:'star', cat:'star', n:'White dwarf', tip:'The hot, Earth-sized core left by a star like the Sun.', spec:'DA' },
+  bd:{ g:'star', cat:'star', n:'Brown dwarf', tip:'Too small to burn hydrogen. Spectral types L, T and Y.', spec:'T5', M:0.05*332946 },
+  proto:{ g:'star', cat:'star', n:'Protostar', tip:'A young T Tauri star, often with a disc.', spec:'K7' },
+  wr:{ g:'star', cat:'star', n:'Wolf-Rayet star', tip:'A hot, massive star shedding its outer layers.', spec:'WN' },
+  carbon:{ g:'star', cat:'star', n:'Carbon star', tip:'A cool giant rich in carbon, deep red.', spec:'C5' },
+  ns:{ g:'star', cat:'star', n:'Neutron star', tip:'The collapsed core of a massive star, about 20 km across.', spec:'' },
+  terran:{ g:'planet', cat:'planet', n:'Terran', tip:'Oceans, continents, clouds.', R:6371, look:'terran', c1:'#2d6fa8', c2:'#5f8f3e', cloud:0.5, ocean:0.6, atm:'earth', A:0.3 },
+  ocean:{ g:'planet', cat:'planet', n:'Ocean', tip:'Water from pole to pole.', R:7100, look:'ocean', c1:'#1f5c9a', c2:'#cfd9cc', cloud:0.55, ocean:0.97, atm:'earth', A:0.3 },
+  desert:{ g:'planet', cat:'planet', n:'Desert', tip:'Dry, with little or no surface water.', R:5600, look:'desert', c1:'#c8975a', c2:'#8a5a32', cloud:0.08, ocean:0.05, atm:'thin', A:0.35 },
+  ice:{ g:'planet', cat:'planet', n:'Ice', tip:'Frozen over.', R:4800, look:'ice', c1:'#dfeaf2', c2:'#8fb1c8', cloud:0.1, ocean:0, atm:'thin', A:0.6 },
+  lava:{ g:'planet', cat:'planet', n:'Lava', tip:'Molten surface, close to its star.', R:6100, look:'lava', c1:'#2a1a16', c2:'#ff6a1a', cloud:0, ocean:0, atm:'thin', A:0.1 },
+  iron:{ g:'planet', cat:'planet', n:'Iron', tip:'A dense metal-rich world.', R:3600, look:'iron', c1:'#7d7f84', c2:'#4b4d52', cloud:0, ocean:0, atm:'none', A:0.12 },
+  carbonp:{ g:'planet', cat:'planet', n:'Carbon', tip:'Graphite and carbides, dark.', R:7500, look:'carbon', c1:'#2b2a2c', c2:'#58544e', cloud:0.15, ocean:0, atm:'thin', A:0.08 },
+  barren:{ g:'planet', cat:'planet', n:'Barren', tip:'Airless rock, cratered.', R:2600, look:'barren', c1:'#8d8a84', c2:'#5d5a55', cloud:0, ocean:0, atm:'none', A:0.12 },
+  superearth:{ g:'planet', cat:'planet', n:'Super-Earth', tip:'Rocky, up to about twice Earth\'s radius.', R:10400, look:'terran', c1:'#3a6d8c', c2:'#7d7a4a', cloud:0.45, ocean:0.45, atm:'thick', A:0.3 },
+  minineptune:{ g:'planet', cat:'planet', n:'Mini-Neptune', tip:'A thick gas envelope over a small core.', R:15500, look:'icegiant', c1:'#7fb4c9', c2:'#5a8fa5', atm:'thick', A:0.35 },
+  icegiant:{ g:'planet', cat:'planet', n:'Ice giant', tip:'Like Uranus and Neptune.', R:25000, M:15, look:'icegiant', c1:'#6fb8d6', c2:'#3f78b8', atm:'thick', A:0.3, giant:true },
+  gasgiant:{ g:'planet', cat:'planet', n:'Gas giant', tip:'Like Jupiter and Saturn. Set its cloud class for its colour.', R:69911, M:317.8, look:'gas', sud:1, c1:'#d9b48a', c2:'#9c6b47', atm:'thick', A:0.34, giant:true },
+  hotjupiter:{ g:'planet', cat:'planet', n:'Hot Jupiter', tip:'A gas giant in a very close orbit.', R:90000, M:300, look:'gas', sud:5, c1:'#5a3a3a', c2:'#b2643c', atm:'thick', A:0.05, giant:true, a:0.05 },
+  dwarf:{ g:'planet', cat:'planet', n:'Dwarf planet', tip:'Round, but hasn\'t cleared its orbit.', R:1150, look:'barren', c1:'#b8a898', c2:'#7d6a5a', atm:'none', A:0.5 },
+  eyeball:{ g:'planet', cat:'planet', n:'Eyeball world', tip:'Tidally locked: one hot face, one frozen face, a ring of twilight.', R:6800, look:'eyeball', c1:'#2a5f8a', c2:'#e8f0f4', cloud:0.25, ocean:0.6, atm:'earth', A:0.3, locked:true },
+  rogue:{ g:'planet', cat:'planet', n:'Rogue planet', tip:'No star. Placed by free position.', R:7000, look:'ice', c1:'#59646e', c2:'#2f3840', atm:'thin', A:0.3, free:true },
+  moon:{ g:'sat', cat:'moon', n:'Moon', tip:'Orbits a planet.', R:1737, look:'barren', c1:'#a9a59e', c2:'#6c6862', atm:'none', A:0.12 },
+  moonlet:{ g:'sat', cat:'moon', n:'Moonlet', tip:'A small irregular moon.', R:15, look:'barren', c1:'#7d766d', c2:'#4e4943', atm:'none', A:0.07 },
+  captured:{ g:'sat', cat:'moon', n:'Captured moon', tip:'Inclined and retrograde, as if captured.', R:120, look:'barren', c1:'#6f6a64', c2:'#47433f', atm:'none', A:0.06, retro:true, i:32, e:0.25 },
+  ring:{ g:'sat', cat:'ring', n:'Ring system', tip:'Rings around any body.', c1:'#d8c9ad' },
+  belt:{ g:'small', cat:'belt', n:'Asteroid belt', r0:2.2, r1:3.2, h:0.25, es:0.12, is:8, pts:20000, c1:'#a89a86' },
+  comet:{ g:'small', cat:'comet', n:'Comet', tip:'An eccentric orbit, with a tail near the star.', R:5, look:'barren', c1:'#5c5752', c2:'#2f2c29', A:0.04, a:18, e:0.9, i:24, tail:1 },
+  kuiper:{ g:'small', cat:'belt', n:'Kuiper belt', r0:30, r1:50, h:6, es:0.1, is:10, pts:30000, c1:'#9aa7b6' },
+  scattered:{ g:'small', cat:'belt', n:'Scattered disc', r0:30, r1:100, h:12, es:0.45, is:25, pts:15000, c1:'#8794a3' },
+  oortin:{ g:'small', cat:'belt', n:'Inner Oort cloud', r0:2000, r1:20000, h:0, es:0.3, is:70, pts:60000, c1:'#8fa3bb', cloud:true },
+  oortout:{ g:'small', cat:'belt', n:'Outer Oort cloud', r0:20000, r1:100000, h:0, es:0.3, is:90, pts:120000, c1:'#8296b0', cloud:true },
+  debris:{ g:'small', cat:'belt', n:'Debris disc', r0:30, r1:150, h:2, es:0.05, is:2, pts:40000, c1:'#c9b79a' },
+  protodisc:{ g:'small', cat:'belt', n:'Protoplanetary disc', r0:0.1, r1:100, h:0.06, es:0.02, is:1, pts:80000, c1:'#d79a5f', flare:true },
+  station:{ g:'art', cat:'art', n:'Station', S:2 }, satellite:{ g:'art', cat:'art', n:'Satellite', S:0.01 }, shipyard:{ g:'art', cat:'art', n:'Shipyard', S:20 },
+  defence:{ g:'art', cat:'art', n:'Defence platform', S:1 }, beacon:{ g:'art', cat:'art', n:'Beacon', S:0.05 }, oneill:{ g:'art', cat:'art', n:'O\'Neill cylinder', S:32 },
+  oring:{ g:'art', cat:'art', n:'Orbital ring', S:20, attach:true }, elevator:{ g:'art', cat:'art', n:'Space elevator', S:5, attach:true }, ringhab:{ g:'art', cat:'art', n:'Ring habitat', S:2000 },
+  halo:{ g:null, cat:'halo', n:'Halo installation' }
+};
+const SYD_ART_TIP = 'Simple procedural models, sized as you set them.';
+const SYD_SUD = [[1, 'I', 'Ammonia clouds, cool, pale banded', '#d9c2a0', '#a47c56'], [2, 'II', 'Water clouds, bright white', '#f1f1ea', '#c7cfd6'], [3, 'III', 'Cloudless, blue', '#5f86c4', '#3b5f9c'],
+  [4, 'IV', 'Alkali metals, dark', '#4a3d39', '#7a5a43'], [5, 'V', 'Silicate clouds, hottest', '#8a5b45', '#d08a50']];
+const SYD_LOOKS = [['terran', 'Terran'], ['ocean', 'Ocean'], ['desert', 'Desert'], ['ice', 'Ice'], ['lava', 'Lava'], ['iron', 'Iron'], ['carbon', 'Carbon'], ['barren', 'Barren'],
+  ['gas', 'Gas giant'], ['icegiant', 'Ice giant'], ['eyeball', 'Eyeball'], ['holo', 'Hologram']];
+const SYD_LOOK_ID = { terran:0, ocean:1, desert:2, ice:3, lava:4, iron:5, carbon:6, barren:7, gas:8, icegiant:9, bd:10, eyeball:11 };
+const SYD_ATM = [['none', 'None'], ['thin', 'Thin'], ['earth', 'Earth-like'], ['thick', 'Thick']];
+const SYD_ATM_K = { none:0, thin:0.35, earth:0.7, thick:1 };
+// units: canonical AU, km, Earth masses, days, hours
+const SYD_U = {
+  dist:[['AU', 1], ['km', 1/149597870.7], ['ly', 63241.077]],
+  rad:[['km', 1], ['R⊕', 6371], ['R♃', 71492], ['R☉', 695700]],
+  mass:[['M⊕', 1], ['M♃', 317.83], ['M☉', 332946.0487]],
+  time:[['hours', 1/24], ['days', 1], ['years', 365.25]],
+  rot:[['hours', 1], ['days', 24]]
+};
+const sydUF = (dim, u) => { const e = SYD_U[dim].find(x => x[0] === u); return e ? e[1] : 1; };
+
+// ---------- the design document ----------
+const sydK = b => SYD_KINDS[b.kind] || SYD_KINDS.terran;
+const sydCat = b => sydK(b).cat;
+function sydBodyOf(D, uuid){ return D.bodies.find(b => b.uuid === uuid) || null; }
+function sydKids(D, uuid){ return D.bodies.filter(b => (b.parent || null) === (uuid || null)); }
+// the body this one is drawn around (null is the system centre)
+const sydParentOf = (D, b) => b.parent ? sydBodyOf(D, b.parent) : null;
+function sydOrder(D){ const out = [], seen = new Set();
+  const walk = p => { for (const b of D.bodies) if ((b.parent || null) === p && !seen.has(b.uuid)){ seen.add(b.uuid); out.push(b); walk(b.uuid); } };
+  walk(null); for (const b of D.bodies) if (!seen.has(b.uuid)){ seen.add(b.uuid); b.parent = null; out.push(b); walk(b.uuid); } return out; }
+function sydDepth(D, b){ let d = 0, p = sydParentOf(D, b); while (p && d < 20){ d++; p = sydParentOf(D, p); } return d; }
+// the mass a body orbits: its parent, or every body sitting at the system centre
+function sydCentralMass(D, b){
+  const p = sydParentOf(D, b); if (p) return +p.phys.M || 0;
+  let m = 0; for (const x of D.bodies) if (!x.parent && x.place.mode === 'centre') m += +x.phys.M || 0; return m;
+}
+// the nearest star up the chain (for light, temperature and the habitable zone)
+function sydStarOf(D, b){ let p = b; for (let i = 0; i < 20 && p; i++){ if (sydCat(p) === 'star' && p !== b) return p; p = sydParentOf(D, p); }
+  return D.bodies.find(x => !x.parent && sydCat(x) === 'star' && x.place.mode === 'centre') || null; }
+// distance from that star, for the temperature and the zone: the top orbit under it
+function sydStarDist(D, b){ let p = b, a = null; for (let i = 0; i < 20 && p; i++){ const q = sydParentOf(D, p); if (!q || sydCat(q) === 'star'){ a = p.place.mode === 'orbit' ? +p.place.a : null; break; } p = q; } return a; }
+const sydIsCentre = b => !b.parent && b.place.mode === 'centre';
+
+// realistic mode fills in what is not overridden; period is always worked out unless fixed by hand
+function sydDerive(D){
+  const real = D.mode !== 'free';
+  for (const b of D.bodies){
+    b.over = b.over || {}; b.phys = b.phys || {}; b.place = b.place || { mode:'orbit' };
+    const c = sydCat(b), K = sydK(b), o = b.over;
+    if (real && c === 'star'){ const sp = sydStarProps(b.kind, b.phys.spec); b._src = sp ? sp.src : null; b._noMass = sp && sp.noMass;
+      if (sp){ if (!o.teff && sp.teff) b.phys.teff = Math.round(sp.teff); if (!o.lum && sp.lum != null) b.phys.lum = +sp.lum.toPrecision(4);
+        if (!o.R && sp.R) b.phys.R = +sp.R.toPrecision(5); if (!o.M && sp.M) b.phys.M = +sp.M.toPrecision(5); } }
+    if (real && (c === 'planet' || c === 'moon' || c === 'comet') && !K.giant && !o.M){ const m = sydMassFromR(+b.phys.R); if (m != null) b.phys.M = +m.toPrecision(4); }
+  }
+  for (const b of D.bodies){ if (b.place.mode !== 'orbit' || b.over.P) continue;
+    const P = sydPeriod(+b.place.a, sydCentralMass(D, b), +b.phys.M || 0); b.place.P = P ? +P.toPrecision(8) : null; }
+}
+// a body for a kind, with the defaults the palette gives it
+function sydNewBody(D, kind, parent){
+  const K = SYD_KINDS[kind] || SYD_KINDS.terran, p = parent ? sydBodyOf(D, parent) : null, c = K.cat;
+  const sibs = sydKids(D, parent || null).filter(x => x.place.mode === 'orbit' && ['planet', 'moon', 'star'].includes(sydCat(x)));
+  const b = { uuid:scenUUID(), name:'', kind, parent:parent || null, hidden:false, notes:'', place:{ mode:'orbit' }, phys:{}, look:{ c1:K.c1 || '#b8c2cc', c2:K.c2 || '#59636e', seed:Math.floor(Math.random()*9000) + 1000, preset:K.look || null }, over:{}, units:{} };
+  if (c === 'star'){ b.phys.spec = K.spec; b.phys.rot = 600; if (K.M) b.phys.M = K.M;
+    if (!D.bodies.some(x => sydIsCentre(x))) b.place = { mode:'centre' };
+    else b.place = { mode:'orbit', a:Math.max(50, ...sibs.map(x => +x.place.a || 0))*1.8, e:0.1, i:5, node:0, argp:0, phase:0, retro:false }; }
+  if (c === 'planet' || c === 'moon' || c === 'comet'){
+    b.phys.R = K.R; if (K.M) b.phys.M = K.M; b.phys.rot = c === 'moon' ? null : 20 + Math.round(Math.random()*20); b.phys.tilt = c === 'moon' ? 0 : Math.round(Math.random()*25);
+    b.phys.A = K.A; b.phys.atm = K.atm || 'none'; b.phys.cloud = K.cloud || 0; b.phys.ocean = K.ocean || 0; b.phys.lights = false; if (K.sud) b.phys.sud = K.sud; if (K.tail) b.phys.tail = K.tail;
+    const pR = p && sydCat(p) !== 'star' ? (+p.phys.R || 6371)/149597870.7 : 0;
+    let a = K.a || (pR ? pR*(3 + sibs.length*2.2) : sibs.length ? Math.max(...sibs.map(x => +x.place.a || 0))*1.6 : 1);
+    if (!pR && !sibs.length && p && sydCat(p) === 'star' && !K.a){ const L = +p.phys.lum || 1; a = 0.6*Math.sqrt(L); }
+    b.place = { mode:K.free ? 'free' : 'orbit', a, e:K.e || (c === 'moon' ? 0.01 : 0.02), i:K.i || (c === 'moon' ? 0.5 : 1.5), node:Math.round(Math.random()*360), argp:Math.round(Math.random()*360), phase:Math.round(Math.random()*360), retro:!!K.retro };
+    if (K.free) Object.assign(b.place, { x:2000, y:0, z:0 }); if (K.locked) b.phys.locked = true; }
+  if (c === 'ring'){ const R = p ? +p.phys.R || 6371 : 6371; b.phys.rin = Math.round(R*1.3); b.phys.rout = Math.round(R*2.3); b.phys.op = 0.75; b.place = { mode:'ring' }; }
+  if (c === 'belt'){ Object.assign(b.phys, { r0:K.r0, r1:K.r1, h:K.h, es:K.es, is:K.is, pts:K.pts });
+    if (p && sydCat(p) !== 'star'){ const R = (+p.phys.R || 6371)/149597870.7; b.phys.r0 = R*2; b.phys.r1 = R*4; b.phys.h = R*0.1; b.phys.pts = 6000; }
+    b.place = { mode:'belt' }; }
+  if (c === 'art'){ b.phys.S = K.S; b.look.c1 = '#c9ced4';
+    const pR = p ? (+p.phys.R || 6371) : 0;
+    if (K.attach) b.place = { mode:'attached', lat:0, lon:0, h:kind === 'oring' ? Math.round(pR*0.6 || 20000) : 100000 };
+    else b.place = { mode:'orbit', a:p && sydCat(p) !== 'star' ? (pR + 400 + sibs.length*300)/149597870.7 : 1, e:0, i:0, node:0, argp:0, phase:Math.round(Math.random()*360), retro:false }; }
+  b.name = sydAutoName(D, b, p);
+  return b;
+}
+function sydAutoName(D, b, p){
+  const c = sydCat(b), host = (D.bodies.find(x => sydIsCentre(x)) || {}).name || D.name || 'Star';
+  const n = ['star', 'planet', 'moon'].includes(c) ? sydKids(D, b.parent || null).filter(x => x !== b && sydCat(x) === c).length : D.bodies.filter(x => x !== b && x.kind === b.kind).length;
+  if (c === 'star') return D.bodies.length ? host + ' ' + 'BCDEFGH'[Math.min(6, n)] : (D.name || 'Star');
+  if (c === 'planet') return (p ? p.name : host) + ' ' + 'bcdefghijklmnopq'[Math.min(15, n)];
+  if (c === 'moon') return (p ? p.name : host) + ' ' + ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'][Math.min(11, n)];
+  if (c === 'ring') return (p ? p.name : host) + ' rings';
+  return (SYD_KINDS[b.kind] || {}).n + (n ? ' ' + (n + 1) : '');
+}
+
+// ---------- a built-in system, copied into a design ----------
+// The copy keeps every figure the built-in model draws with: the star's radius and mass, each orbit, size, rotation,
+// pole, colour and texture, the rings, belts and moons, and a ring installation where there is one. Sol keeps its real
+// element sets (with their rates) until an orbit field is edited. Built-in moons carry an explicit period, so it is
+// kept fixed; the built-in moons also turn clockwise seen from their planet's north, and the copy runs them prograde.
+function sydSpecOf(s){ const m = /(?:sd)?[OBAFGKM]\s*\d(?:\.\d)?\s*(?:Ia|Iab|Ib|III|II|IV|V|I)?/.exec(String(s || '')); return m ? m[0].replace(/\s+/g, '') : ''; }
+function sydFromBuiltin(bs){
+  const D0 = bs.def, t = scenNow(), doc = SCEN.doc;
+  const D = { uuid:scenUUID(), name:D0.group || D0.name, builtin:bs.id, host:sydHostRec(bs.anchorObj, bs), mode:'realistic', author:doc ? doc.author || '' : '', scenario:doc ? doc.id : '', created:t, modified:t, bodies:[] };
+  const S = D0.star, spec = sydSpecOf(S.sp);
+  const star = { uuid:scenUUID(), name:S.name, kind:/D[ABOQZ]/.test(S.sp || '') ? 'wd' : /III|II\b/.test(spec) ? 'giant' : /IV/.test(spec) ? 'subgiant' : 'ms', parent:null, hidden:false,
+    notes:S.text || '', place:{ mode:'centre' }, phys:{ spec, R:S.R, M:(S.M || 1)*SYD_MSUN, rot:600 }, look:{ c1:S.col, c2:S.col, seed:1234, preset:null }, over:{ R:true, M:true }, units:{} };
+  if (!spec) star.over.teff = true;
+  D.bodies.push(star);
+  const holo = !!D0.holo, idOf = {};
+  for (const b of (D0.belts || [])) D.bodies.push({ uuid:scenUUID(), name:b.name, kind:'belt', parent:star.uuid, hidden:false, notes:b.text || '', place:{ mode:'belt' },
+    phys:{ r0:b.r0, r1:b.r1, h:b.h, es:0.04, is:2, pts:Math.max(2000, b.n || 6000) }, look:{ c1:b.col || '#8fd8f0', seed:1000 }, over:{}, units:{} });
+  for (const p of D0.bodies){
+    const kind = p.dwarf ? 'dwarf' : p.R > 40000 ? 'gasgiant' : p.R > 15000 ? 'icegiant' : 'terran';
+    const look = { c1:p.col || '#7fe3ff', c2:p.col || '#7fe3ff', seed:1000 + (p.id || '').length*97, preset:holo ? 'holo' : p.tex || p.earth ? 'tex' : (SYD_KINDS[kind].look) };
+    if (p.tex) look.tex = p.tex; if (p.earth) look.earth = true;
+    const place = { mode:'orbit', retro:false };
+    if (D0.kepler && p.el){ place.ephem = { el:p.el.slice(), rt:p.rt.slice() }; Object.assign(place, sydElOfEphem(p.el)); }
+    else Object.assign(place, { a:p.a, e:p.e || 0, i:p.i || 0, node:p.node || 0, argp:p.argp || 0, phase:p.M0 || 0 });
+    const phys = { R:p.R, rot:p.rot || 24, tilt:0, A:0.3, atm:'none', cloud:0, ocean:0 };
+    if (p.pole) phys.pole = p.pole.slice(); if (p.moons && p.moons[0] && p.moons[0].ecl) phys.moonFrame = 'ecl';
+    const body = { uuid:scenUUID(), name:p.name, kind, parent:star.uuid, hidden:false, notes:p.text || '', place, phys, look, over:{ M:true }, units:{} };
+    D.bodies.push(body); idOf[p.id] = body.uuid;
+    if (p.rings) D.bodies.push({ uuid:scenUUID(), name:p.name + ' rings', kind:'ring', parent:body.uuid, hidden:false, notes:'', place:{ mode:'ring' },
+      phys:{ rin:p.rings[0], rout:p.rings[1], op:0.85 }, look:{ c1:p.col || '#d8c9ad', tex:p.ringTex || null, holo }, over:{}, units:{ } });
+    if (p.debris){ const B = p.debris; D.bodies.push({ uuid:scenUUID(), name:p.name + ' debris', kind:'belt', parent:body.uuid, hidden:false, notes:'', place:{ mode:'belt' },
+      phys:{ r0:B.r0/AU_KM, r1:B.r1/AU_KM, h:(B.h || 0)/AU_KM, es:0, is:0.5, pts:B.n || 1400 }, look:{ c1:B.col || '#9fd8ea', seed:1001 }, over:{}, units:{} }); }
+    for (const m of (p.moons || [])){
+      const mb = { uuid:scenUUID(), name:m.name, kind:m.minor ? 'moonlet' : 'moon', parent:body.uuid, hidden:false, notes:m.text || '',
+        place:{ mode:'orbit', a:m.a/AU_KM, e:0, i:0, node:0, argp:0, phase:((m.id.length*1.7)/D2R) % 360, retro:false, P:m.P }, phys:{ R:m.R, rot:null, tilt:0, A:0.12, atm:'none' },
+        look:{ c1:m.col || '#cfd6df', c2:m.col || '#cfd6df', seed:1000 + m.id.length*31, preset:holo ? 'holo' : m.tex ? 'tex' : 'barren', tex:m.tex || null }, over:{ P:true, M:true }, units:{ a:'km' } };
+      D.bodies.push(mb); idOf[m.id] = mb.uuid;
+      if (m.rings) D.bodies.push({ uuid:scenUUID(), name:m.name + ' rings', kind:'ring', parent:mb.uuid, hidden:false, notes:'', place:{ mode:'ring' }, phys:{ rin:m.rings[0], rout:m.rings[1], op:0.8 }, look:{ c1:m.col || '#d8c9ad', holo }, over:{}, units:{} });
+    }
+  }
+  const I = D0.installation;
+  if (I && idOf[I.host]) D.bodies.push({ uuid:scenUUID(), name:'Installation ' + I.num, kind:'halo', parent:idOf[I.host], hidden:false, notes:'', place:{ mode:'halo' },
+    phys:{ num:I.num, destroyed:!!I.destroyed, tiltDeg:I.tiltDeg == null ? 18 : I.tiltDeg, a:I.a, P:I.P || 1, alignTo:I.alignTo ? idOf[I.alignTo] || null : null }, look:{}, over:{}, units:{} });
+  sydDerive(D);
+  return D;
+}
+// a, e, i, node, argp and phase now, from Sol's element set [a, e, I, L, varpi, Omega] (+ rates per century)
+function sydElOfEphem(el){ const [a, e, I, L, w, O] = el; return { a, e, i:I, node:O, argp:((w - O) % 360 + 360) % 360, phase:(((L - w) % 360) + 360) % 360 }; }
+
+// ---------- the host a design hangs off ----------
+function sydHostRec(o, bs){
+  if (bs) return { key:'builtin:' + bs.id, name:bs.anchorObj ? bs.anchorObj.name : bs.name, pos:scenGalOf(bs.anchor).map(v => Math.round(v*1000)/1000) };
+  if (o.kind === 'scen') return { key:'scen:' + o.scen.uuid, name:o.name, pos:o.scen.pos.slice() };
+  const k = scenKeyOf(o); return { key:k.key, ids:k.ids, chart:!!k.chart, name:o.name, pos:scenGalOf(o.pos).map(v => Math.round(v*1000)/1000) };
+}
+function sydHostObj(H){
+  if (!H) return null;
+  if (H.key.startsWith('builtin:')){ const bs = SYSTEMS.find(s => s.id === H.key.slice(8)); return bs ? bs.anchorObj || null : null; }
+  if (H.key.startsWith('scen:')){ const u = H.key.slice(5), o = SCEN.objs.find(x => x.scen.uuid === u); return o || null; }
+  return scenResolve({ key:H.key, ids:H.ids || {}, chart:!!H.chart, pos:H.pos });
+}
+// a design for an object: by its built-in system, a new star, or its catalogue key
+function sydDesignOf(o){
+  if (!o || !SCEN.doc || !SCEN.doc.systems) return null;
+  const L = SCEN.doc.systems, bs = sydBuiltinOf(o);
+  if (bs){ const d = L.find(D => D.host && D.host.key === 'builtin:' + bs.id); if (d) return d; }
+  if (o.kind === 'scen') return L.find(D => D.host && D.host.key === 'scen:' + o.scen.uuid) || null;
+  if (o.kind === 'dbody') return o.sys.design;
+  if (!scenDesignatable(o)) return null;
+  const k = scenKeyOf(o).key; return L.find(D => D.host && D.host.key === k) || null;
+}
+// the built-in system an object belongs to (its star, a body inside it, or its anchor), if any
+function sydBuiltinOf(o){
+  if (!o) return null;
+  if (o.kind === 'body' && o.sys && !o.sys.arkLocal) return o.sys;
+  const id = o._sysId0 || o.sysId; if (!id) return null;
+  const bs = SYSTEMS.find(s => s.id === id && !s.arkLocal && !s.localView); return bs || null;
+}
+const sydCanDesign = o => !!o && (o.kind === 'scen' || scenDesignatable(o) || !!sydBuiltinOf(o)) && !(o.kind === 'star' && o.inMag);
+
+// ---------- the engine ----------
+var SYD = { list:[], cands:null, open:false, sys:null, sel:null, scale:'true', ovl:{ hz:false, frost:false, roche:false, hill:false, olab:false }, drag:null, pending:null,
+  clock:{ base:null, t0:0, idx:0, paused:false }, palette:false, menu:null, err:'', mark:null, shells:[] };
+const SYD_RATES = [0, 1, 10, 100, 1000, 10000];   // days per second; 0 is real time
+function sysJD(){ const C = SYD.clock; if (C.base == null) return JD_NOW(); return C.base + (C.paused ? 0 : (performance.now() - C.t0)/1000*(SYD_RATES[C.idx] || 1/86400)); }
+function sydClockSet(idx, paused){ const C = SYD.clock, now = sysJD(); C.base = now; C.t0 = performance.now(); if (idx != null) C.idx = Math.max(0, Math.min(SYD_RATES.length - 1, idx)); if (paused != null) C.paused = paused;
+  if (C.idx === 0 && !C.paused){ C.base = null; } sydClockUI(); }
+function sydClockReset(){ SYD.clock = { base:null, t0:0, idx:0, paused:false }; sydClockUI(); }
+function sydCands(){ if (!SYD.cands) SYD.cands = SYSTEMS.filter(s => !s.overridden).concat(SYD.list); return SYD.cands; }
+const sydSchem = () => SYD.scale === 'schem';
+const SYD_S = r => 2.5*Math.log2(1 + r/0.25);   // AU in, AU out: the schematic radial map
+const _sv = new THREE.Vector3(), _sv2 = new THREE.Vector3(), _sq = new THREE.Quaternion(), _Y = new THREE.Vector3(0, 1, 0);
+// an orthonormal frame [X, Y, Z] with Z along n
+function sydFrame(n, ref){ const Z = n.clone().normalize(); let X = new THREE.Vector3().crossVectors(ref || new THREE.Vector3(0, 1, 0), Z);
+  if (X.lengthSq() < 1e-8) X = new THREE.Vector3().crossVectors(new THREE.Vector3(1, 0, 0), Z); X.normalize(); const Y = new THREE.Vector3().crossVectors(Z, X); return { X, Y, Z }; }
+const sydW = (F, x, y, z) => new THREE.Vector3().addScaledVector(F.X, x).addScaledVector(F.Y, y).addScaledVector(F.Z, z);
+// the position of a body on its own orbit (AU, in its parent's frame), at mean anomaly M (radians)
+function sydOrbXYZ(pl, M){ const a = +pl.a || 0, e = Math.min(0.999, Math.max(0, +pl.e || 0)), E = kepler(((M % (2*Math.PI)) + 2*Math.PI) % (2*Math.PI), e);
+  const xp = a*(Math.cos(E) - e), yp = a*Math.sqrt(1 - e*e)*Math.sin(E), w = (+pl.argp || 0)*D2R, O = (+pl.node || 0)*D2R, inc = (+pl.i || 0)*D2R;
+  const cw = Math.cos(w), sw = Math.sin(w), cO = Math.cos(O), sO = Math.sin(O), ci = Math.cos(inc), si = Math.sin(inc), s = pl.retro ? -1 : 1;
+  const y2 = yp*s;
+  return [(cw*cO - sw*sO*ci)*xp + (-sw*cO - cw*sO*ci)*y2, (cw*sO + sw*cO*ci)*xp + (-sw*sO + cw*cO*ci)*y2, (sw*si)*xp + (cw*si)*y2]; }
+const sydMeanAt = (pl, jd) => ((+pl.phase || 0)*D2R) + (pl.P > 0 ? 2*Math.PI*(jd - J2000)/pl.P : 0);
+function sydOrbNormal(F, pl){ const inc = (+pl.i || 0)*D2R, O = (+pl.node || 0)*D2R, s = pl.retro ? -1 : 1; return sydW(F, Math.sin(inc)*Math.sin(O)*s, -Math.sin(inc)*Math.cos(O)*s, Math.cos(inc)*s).normalize(); }
+
+function sydRebuild(){
+  const docs = SCEN.doc && Array.isArray(SCEN.doc.systems) ? SCEN.doc.systems : [];
+  const keep = new Map(), prevSel = selected && selected.kind === 'dbody' ? [selected.sys.uuid, selected.def.uuid] : null;
+  // drop the built systems whose design changed or went
+  for (const s of SYD.list){ const D = docs.find(d => d.uuid === s.uuid), j = D ? JSON.stringify(D) + '|' + SYD.scale + '|' + sydOvlKey() : null;
+    if (D && j === s.json && sydHostObj(D.host) === s.hostObj) keep.set(D.uuid, s); else sydDispose(s); }
+  for (const bs of SYSTEMS) if (bs.overridden){ sydRestoreBuiltin(bs); }
+  SYD.list = [];
+  for (const D of docs){ let s = keep.get(D.uuid); if (!s){ try { s = sydBuild(D); } catch(e){ console.warn('designed system could not be built', D.name, e); s = null; } } if (s){ SYD.list.push(s); sydLinkHost(s); } }
+  SYD.cands = null; sydMarkers();
+  if (SYD.open && (!SYD.sys || !SYD.list.includes(SYD.sys))){ const n = SYD.list.find(s => SYD.sys && s.uuid === SYD.sys.uuid); if (n) SYD.sys = n; else sydClose(); }
+  // the active system was rebuilt under a new object: switch the scene over to it
+  if (activeSys && activeSys.design && !SYD.list.includes(activeSys)){ const n = SYD.list.find(s => s.uuid === activeSys.uuid); activeSys.group.visible = false;
+    if (n){ activeSys = n; n.group.visible = true; stepDesign(n, sysJD(), 0); } else { activeSys = null; sysActive = false; sysPass.enabled = false; } }
+  if (prevSel){ const s = SYD.list.find(x => x.uuid === prevSel[0]), o = s && s.bodies.find(b => b.def.uuid === prevSel[1]); if (o) selected = o; else { selected = null; setChip(null); } }
+}
+const sydOvlKey = () => Object.keys(SYD.ovl).filter(k => SYD.ovl[k]).join(',');
+function sydLinkHost(s){
+  const bs = s.design.builtin ? SYSTEMS.find(x => x.id === s.design.builtin) : null;
+  if (bs){ bs.overridden = s; bs.group.visible = false;
+    for (const o of objects) if (o.sysId === bs.id){ o._sysId0 = bs.id; o.sysId = s.id; }
+    for (const b of bs.bodies){ if (b.skey != null && b._skey0 === undefined){ b._skey0 = b.skey; b.skey = null; } }
+    if (bs === activeSys){ bs.group.visible = false; } }
+  else if (s.hostObj){ s.hostObj._sydSys = s.id; if (!s.hostObj.sysId){ s.hostObj.sysId = s.id; s.hostObj._sydSet = true; } }
+}
+function sydRestoreBuiltin(bs){ const s = bs.overridden; bs.overridden = null;
+  for (const o of objects) if (o._sysId0 === bs.id){ o.sysId = bs.id; delete o._sysId0; }
+  for (const b of bs.bodies) if (b._skey0 !== undefined){ b.skey = b._skey0; delete b._skey0; }
+  if (activeSys === bs || (s && activeSys === s)) bs.group.visible = activeSys === bs; }
+function sydDispose(s){
+  if (activeSys === s) s.group.visible = false;
+  sysScene.remove(s.group);
+  s.group.traverse(n => { if (n.geometry && !n.geometry.userData.shared) n.geometry.dispose(); if (n.material && !n.material.userData.shared){ const m = n.material; if (m.map && !m.map.userData.shared) m.map.dispose(); m.dispose(); } });
+  for (const o of s.bodies){ const k = objects.indexOf(o); if (k >= 0) objects.splice(k, 1); }
+  for (const L of s.labels){ L.el.remove(); const k = labelled.indexOf(L); if (k >= 0) labelled.splice(k, 1); }
+  LORD.n = -1;
+  if (s.hostObj && s.hostObj._sydSys === s.id){ delete s.hostObj._sydSys; if (s.hostObj._sydSet){ delete s.hostObj.sysId; delete s.hostObj._sydSet; } }
+  if (s.shell){ scene.remove(s.shell); s.shell.geometry.dispose(); s.shell.material.dispose(); }
+}
+const SYD_UNIT = new THREE.SphereGeometry(1, 64, 40); SYD_UNIT.userData.shared = true;
+function sydBuild(D){
+  const hostObj = sydHostObj(D.host), bs = D.builtin ? SYSTEMS.find(x => x.id === D.builtin) : null;
+  let anchor = bs ? bs.anchor.clone() : hostObj ? (hostObj.viewPos || hostObj.pos).clone() : Array.isArray(D.host && D.host.pos) ? scenWorldOf(D.host.pos[0], D.host.pos[1], D.host.pos[2]) : null;
+  if (!anchor) return null;
+  const id = 'des-' + D.uuid.replace(/[^a-f0-9]/gi, '').slice(0, 12).toLowerCase();
+  const s = { id, uuid:D.uuid, design:D, name:D.name, def:{ id, group:D.name, holo:false, name:D.name }, holo:false, group:new THREE.Group(), bodies:[], labels:[], anchor, anchorObj:hostObj || (bs && bs.anchorObj) || null, hostObj,
+    star:null, B:FLAT_BASIS, Btilt:FLAT_BASIS, Bflat:FLAT_BASIS, up:FLAT_BASIS.Z, toWorld:null, Mstar:1, json:JSON.stringify(D) + '|' + SYD.scale + '|' + sydOvlKey(), days0:sysJD() - J2000, extra:[] };
+  s.toWorld = (x, y, z) => new THREE.Vector3().addScaledVector(s.B.X, x).addScaledVector(s.B.Y, y).addScaledVector(s.B.Z, z);
+  s.group.visible = false; sysScene.add(s.group);
+  const order = sydOrder(D), byU = new Map();
+  const sysF = { X:FLAT_BASIS.X, Y:FLAT_BASIS.Y, Z:FLAT_BASIS.Z };
+  // schematic: the slot of each moon among its siblings, and each body's drawn radius (AU)
+  const rank = new Map(); for (const b of order){ const sib = sydKids(D, b.parent || null).filter(x => x.place.mode === 'orbit').sort((x, y) => (+x.place.a || 0) - (+y.place.a || 0)); rank.set(b.uuid, sib.indexOf(b)); }
+  for (const b of order){
+    const c = sydCat(b), K = sydK(b), pb = b.parent ? byU.get(b.parent) : null, Rkm = c === 'art' ? (+b.phys.S || 1)/2 : +b.phys.R || 1;
+    const o = { id:'dbody-' + b.uuid.replace(/[^a-f0-9]/gi, '').slice(0, 14).toLowerCase(), name:b.name || K.n, kind:'dbody', cat:c, def:b, sys:s, parent:pb, kids:[], grp:new THREE.Group(), mesh:null, line:null,
+      pos:new THREE.Vector3(), posAU:new THREE.Vector3(), R:Rkm, star:c === 'star', belt:c === 'belt', moon:!!(pb && pb.cat !== 'star' && c !== 'belt' && c !== 'ring'), hidden:!!b.hidden,
+      type:'Designed body · ' + D.name, desig:K.n + (b.parent && pb ? ' · ' + pb.name : ''), frame:null, schemF:1 };
+    o.nkey = nrm(o.name); o.skey = nrm([o.name, K.n, D.name, 'designed system'].join(' | '));
+    if (pb) pb.kids.push(o);
+    // the frame this body's orbit is measured in: the system plane, a parent's equator, or the ecliptic for Earth's Moon
+    o.frame = !pb || pb.cat === 'star' ? sysF : pb.def.phys && pb.def.phys.moonFrame === 'ecl' ? sydFrame(EZ, FLAT_BASIS.Z) : pb.pole ? sydFrame(pb.pole, FLAT_BASIS.Z) : sysF;
+    // the body's own pole
+    if (b.phys && Array.isArray(b.phys.pole)) o.pole = eqUnitToWorld(b.phys.pole[0], b.phys.pole[1]);
+    else { const n = b.place.mode === 'orbit' ? sydOrbNormal(o.frame, b.place) : o.frame.Z.clone(), t = (+(b.phys && b.phys.tilt) || 0)*D2R;
+      const F2 = sydFrame(n, FLAT_BASIS.Z); o.pole = n.clone().multiplyScalar(Math.cos(t)).addScaledVector(F2.X, Math.sin(t)).normalize(); }
+    o.tiltQ = new THREE.Quaternion().setFromUnitVectors(_Y, o.pole);
+    // drawn size in the schematic view
+    if (sydSchem()){ if (c === 'star') o.Rs = Math.min(1.2, Math.max(0.15, 0.5*Math.pow(Rkm/SYD_RSUN, 0.25)));
+      else if (!pb || pb.cat === 'star') o.Rs = Math.min(0.4, Math.max(0.03, 0.06*Math.pow(Rkm/SYD_REAR, 0.35)));
+      else o.Rs = Math.max(0.006, 0.28*(pb.Rs || 0.05)*Math.max(0.3, Math.sqrt(Rkm/Math.max(1, pb.R)))); }
+    else o.Rs = Rkm/AU_KM;
+    if (pb && pb.cat !== 'star' && b.place.mode === 'orbit' && sydSchem()){ const a = +b.place.a || 1e-6, as = (pb.Rs || 0.05)*(2.4 + 1.7*Math.max(0, rank.get(b.uuid))); o.schemF = as/a; }
+    s.group.add(o.grp); byU.set(b.uuid, o); s.bodies.push(o);
+    if (c === 'star' && sydIsCentre(b) && !s.star){ s.star = o; s.Mstar = (+b.phys.M || SYD_MSUN)/SYD_MSUN; }
+    sydMakeVisual(s, o);
+  }
+  if (!s.star) s.star = s.bodies.find(o => o.cat === 'star') || null;
+  sydOverlays(s);
+  for (const o of s.bodies){ objects.push(o); if (o.def.hidden || o.cat === 'halo' || o.cat === 'ring') continue;
+    const b = o.def, pl = b.place, u = pl.mode === 'orbit' ? sydUnitOf(b, 'a', D) || 'AU' : null;
+    const sub = SYD.ovl.olab && u ? sydFmt(+pl.a/sydUF('dist', u)) + ' ' + u : (SYD_KINDS[b.kind] ? SYD_KINDS[b.kind].n.toLowerCase() : '');
+    const el = document.createElement('div'); el.className = 'lab dbody'; el.innerHTML = esc(o.name) + (sub ? `<span class="sub">${esc(sub)}</span>` : ''); el.style.display = 'none'; labelRoot.appendChild(el);
+    const L = { o, el, cls:'dbody', vis:0 }; labelled.push(L); s.labels.push(L); }
+  LORD.n = -1;
+  sydShell(s);
+  stepDesign(s, sysJD(), 0);
+  return s;
+}
+// where every body is at jd: parents first, each one offset from its parent
+function stepDesign(s, jd, dt){
+  const sch = sydSchem(), days = jd - J2000, starPos = s.star ? s.star.posAU : null;
+  for (const o of s.bodies){
+    const b = o.def, pl = b.place, pp = o.parent ? o.parent.posAU : _sv2.set(0, 0, 0);
+    if (pl.mode === 'centre' || !pl.mode){ o.posAU.set(0, 0, 0); }
+    else if (pl.mode === 'orbit'){
+      let v;
+      if (pl.ephem){ const e = planetEcl({ el:pl.ephem.el, rt:pl.ephem.rt }, jd); v = s.toWorld(e[0], e[1], e[2]); }
+      else { const e = sydOrbXYZ(pl, sydMeanAt(pl, jd)); v = sydW(o.frame, e[0], e[1], e[2]); }
+      if (sch){ if (!o.parent || o.parent.cat === 'star'){ const r = v.length(); if (r > 0) v.multiplyScalar(SYD_S(r)/r); } else v.multiplyScalar(o.schemF); }
+      o.posAU.copy(pp).add(v);
+    }
+    else if (pl.mode === 'free'){ const v = sydW(o.frame, +pl.x || 0, +pl.y || 0, +pl.z || 0); if (sch){ const r = v.length(); if (r > 0) v.multiplyScalar(SYD_S(r)/r); } o.posAU.copy(pp).add(v); }
+    else if (pl.mode === 'attached' && o.parent){ const P = o.parent, spin = P.spin || 0, lat = (+pl.lat || 0)*D2R, lon = (+pl.lon || 0)*D2R;
+      const r = (P.Rs || P.R/AU_KM) + (sch ? (P.Rs || 0)*((+pl.h || 0)/Math.max(1, P.R)) : (+pl.h || 0)/AU_KM);
+      _sv.set(Math.cos(lat)*Math.cos(lon + spin), Math.sin(lat), -Math.cos(lat)*Math.sin(lon + spin)).applyQuaternion(P.tiltQ);
+      o.posAU.copy(P.posAU).addScaledVector(_sv, b.kind === 'oring' ? 0 : r); o.attachDir = _sv.clone(); o.attachR = r; }
+    else if (pl.mode === 'belt'){ const rm = ((+b.phys.r0 || 0) + (+b.phys.r1 || 0))/2; let v = sydW(o.frame, rm*Math.cos(0.7), rm*Math.sin(0.7), 0);
+      if (sch){ if (!o.parent || o.parent.cat === 'star') v.multiplyScalar(SYD_S(rm)/Math.max(1e-12, rm)); else v.multiplyScalar((o.parent.Rs || 0.05)/Math.max(1e-12, o.parent.R/AU_KM)); }
+      o.posAU.copy(pp).add(v); }
+    else o.posAU.copy(pp);
+    o.grp.position.copy(o.posAU);
+    o.pos.copy(s.anchor).addScaledVector(o.posAU, 1/AU_PER_LY);
+    // spin and the light
+    const rot = +b.phys.rot; o.spin = rot > 0 ? (days*24/rot)*2*Math.PI : 0;
+    if (o.mesh){ o.mesh.quaternion.copy(o.tiltQ).multiply(_sq.setFromAxisAngle(_Y, o.spin)); }
+    if (o.lightU && starPos){ o.lightU.value.copy(starPos).sub(o.posAU); if (o.lightU.value.lengthSq() < 1e-30) o.lightU.value.set(1, 0, 0); o.lightU.value.normalize(); }
+    if (o.timeU) o.timeU.value = (days % 1000);
+    if (o.line && o.parent) o.line.position.copy(o.parent.posAU);
+    if (o.beltU){ o.beltU.uDt.value = days - s.days0; o.beltU.uC.value.copy(o.parent ? o.parent.posAU : _sv2.set(0, 0, 0)); }
+    if (o.attach && o.attachDir){ o.attach.quaternion.setFromUnitVectors(_Y, o.attachDir); }
+    if (o.ringFollow && o.parent){ o.ringFollow.position.copy(o.parent.posAU); o.ringFollow.quaternion.copy(o.parent.tiltQ); o.ringFollow.visible = !o.hidden; }
+    if (o.cat === 'comet') sydTail(s, o, starPos);
+    if (o.cat === 'halo') sydHaloStep(s, o, jd);
+    if (o.hill && o.parent){ o.hill.position.copy(o.posAU); }
+    if (o.roche && o.parent){ o.roche.position.copy(o.parent.posAU); }
+  }
+}
+// the orbit lines fade as you close on a body, as they do in the built-in systems
+function sydFade(s){
+  const on = layers.orbitsOn !== false;
+  // a belt seen from far outside it piles its points into one bright blob, so it fades with distance
+  for (const o of s.bodies) if (o.beltU){ const d = sysCam.position.length(), k = !o.parent || o.parent.cat === 'star' ? (sydSchem() ? SYD_S(o.beltR)/Math.max(1e-12, o.beltR) : 1) : (o.parent.Rs || 0.05)/Math.max(1e-12, o.parent.R/AU_KM);
+    o.beltU.uFade.value = Math.min(1, Math.pow((o.beltR*k*60)/Math.max(1e-9, d), 1.2)); }
+  for (const o of s.bodies){ if (!o.line) continue; const d = o.posAU.distanceTo(sysCam.position), r = Math.max(o.Rs || 0, 1e-9); const near = smooth(r*4, r*60, d);
+    o.line.visible = on && !o.hidden; o.line.material.opacity = (o.moon ? 0.30 : 0.42)*near*(SYD.open && SYD.sel === o.def.uuid ? 1.8 : 1); }
+}
+
+// ---------- procedural looks ----------
+// One shader for every rocky, icy and gaseous surface, and one for stars. No textures: the surface is value noise on
+// the unit sphere, seeded per body, so a design file stays small and nothing in it needs a licence. Lighting comes
+// from a direction written every frame (star minus body), which keeps it exact at any distance from the star.
+// Positions are camera-relative, as in the hologram material (v45), so a small body far out does not jitter.
+const SYD_NOISE = `
+float sydH(vec3 p){ return fract(sin(dot(p, vec3(12.9898, 78.233, 37.719)))*43758.5453); }
+float sydN(vec3 p){ vec3 i = floor(p), f = fract(p); f = f*f*(3.0 - 2.0*f);
+  return mix(mix(mix(sydH(i), sydH(i + vec3(1,0,0)), f.x), mix(sydH(i + vec3(0,1,0)), sydH(i + vec3(1,1,0)), f.x), f.y),
+             mix(mix(sydH(i + vec3(0,0,1)), sydH(i + vec3(1,0,1)), f.x), mix(sydH(i + vec3(0,1,1)), sydH(i + vec3(1,1,1)), f.x), f.y), f.z); }
+float sydF(vec3 p){ float s = 0.0, a = 0.5; for (int k = 0; k < 5; k++){ s += a*sydN(p); p = p*2.03 + 7.1; a *= 0.5; } return s; }`;
+const SYD_VS = 'varying vec3 vO; varying vec3 vN; varying vec3 vP; void main(){ vO = position; vN = normalize(mat3(modelMatrix)*normal); vec4 mv = modelViewMatrix*vec4(position, 1.0); mat3 R = mat3(viewMatrix); vP = vec3(dot(R[0], mv.xyz), dot(R[1], mv.xyz), dot(R[2], mv.xyz)); gl_Position = projectionMatrix*mv; }';
+function sydPlanetMat(o){
+  const b = o.def, L = b.look || {}, P = b.phys || {}, look = L.preset || SYD_KINDS[b.kind].look || 'barren';
+  let c1 = L.c1 || '#888888', c2 = L.c2 || '#444444';
+  if (look === 'gas' && P.sud && !(b.over && (b.over.c1 || b.over.c2))){ const s = SYD_SUD.find(x => x[0] === +P.sud); if (s){ c1 = s[3]; c2 = s[4]; } }
+  const u = { uType:{ value:SYD_LOOK_ID[look] != null ? SYD_LOOK_ID[look] : 7 }, uC1:{ value:new THREE.Color(c1) }, uC2:{ value:new THREE.Color(c2) }, uSeed:{ value:(+L.seed || 1)%997*0.731 },
+    uCloud:{ value:+P.cloud || 0 }, uOcean:{ value:+P.ocean || 0 }, uLights:{ value:P.lights ? 1 : 0 }, uAtm:{ value:SYD_ATM_K[P.atm] || 0 }, uL:{ value:new THREE.Vector3(1, 0, 0) }, uT:{ value:0 } };
+  o.lightU = u.uL; o.timeU = u.uT;
+  return new THREE.ShaderMaterial({ uniforms:u, vertexShader:SYD_VS, fragmentShader:`uniform int uType; uniform vec3 uC1, uC2, uL; uniform float uSeed, uCloud, uOcean, uLights, uAtm, uT; varying vec3 vO; varying vec3 vN; varying vec3 vP;
+    ${SYD_NOISE}
+    void main(){ vec3 N = normalize(vN), V = normalize(-vP), Ld = normalize(uL), s = normalize(vO); vec3 q = s*2.2 + uSeed;
+      float lat = s.y, nl = dot(N, Ld), h = sydF(q*1.3), d = smoothstep(-0.05, 0.25, nl);
+      vec3 col = uC1; float glow = 0.0, spec = 0.0, land = 1.0;
+      if (uType == 0 || uType == 1 || uType == 2 || uType == 11){
+        float sea = uType == 1 ? 0.62 : mix(0.30, 0.66, uOcean); land = smoothstep(sea - 0.01, sea + 0.02, h);
+        vec3 grn = uC2*(0.75 + 0.5*sydF(q*4.0)), dry = mix(uC2, vec3(0.62, 0.52, 0.38), 0.5);
+        vec3 ground = mix(grn, dry, smoothstep(0.55, 0.85, h) + 0.25*abs(lat));
+        if (uType == 2){ ground = mix(uC1, uC2, sydF(q*vec3(3.0, 9.0, 3.0))); }
+        vec3 water = uC1*(0.55 + 0.45*smoothstep(sea - 0.25, sea, h));
+        if (uType == 2) water = mix(uC2, vec3(0.2, 0.35, 0.45), 0.6);
+        col = mix(water, ground, land); spec = (1.0 - land)*0.5;
+        float cap = smoothstep(0.78, 0.9, abs(lat) + 0.08*sydN(q*6.0));
+        if (uType == 11){ float sub = dot(N, Ld); cap = smoothstep(0.15, -0.35, sub); col = mix(col, vec3(0.55, 0.42, 0.3), smoothstep(0.6, 0.95, sub)*land); }
+        col = mix(col, vec3(0.93, 0.96, 1.0), cap);
+        if (uCloud > 0.0){ float cl = smoothstep(1.0 - uCloud, 1.05 - uCloud*0.6, sydF(q*2.6 + vec3(uT*0.002, 0.0, 0.0))); col = mix(col, vec3(1.0), cl*0.85); land *= 1.0 - cl; spec *= 1.0 - cl; }
+      } else if (uType == 3){ float cr = smoothstep(0.02, 0.0, abs(sydF(q*5.0) - 0.5)); col = mix(uC1, uC2, 0.35*sydF(q*3.0) + 0.7*cr);
+      } else if (uType == 4){ float cr = smoothstep(0.05, 0.0, abs(sydF(q*4.0) - 0.48)); col = uC1*(0.6 + 0.5*h); glow = cr*1.4 + 0.15*smoothstep(0.6, 0.8, sydF(q*2.0));
+      } else if (uType == 5 || uType == 6 || uType == 7){ float cr = sydF(q*5.0); float pits = smoothstep(0.62, 0.7, sydN(q*9.0)); col = mix(uC1, uC2, 0.6*cr + 0.4*pits); if (uType == 5) spec = 0.25;
+      } else if (uType == 8 || uType == 10){ float w = sydF(q*vec3(1.2, 0.4, 1.2))*2.2; float band = 0.5 + 0.5*sin(lat*18.0 + w*3.0);
+        col = mix(uC1, uC2, band); col *= 0.85 + 0.3*sydF(q*vec3(2.0, 12.0, 2.0)); if (uType == 10){ glow = 0.25; }
+      } else if (uType == 9){ float band = 0.5 + 0.5*sin(lat*9.0 + sydF(q)*1.5); col = mix(uC1, uC2, band*0.4); }
+      vec3 Hh = normalize(Ld + V); float sp = pow(max(0.0, dot(N, Hh)), 40.0)*spec*d;
+      vec3 c = col*(0.035 + 0.965*max(0.0, nl)) + vec3(sp);
+      if (uLights > 0.5 && (uType == 0 || uType == 11)){ float city = smoothstep(0.55, 0.75, sydN(q*22.0))*land; c += vec3(1.0, 0.82, 0.5)*city*(1.0 - smoothstep(-0.15, 0.1, nl))*1.2; }
+      c += uC2*glow*(uType == 4 ? 1.0 : 0.6);
+      float rim = pow(1.0 - max(0.0, dot(N, V)), 3.0)*uAtm*0.55*(0.15 + 0.85*d); c += mix(vec3(0.35, 0.55, 1.0), uC1, uType >= 8 ? 0.7 : 0.15)*rim;
+      gl_FragColor = vec4(c, 1.0); }` });
+}
+function sydStarMat(o){
+  const P = o.def.phys || {}, rgb = P.teff > 0 && !(o.def.over && o.def.over.c1) ? sydTempRGB(+P.teff) : new THREE.Color(o.def.look.c1 || '#fff4e0').toArray();
+  const u = { uC:{ value:new THREE.Color(rgb[0], rgb[1], rgb[2]) }, uSeed:{ value:(+o.def.look.seed || 1)%997*0.37 }, uT:{ value:0 } }; o.timeU = u.uT; o.starRGB = rgb;
+  return new THREE.ShaderMaterial({ uniforms:u, vertexShader:SYD_VS, fragmentShader:`uniform vec3 uC; uniform float uSeed, uT; varying vec3 vO; varying vec3 vN; varying vec3 vP; ${SYD_NOISE}
+    void main(){ vec3 N = normalize(vN), V = normalize(-vP); float mu = max(0.0, dot(N, V)); float limb = 1.0 - 0.55*(1.0 - mu) - 0.2*(1.0 - mu*mu);
+      float g = 0.86 + 0.28*sydF(normalize(vO)*9.0 + uSeed + vec3(uT*0.01)); gl_FragColor = vec4(uC*limb*g*1.25 + vec3(0.06)*limb, 1.0); }` });
+}
+function sydRingMat(o){
+  const L = o.def.look || {}, P = o.def.phys || {};
+  if (L.tex) return new THREE.MeshBasicMaterial({ map:sysTex(L.tex), transparent:true, side:THREE.DoubleSide, depthWrite:false, opacity:Math.min(1, (+P.op || 0.85)/0.85) });
+  if (L.holo) return holoRingMat(L.c1 || '#7fe3ff');
+  const u = { uC:{ value:new THREE.Color(L.c1 || '#d8c9ad') }, uOp:{ value:+P.op || 0.75 }, uSeed:{ value:(+L.seed || 7)%97*0.13 } };
+  return new THREE.ShaderMaterial({ uniforms:u, transparent:true, depthWrite:false, side:THREE.DoubleSide,
+    vertexShader:'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position, 1.0); }',
+    fragmentShader:`uniform vec3 uC; uniform float uOp, uSeed; varying vec2 vUv; ${SYD_NOISE}
+      void main(){ float r = vUv.x; float b = sydF(vec3(r*38.0 + uSeed, uSeed, 0.0)); float gap = smoothstep(0.02, 0.06, abs(r - 0.62 - 0.05*sin(uSeed*3.0)));
+        float a = uOp*smoothstep(0.0, 0.05, r)*(1.0 - smoothstep(0.92, 1.0, r))*(0.35 + 0.65*b)*gap; gl_FragColor = vec4(uC*(0.6 + 0.6*b), a); }` });
+}
+// belts, discs and clouds: every particle on its own Kepler orbit, solved in the vertex shader
+function sydBelt(s, o){
+  const b = o.def, P = b.phys, K = sydK(b), n = Math.max(100, Math.min(500000, Math.round(+P.pts || 10000)));
+  const Mc = o.parent ? (+o.parent.def.phys.M || 0) : sydCentralMass(s.design, b);
+  const aE = new Float32Array(n*3), aW = new Float32Array(n*3), aN = new Float32Array(n), aC = new Float32Array(n);
+  let seed = ((+b.look.seed || 1)*2654435761) >>> 0; const rnd = () => { seed = (seed + 0x6D2B79F5) >>> 0; let t = seed; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0)/4294967296; };
+  const r0 = Math.max(1e-6, +P.r0 || 1), r1 = Math.max(r0*1.0001, +P.r1 || 2), es = Math.max(0, Math.min(0.95, +P.es || 0)), is = Math.max(0, Math.min(90, +P.is || 0))*D2R, cloud = K.cloud || is > 60*D2R;
+  const hRel = r1 > 0 ? (+P.h || 0)/((r0 + r1)/2) : 0;
+  for (let i = 0; i < n; i++){
+    const a = cloud ? r0*Math.pow(r1/r0, rnd()) : r0 + (r1 - r0)*Math.pow(rnd(), K.flare ? 1.6 : 1);
+    const e = es*Math.pow(rnd(), 1.5);
+    let inc = cloud ? Math.acos(1 - 2*rnd()*Math.min(1, is/(Math.PI/2)) ) : (rnd() - 0.5)*2*is*0.5 + (rnd() - 0.5)*Math.atan(hRel*(K.flare ? Math.pow(a/r0, 0.25) : 1));
+    if (cloud && rnd() < 0.5) inc = Math.PI - inc;
+    aE[i*3] = a; aE[i*3+1] = e; aE[i*3+2] = inc; aW[i*3] = rnd()*2*Math.PI; aW[i*3+1] = rnd()*2*Math.PI;
+    const Pd = sydPeriod(a, Mc, 0), nn = Pd ? 2*Math.PI/Pd : 0; aN[i] = nn; aW[i*3+2] = ((rnd()*2*Math.PI + nn*s.days0) % (2*Math.PI));
+    aC[i] = 0.45 + 0.6*rnd(); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(n*3), 3)); g.setAttribute('aE', new THREE.BufferAttribute(aE, 3));
+  g.setAttribute('aW', new THREE.BufferAttribute(aW, 3)); g.setAttribute('aN', new THREE.BufferAttribute(aN, 1)); g.setAttribute('aC', new THREE.BufferAttribute(aC, 1));
+  const F = o.frame, m3 = new THREE.Matrix3().set(F.X.x, F.Y.x, F.Z.x, F.X.y, F.Y.y, F.Z.y, F.X.z, F.Y.z, F.Z.z);
+  const mode = !sydSchem() ? 0 : (!o.parent || o.parent.cat === 'star') ? 1 : 2, k = mode === 2 ? (o.parent.Rs || 0.05)/Math.max(1e-12, o.parent.R/AU_KM) : 1;
+  const U = { uDt:{ value:0 }, uF:{ value:m3 }, uC:{ value:new THREE.Vector3() }, uMode:{ value:mode }, uK:{ value:k }, uCol:{ value:new THREE.Color(b.look.c1 || '#a89a86') },
+    uSize:{ value:(cloud ? 1.3 : 1.7)*Math.min(2, renderer.getPixelRatio()) }, uOp:{ value:cloud ? 0.5 : 0.8 }, uFade:{ value:1 } };
+  o.beltOp0 = U.uOp.value; o.beltR = r1;
+  o.beltU = U;
+  const m = new THREE.ShaderMaterial({ uniforms:U, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+    vertexShader:`attribute vec3 aE; attribute vec3 aW; attribute float aN; attribute float aC; uniform float uDt, uMode, uK, uSize; uniform mat3 uF; uniform vec3 uC; varying float vB;
+      void main(){ float e = aE.y, M = aW.z + aN*uDt; M = mod(M, 6.2831853); float E = M + e*sin(M); for (int k = 0; k < 6; k++){ E = E - (E - e*sin(E) - M)/(1.0 - e*cos(E)); }
+        float xp = aE.x*(cos(E) - e), yp = aE.x*sqrt(1.0 - e*e)*sin(E); float cw = cos(aW.y), sw = sin(aW.y), cO = cos(aW.x), sO = sin(aW.x), ci = cos(aE.z), si = sin(aE.z);
+        vec3 p = vec3((cw*cO - sw*sO*ci)*xp + (-sw*cO - cw*sO*ci)*yp, (cw*sO + sw*cO*ci)*xp + (-sw*sO + cw*cO*ci)*yp, (sw*si)*xp + (cw*si)*yp);
+        if (uMode > 0.5 && uMode < 1.5){ float r = length(p); if (r > 0.0) p *= (2.5*log2(1.0 + r/0.25))/r; } else if (uMode > 1.5) p *= uK;
+        vec4 mv = modelViewMatrix*vec4(uC + uF*p, 1.0); gl_Position = projectionMatrix*mv; gl_PointSize = uSize; vB = aC; }`,
+    fragmentShader:`uniform vec3 uCol; uniform float uOp, uFade; varying float vB; void main(){ vec2 d = gl_PointCoord - 0.5; float r = dot(d, d); if (r > 0.25) discard; gl_FragColor = vec4(uCol*vB*uOp*uFade*(1.0 - r*3.2), 1.0); }` });
+  const pts = new THREE.Points(g, m); pts.frustumCulled = false; pts.renderOrder = 3; return pts;
+}
+// a comet's tail: points strung out away from the star, longer near perihelion
+function sydTail(s, o, starPos){
+  if (!o.tail || !starPos) return; const r = Math.max(0.05, o.posAU.distanceTo(starPos)), L = (+o.def.phys.tail || 1)*Math.min(2.5, 1/(r*r)), dir = _sv.copy(o.posAU).sub(starPos).normalize();
+  const pa = o.tail.geometry.attributes.position, n = pa.count, J = o.tailJ;
+  for (let i = 0; i < n; i++){ const t = i/n, d = t*L, w = d*0.05; pa.setXYZ(i, dir.x*d + J[i*3]*w, dir.y*d + J[i*3+1]*w, dir.z*d + J[i*3+2]*w); }
+  pa.needsUpdate = true; o.tail.position.copy(o.posAU); o.tail.visible = L > 0.002 && !o.hidden; o.tail.material.opacity = Math.min(0.9, 0.25 + L*0.3);
+  if (o.coma){ o.coma.scale.setScalar(Math.max(o.Rs*40, Math.min(0.05, L*0.02))); o.coma.visible = o.tail.visible; }
+}
+// simple procedural models for the artificial kinds; sizes in km, drawn in AU
+function sydArtModel(o){
+  const k = o.def.kind, S = Math.max(0.001, +o.def.phys.S || 1)/AU_KM, g = new THREE.Group(), col = new THREE.Color(o.def.look.c1 || '#c9ced4');
+  const mat = new THREE.MeshLambertMaterial({ color:col, emissive:col.clone().multiplyScalar(0.12) }), mat2 = new THREE.MeshLambertMaterial({ color:0x6f8aa8, emissive:0x101820 });
+  const add = (geo, m, f) => { const x = new THREE.Mesh(geo, m || mat); x.frustumCulled = false; if (f) f(x); g.add(x); return x; };
+  if (k === 'station'){ add(new THREE.TorusGeometry(S/2, S/14, 12, 48), mat, x => x.rotation.x = Math.PI/2); add(new THREE.CylinderGeometry(S/12, S/12, S*0.5, 16));
+    for (let i = 0; i < 4; i++) add(new THREE.BoxGeometry(S, S/40, S/40), mat, x => x.rotation.y = i*Math.PI/4); }
+  else if (k === 'satellite'){ add(new THREE.BoxGeometry(S*0.4, S*0.4, S*0.6)); add(new THREE.BoxGeometry(S*2.2, S*0.02, S*0.5), mat2); }
+  else if (k === 'shipyard'){ for (let i = 0; i < 6; i++){ add(new THREE.BoxGeometry(S, S/30, S/30), mat, x => { x.position.y = (i % 3 - 1)*S/3; x.position.z = (i < 3 ? -1 : 1)*S/6; }); }
+    for (let i = 0; i < 4; i++) add(new THREE.BoxGeometry(S/30, S*0.7, S/30), mat, x => { x.position.x = (i % 2 ? 1 : -1)*S/2; x.position.z = (i < 2 ? -1 : 1)*S/6; }); }
+  else if (k === 'defence'){ add(new THREE.OctahedronGeometry(S/2)); for (const d of [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]]) add(new THREE.ConeGeometry(S/14, S*0.6, 8), mat2, x => { x.position.set(d[0]*S*0.55, d[1]*S*0.55, d[2]*S*0.55); x.quaternion.setFromUnitVectors(_Y, new THREE.Vector3(...d)); }); }
+  else if (k === 'beacon'){ add(new THREE.SphereGeometry(S/2, 16, 12)); const gl = glowSprite('rgba(127,227,255,1)'); gl.scale.set(S*30, S*30, 1); gl.material.opacity = 0.8; g.add(gl); o.pulse = gl; }
+  else if (k === 'oneill'){ add(new THREE.CylinderGeometry(S*0.1, S*0.1, S, 24), mat, x => x.position.x = -S*0.12); add(new THREE.CylinderGeometry(S*0.1, S*0.1, S, 24), mat, x => x.position.x = S*0.12); }
+  else if (k === 'ringhab'){ add(new THREE.CylinderGeometry(S/2, S/2, S*0.03, 128, 1, true), new THREE.MeshLambertMaterial({ color:col, emissive:col.clone().multiplyScalar(0.12), side:THREE.DoubleSide })); }
+  else if (k === 'oring'){ const R = (o.parent ? o.parent.R : 6371) + (+o.def.place.h || 0); add(new THREE.TorusGeometry(R/AU_KM, Math.max(S, 1)/AU_KM, 8, 256), mat, x => x.rotation.x = Math.PI/2); }
+  else if (k === 'elevator'){ const h = Math.max(1, +o.def.place.h || 1)/AU_KM; add(new THREE.CylinderGeometry(S/4, S/4, h, 6), mat, x => x.position.y = -h/2); add(new THREE.BoxGeometry(S*4, S*4, S*4), mat); }
+  else add(new THREE.BoxGeometry(S, S, S));
+  return g;
+}
+function sydMakeVisual(s, o){
+  const b = o.def, c = o.cat, L = b.look || {};
+  if (c === 'star'){
+    const m = new THREE.Mesh(SYD_UNIT, sydStarMat(o)); m.scale.setScalar(o.Rs); m.frustumCulled = false; o.grp.add(m); o.mesh = m;
+    const rgb = o.starRGB || [1, 0.9, 0.7], cor = glowSprite('rgba(255,236,190,0.95)'); cor.scale.set(o.Rs*7, o.Rs*7, 1); cor.material.opacity = 0.55; cor.material.color.setRGB(rgb[0], rgb[1], rgb[2]); o.grp.add(cor); o.glow = cor;
+  } else if (c === 'planet' || c === 'moon' || c === 'comet'){
+    let m;
+    if (L.preset === 'tex' || L.earth){ m = bodyMesh({ tex:L.tex, earth:L.earth, col:L.c1 }, 1, { holo:false }); m.geometry.dispose(); m.geometry = SYD_UNIT; }
+    else if (L.preset === 'holo'){ m = new THREE.Mesh(SYD_UNIT, holoMat(L.c1 || '#7fe3ff', { nu:c === 'moon' ? 12 : 24, nv:c === 'moon' ? 6 : 12, grid:0.55, gain:1 })); }
+    else m = new THREE.Mesh(SYD_UNIT, sydPlanetMat(o));
+    if (L.earth && m.material.uniforms && m.material.uniforms.uSun) o.lightU = m.material.uniforms.uSun;
+    m.scale.setScalar(o.Rs); m.frustumCulled = false; o.grp.add(m); o.mesh = m;
+    if (c === 'comet'){ const n = 600, g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(n*3), 3));
+      o.tailJ = new Float32Array(n*3); for (let i = 0; i < n*3; i++) o.tailJ[i] = Math.random()*2 - 1;
+      o.tail = new THREE.Points(g, new THREE.PointsMaterial({ size:1.6, sizeAttenuation:false, color:0xbfe6ff, transparent:true, opacity:0.6, depthWrite:false, blending:THREE.AdditiveBlending }));
+      o.tail.frustumCulled = false; s.group.add(o.tail); o.coma = glowSprite('rgba(200,235,255,0.9)'); o.coma.material.opacity = 0.5; o.grp.add(o.coma); }
+  } else if (c === 'ring' && o.parent && o.parent.mesh){
+    const P = b.phys, pR = Math.max(1, o.parent.R), ri = (+P.rin || pR*1.3)/pR, ro = Math.max(ri*1.01, (+P.rout || pR*2.3)/pR), rg = new THREE.RingGeometry(ri, ro, 180, 1);
+    const uv = rg.attributes.uv, ps = rg.attributes.position; for (let i = 0; i < uv.count; i++){ const r = Math.hypot(ps.getX(i), ps.getY(i)); uv.setXY(i, (r - ri)/(ro - ri), 0.5); }
+    const ring = new THREE.Mesh(rg, sydRingMat(o)); ring.rotation.x = -Math.PI/2; ring.frustumCulled = false; o.parent.mesh.add(ring); o.mesh = null; o.ringMesh = ring; o.Rs = o.parent.Rs*ro;
+  } else if (c === 'belt'){ const p = sydBelt(s, o); s.group.add(p); o.pts = p;
+  } else if (c === 'art'){ const g = sydArtModel(o); if (sydSchem()) g.scale.setScalar(Math.max(1, (o.parent ? (o.parent.Rs || 0.05)*0.25 : 0.03)/Math.max(1e-12, (+b.phys.S || 1)/AU_KM)));
+    if (b.kind === 'elevator') o.attach = g;
+    if (b.kind === 'oring'){ s.group.add(g); o.ringFollow = g; } else o.grp.add(g);
+  } else if (c === 'halo' && o.parent){
+    const P = b.phys, rg = P.destroyed ? haloRingModel(10000, 318, { segments:36, gap:0.22, missing:[2,3,4,9,10,15,16,17,18,24,25,29,30,31], debris:1400 }) : haloRingModel(10000, 318, {});
+    rg.frustumCulled = false; s.group.add(rg); o.haloGrp = rg; o.haloTilt = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), (+P.tiltDeg || 18)*D2R);
+  }
+  if (o.grp && o.hidden) o.grp.visible = false; if (o.pts && o.hidden) o.pts.visible = false; if (o.ringMesh && o.hidden) o.ringMesh.visible = false;
+  // the orbit line, in the parent's frame, moved onto the parent every frame
+  if (b.place.mode === 'orbit' && c !== 'belt' && c !== 'ring' && c !== 'halo'){
+    const pts = [], sch = sydSchem(), top = !o.parent || o.parent.cat === 'star';
+    for (let k = 0; k <= 360; k++){ let v;
+      if (b.place.ephem){ const e = planetEcl({ el:b.place.ephem.el, rt:b.place.ephem.rt }, sysJD(), k/360*2*Math.PI); v = s.toWorld(e[0], e[1], e[2]); }
+      else { const e = sydOrbXYZ(b.place, k/360*2*Math.PI); v = sydW(o.frame, e[0], e[1], e[2]); }
+      if (sch){ if (top){ const r = v.length(); if (r > 0) v.multiplyScalar(SYD_S(r)/r); } else v.multiplyScalar(o.schemF); }
+      pts.push(v); }
+    const base = new THREE.Color(L.c1 || '#9fc4e8'), lc = L.preset === 'holo' ? base.lerp(new THREE.Color(0x4fa8cc), 0.55) : base.lerp(new THREE.Color(0xffffff), 0.35);
+    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color:lc, transparent:true, opacity:0.42, blending:THREE.AdditiveBlending, depthWrite:false }));
+    line.frustumCulled = false; s.group.add(line); o.line = line; if (o.hidden) line.visible = false;
+  }
+}
+function sydHaloStep(s, o, jd){
+  const H = o.def.phys, host = o.parent, g = o.haloGrp; if (!g || !host) return; let p = null;
+  if (H.alignTo){ const mn = s.bodies.find(x => x.def.uuid === H.alignTo); if (mn){ const dir = mn.posAU.clone().sub(host.posAU).normalize(); p = host.posAU.clone().addScaledVector(dir, (+H.a || 0)/AU_KM*(sydSchem() ? mn.schemF || 1 : 1)); } }
+  if (!p){ const th = ((jd - J2000)/(+H.P || 1))*2*Math.PI; _sv.set((+H.a || 0)/AU_KM*Math.cos(th), 0, (+H.a || 0)/AU_KM*Math.sin(th)).applyQuaternion(host.tiltQ); p = host.posAU.clone().add(_sv); }
+  g.position.copy(p); g.quaternion.setFromUnitVectors(_Y, s.up.clone()).multiply(o.haloTilt).multiply(_sq.setFromAxisAngle(_Y, (jd*0.9) % (2*Math.PI)));
+  o.posAU.copy(p); o.grp.position.copy(p); o.pos.copy(s.anchor).addScaledVector(p, 1/AU_PER_LY); o.R = 5000; o.Rs = 5000/AU_KM;
+}
+// overlays: habitable zone, frost line, Roche limits, Hill spheres
+function sydCircle(r, col, op, dashed){ const pts = []; for (let k = 0; k <= 256; k++){ const t = k/256*2*Math.PI; pts.push(new THREE.Vector3(r*Math.cos(t), 0, -r*Math.sin(t))); }
+  const m = dashed ? new THREE.LineDashedMaterial({ color:col, transparent:true, opacity:op, dashSize:r*0.04, gapSize:r*0.03, depthWrite:false }) : new THREE.LineBasicMaterial({ color:col, transparent:true, opacity:op, depthWrite:false });
+  const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), m); if (dashed) l.computeLineDistances(); l.frustumCulled = false; return l; }
+function sydOverlays(s){
+  const D = s.design, O = SYD.ovl, sch = sydSchem(), map = r => sch ? SYD_S(r) : r;
+  const st = s.star && s.star.def, lum = st ? +st.phys.lum : 0, teff = st ? +st.phys.teff : 0;
+  if (O.hz && st){ const z = sydHZ(teff, lum); if (z){ for (const [i0, i1, op] of [[0, 3, 0.07], [1, 2, 0.14]]){ const g = new THREE.RingGeometry(map(z[i1 === 2 ? 1 : 0]), map(z[i1]), 192, 1);
+      const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color:0x55d68a, transparent:true, opacity:op, side:THREE.DoubleSide, depthWrite:false })); m.rotation.x = -Math.PI/2; m.frustumCulled = false; s.group.add(m); } } }
+  if (O.frost && st && lum > 0) s.group.add(sydCircle(map(sydFrost(lum)), 0x8fd0ff, 0.6, true));
+  for (const o of s.bodies){ const b = o.def;
+    if (O.hill && o.parent && o.parent.cat === 'star' && (o.cat === 'planet') && b.place.mode === 'orbit'){ const h = sydHill(+b.place.a, +b.place.e, +b.phys.M, +o.parent.def.phys.M);
+      if (h){ const c = sydCircle(sch ? (o.Rs || 0.05)*6 : h, 0xc8a2ff, 0.45, false); c.quaternion.setFromUnitVectors(_Y, FLAT_BASIS.Z); s.group.add(c); o.hill = c; } }
+    if (O.roche && o.moon && o.parent && b.place.mode === 'orbit'){ const pd = sydDens(+o.parent.def.phys.M, o.parent.R), md = sydDens(+b.phys.M, o.R);
+      if (pd && md){ const r = 2.44*o.parent.R*Math.cbrt(pd/md)/AU_KM; const c = sydCircle(sch ? r*o.schemF : r, 0xff8a7a, 0.55, true); c.quaternion.setFromUnitVectors(_Y, o.frame.Z); s.group.add(c); o.roche = c; } }
+  }
+}
+// galaxy-map markers: a ring with a dot on every designed system, and a faint shell for an Oort cloud
+function sydMarkTex(){ const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); g.strokeStyle = '#fff'; g.lineWidth = 3;
+  g.setLineDash([7, 5]); g.beginPath(); g.arc(32, 32, 26, 0, Math.PI*2); g.stroke(); g.setLineDash([]); g.fillStyle = '#fff'; g.beginPath(); g.arc(54, 22, 5, 0, Math.PI*2); g.fill(); return new THREE.CanvasTexture(c); }
+function sydMarkers(){
+  if (!SYD.mark){ SYD.mark = scenMarkerPts(sydMarkTex(), 24); }
+  const pos = [], col = []; for (const s of SYD.list){ pos.push(s.anchor.x, s.anchor.y, s.anchor.z); col.push(0.55, 0.92, 1); }
+  SYD.mark.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3)); SYD.mark.geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(col), 3)); SYD.mark.geometry.computeBoundingSphere();
+}
+function sydShell(s){
+  const cl = s.bodies.filter(o => o.cat === 'belt' && (sydK(o.def).cloud || (+o.def.phys.is || 0) > 60) && (+o.def.phys.r1 || 0)/AU_PER_LY > SYS_LEAVE*0.5); if (!cl.length) return;
+  const pos = []; for (const o of cl){ const r0 = +o.def.phys.r0/AU_PER_LY, r1 = +o.def.phys.r1/AU_PER_LY;
+    for (let i = 0; i < 2500; i++){ const r = r0*Math.pow(r1/r0, Math.random()), u = 2*Math.random() - 1, t = Math.random()*2*Math.PI, q = Math.sqrt(1 - u*u); pos.push(s.anchor.x + r*q*Math.cos(t), s.anchor.y + r*u, s.anchor.z + r*q*Math.sin(t)); } }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3));
+  s.shell = new THREE.Points(g, new THREE.PointsMaterial({ size:1.4, sizeAttenuation:false, color:0x8fa3bb, transparent:true, opacity:0.35, depthWrite:false, blending:THREE.AdditiveBlending }));
+  s.shell.frustumCulled = false; scene.add(s.shell);
+}
+function stepSyd(){
+  const on = SCEN && SCEN.on && !sysActive; if (SYD.mark && SYD.mark.visible !== on) SYD.mark.visible = on;
+  for (const s of SYD.list) if (s.shell){ const w = SCEN.on && !(sysActive && activeSys === s); if (s.shell.visible !== w) s.shell.visible = w; }
+  if (activeSys && activeSys.design){ for (const o of activeSys.bodies) if (o.pulse) o.pulse.material.opacity = 0.45 + 0.4*Math.sin(performance.now()*0.004); }
+  if (SYD.pending && activeSys === SYD.pending.sys){ const p = SYD.pending; SYD.pending = null; sydOpenNow(p.sys, p.sel); }
+  if (SYD.open && SYD.sys && activeSys !== SYD.sys && !SYD.pending && !fly) sydClose();
+}
+const sydLabelShow = o => sysActive && o.sys === activeSys && !o.hidden && (() => { const d = camD(o.pos), dAU = d*AU_PER_LY;
+  if (d < o.R/LY_KM*3) return false; if (o.star) return dAU > 0.02*10 || o.sys.bodies.length === 1;
+  if (o.belt){ const r1 = +o.def.phys.r1 || 1, f = !o.parent || o.parent.cat === 'star' ? 1 : (o.parent.Rs || 0.05)/Math.max(1e-12, o.parent.R/AU_KM); return dAU < r1*f*(sydSchem() ? 6 : 25); }
+  if (o.parent && o.parent.cat !== 'star'){ const far = Math.max(...o.parent.kids.map(k => k.posAU.distanceTo(o.parent.posAU))); return dAU < far*40; }
+  return dAU < Math.max(20, o.posAU.length()*45); })();
+
+// ---------- the object panel: Design system, Edit system, Delete design, Revert to built-in ----------
+function sydHostBlock(o){
+  if (!SCEN || !SCEN.ready || !sydCanDesign(o) || o.kind === 'dbody') return '';
+  const D = sydDesignOf(o), bs = sydBuiltinOf(o); let h = '';
+  if (!D){ h += `<div class="acts"><button class="btn" data-syd="design" title="Build this star's system body by body, saved in your scenario.">Design system</button></div>` + (SCEN.doc ? '' : `<p class="shint">Starts a new scenario.</p>`); }
+  else { if (D.builtin) h += `<p class="shint">Drawn from your scenario's design, not the built-in model.</p>`;
+    h += `<p class="shint">Designed system: ${D.bodies.length} bodies</p><div class="acts"><button class="btn" data-syd="edit">Edit system</button>`
+      + (D.builtin ? `<button class="btn ghost" data-syd="revert">Revert to built-in</button>` : `<button class="btn ghost" data-syd="deldes">Delete design</button>`) + `</div>`; }
+  if (!(o.kind === 'scen' || scenDesignatable(o)) && bs) h = `<div class="grp">Scenario</div>` + h;
+  return h;
+}
+// the panel of a designed body (shown when the designer is closed)
+function sydBodyBlock(o){
+  const b = o.def, D = o.sys.design, K = sydK(b), P = b.phys || {}, pl = b.place || {}, doc = SCEN.doc;
+  let h = `<p>Added in the scenario ${esc(doc ? doc.name : '')}${D.author ? ' by ' + esc(D.author) : ''}.</p><div class="kv">`;
+  const row = (k, v) => v == null || v === '' ? '' : `<div><span class="k">${k}</span><span class="v">${v}</span></div>`;
+  h += row('Kind', esc(K.n)) + row('Orbits', esc(o.parent ? o.parent.name : 'The system centre'));
+  if (pl.mode === 'orbit'){ const u = sydUnitOf(b, 'a', D); h += row('Semi-major axis', sydFmt(+pl.a/sydUF('dist', u)) + ' ' + u) + row('Period', pl.P ? sydFmt(pl.P) + ' days' : null); }
+  if (o.cat !== 'belt' && o.cat !== 'ring' && o.cat !== 'halo') h += row('Radius', P.R ? sydFmt(+P.R) + ' km' : o.cat === 'art' ? sydFmt(+P.S) + ' km' : null) + row('Mass', P.M ? sydFmt(+P.M) + ' M⊕' : null);
+  const t = o.cat === 'star' ? P.teff : sydReadouts(D, b).teq; h += row('Temperature', t ? Math.round(t).toLocaleString('en-GB') + ' K' : null);
+  h += `</div>` + notesBlock(b.notes) + `<div class="acts"><button class="btn" data-syd="editin">Edit in the designer</button></div>`;
+  return h;
+}
+ibody.addEventListener('click', async e => {
+  const bt = e.target.closest('[data-syd]'); if (!bt || !selected) return; const a = bt.dataset.syd, o = selected;
+  if (a === 'design') return sydStart(o);
+  if (a === 'edit'){ const D = sydDesignOf(o); const s = D && SYD.list.find(x => x.uuid === D.uuid); if (s) sydOpen(s, null); return; }
+  if (a === 'editin' && o.kind === 'dbody') return sydOpen(o.sys, o.def.uuid);
+  if (a === 'deldes' || a === 'revert'){ const D = sydDesignOf(o); if (!D) return;
+    const r = a === 'revert' ? await scenModal({ title:'Revert to built-in', html:`<p>Revert ${esc(D.name)} to the built-in model? Your design is removed from the scenario. You can undo this.</p>`, buttons:[['go', 'Revert to built-in', true], ['cancel', 'Cancel']] })
+      : await scenModal({ title:'Delete design', html:`<p>Delete the design for ${esc(D.name)}? Its ${D.bodies.length} bodies are removed from the scenario. You can undo this.</p>`, buttons:[['go', 'Delete design', true], ['cancel', 'Cancel']] });
+    if (r !== 'go') return; if (SYD.open) sydClose(); const keep = o.kind === 'dbody' ? sydHostObj(D.host) : o;
+    scenEdit(doc => { doc.systems = doc.systems.filter(x => x.uuid !== D.uuid); }); if (keep) showObject(keep); }
+});
+async function sydStart(o){
+  if (!SCEN.doc){ scenStartNew(true); scenRebuild(); }
+  const bs = sydBuiltinOf(o); let D;
+  if (bs){ const r = await scenModal({ title:'Copy the built-in system?', html:`<p>This starts from a copy of the built-in ${esc(bs.def.group || bs.name)} model. The original stays as it is, and you can revert to it at any time.</p>`,
+      buttons:[['go', 'Make a copy', true], ['cancel', 'Cancel']] }); if (r !== 'go') return; D = sydFromBuiltin(bs); }
+  else { const host = o.kind === 'dbody' ? null : o; if (!host) return; const t = scenNow();
+    D = { uuid:scenUUID(), name:scenTitle(host), host:sydHostRec(host), mode:'realistic', author:SCEN.doc.author || '', scenario:SCEN.doc.id, created:t, modified:t, bodies:[] };
+    if (!(host.kind === 'scen' && host.scen.point)){ const st = sydNewBody(D, sydKindOfHost(host), null); st.name = scenTitle(host); st.phys.spec = sydSpecOfHost(host) || st.phys.spec; D.bodies.push(st); }
+    sydDerive(D); }
+  scenEdit(doc => { doc.systems.push(D); });
+  const s = SYD.list.find(x => x.uuid === D.uuid); if (s) sydOpen(s, s.star ? s.star.def.uuid : null);
+}
+// the star a catalogue object already is: its spectral type, or its class byte, or the new star's classes
+function sydSpecOfHost(o){
+  const sp = o.sp || (o.db && o.db.sp) || '', m = sydSpecOf(sp); if (m) return m;
+  if (o.kind === 'scen'){ const s = o.scen, L = (SCEN_SPEC.find(x => x[0] === s.spec) || [0, 'G'])[1]; if (s.lum === 5) return 'DA'; return /^[OBAFGKMLTY]$/.test(L) ? L + '5' + (['', 'V', 'IV', 'III', 'I'][s.lum] || 'V') : ''; }
+  const i = scenFidx(o); if (i >= 0 && CLS.ready && i < CLS.a.length){ const c = CLS.a[i], sp2 = c & 15, lu = c >> 4, L = (SCEN_SPEC.find(x => x[0] === sp2) || [0, ''])[1];
+    if (lu === 5) return 'DA'; if (/^[OBAFGKMLTY]$/.test(L)) return L + '5' + (['', 'V', 'IV', 'III', 'I', '', 'V'][lu] || 'V'); }
+  return '';
+}
+function sydKindOfHost(o){ const s = sydSpecOfHost(o), p = sydSpec(s); if (/^D/.test(s)) return 'wd'; if (!p) return 'ms';
+  if (p.code >= 70) return 'bd'; return p.lc === 'III' ? 'giant' : p.lc === 'I' || p.lc === 'II' ? 'supergiant' : p.lc === 'IV' ? 'subgiant' : 'ms'; }
+
+// ---------- opening and closing the designer ----------
+function sydOpen(s, sel){
+  if (!s) return; SYD.err = '';
+  if (activeSys === s){ sydOpenNow(s, sel); return; }
+  SYD.pending = { sys:s, sel };
+  const tgt = s.bodies.find(o => o.cat === 'planet' && !o.parent?.parent) || s.star || s.bodies[0];
+  if (tgt){ const v = viewOf(tgt); flyTo(v.target, v.pos, 3000, tgt.star ? null : tgt); }
+  else flyTo(s.anchor.clone(), s.anchor.clone().add(new THREE.Vector3(0, 1.5/AU_PER_LY, 3/AU_PER_LY)), 3000);
+}
+function sydOpenNow(s, sel){
+  SYD.open = true; SYD.sys = s; SYD.palette = false; SYD.menu = null;
+  tidyLeft('syd'); if (SCEN.open) setScen(false); if ($('#filters').classList.contains('open')) setFilters(false); panel.classList.add('hidden');
+  $('#syd').classList.add('open'); $('#sydi').classList.add('open'); info.classList.add('hidden');
+  const o = sel ? s.bodies.find(x => x.def.uuid === sel) : selected && selected.sys === s ? selected : s.star;
+  if (o) sydSelect(o, true); else { SYD.sel = null; sydRender(); }
+  syncGutters();
+}
+function sydClose(){
+  if (!SYD.open) return; SYD.open = false; SYD.pending = null; SYD.drag = null; controls.enabled = true;
+  $('#syd').classList.remove('open'); $('#sydi').classList.remove('open');
+  if (selected && objects.includes(selected)) showObject(selected, true); syncGutters();
+}
+function sydSelect(o, noShow){ SYD.sel = o.def.uuid; SYD.err = ''; if (!noShow) showObject(o, true); else { selected = o; setChip(o); setPivot(o); } sydRender(); }
+const sydCur = () => SYD.sys ? SYD.sys.design : null;
+const sydSelBody = () => { const D = sydCur(); return D && SYD.sel ? sydBodyOf(D, SYD.sel) : null; };
+const sydSelObj = () => SYD.sys && SYD.sel ? SYD.sys.bodies.find(o => o.def.uuid === SYD.sel) || null : null;
+// every designer edit: one undo step, then the derived values, then a rebuild of the scene
+function sydEdit(fn){
+  const u = SYD.sys && SYD.sys.uuid; if (!u) return;
+  scenEdit(doc => { const D = doc.systems.find(x => x.uuid === u); if (!D) return; fn(D, doc); sydDerive(D); D.modified = scenNow(); });
+}
+
+// ---------- the dock (left): toolbar, clock and the outliner ----------
+function sydRender(){ if (!SYD.open) return; sydRenderDock(); sydRenderInsp(); }
+function sydRenderDock(){
+  const el = $('#sydBody'), D = sydCur(); if (!el || !D) return;
+  $('#sydTitle').textContent = 'System designer · ' + D.name;
+  const real = D.mode !== 'free', sch = sydSchem();
+  let h = `<div class="stool"><button class="ibtn" data-y="done">Done</button><span class="sp"></span><button class="ibtn" data-y="undo" title="Undo (Ctrl+Z)" aria-label="Undo"${SCEN.undo.length ? '' : ' disabled'}>&#8630;</button><button class="ibtn" data-y="redo" title="Redo (Ctrl+Y)" aria-label="Redo"${SCEN.redo.length ? '' : ' disabled'}>&#8631;</button></div>`;
+  h += `<div class="stabs"><button class="${real ? 'on' : ''}" data-y="mode" data-v="realistic" title="Fills in values from the star's type and real astronomy, and warns when something wouldn't last. You can override any value.">Realistic</button>`
+    + `<button class="${real ? '' : 'on'}" data-y="mode" data-v="free" title="No warnings and nothing filled in. Put anything anywhere.">Free</button></div>`;
+  h += `<div class="stabs"><button class="${sch ? '' : 'on'}" data-y="scale" data-v="true">True scale</button><button class="${sch ? 'on' : ''}" data-y="scale" data-v="schem" title="Spaces orbits evenly and enlarges bodies so small ones can be seen. Positions and sizes are not to scale.">Schematic</button></div>`;
+  const ov = [['hz', 'Habitable zone'], ['frost', 'Frost line'], ['roche', 'Roche limits'], ['hill', 'Hill spheres'], ['olab', 'Orbit labels']];
+  h += `<details class="sdet"><summary>Overlays</summary>${ov.map(([k, t]) => `<label class="schk2"><input type="checkbox" data-y="ovl" data-v="${k}"${SYD.ovl[k] ? ' checked' : ''}> ${t}</label>`).join('')}</details>`;
+  h += `<div class="sclock" id="sydClock" title="Resets to today's date when you leave the system."></div>`;
+  h += `<div class="sgrp">Bodies (${D.bodies.length})</div>`;
+  const order = sydOrder(D), warn = sydChecks(D);
+  if (!order.length) h += `<p class="sempty">Nothing here yet. Add a star, or a body that wanders on its own.</p>`;
+  for (const b of order){ const dep = sydDepth(D, b), on = SYD.sel === b.uuid, w = real && (warn.get(b.uuid) || []).length;
+    h += `<div class="yrow${on ? ' on' : ''}${b.hidden ? ' hid' : ''}" style="padding-left:${6 + dep*14}px"><button class="yeye" data-y="hide" data-u="${b.uuid}" title="Hide in the view (stays in the file)" aria-label="Hide in the view">${b.hidden ? '&#9675;' : '&#9679;'}</button>`
+      + `<button class="ynm" data-y="sel" data-u="${b.uuid}"><span>${esc(b.name || sydK(b).n)}${w ? ' <em class="yw">&#9650;</em>' : ''}</span><span class="t">${esc(sydK(b).n)}</span></button>`
+      + `<button class="ymore" data-y="menu" data-u="${b.uuid}" aria-label="More">&#8943;</button></div>`;
+    if (SYD.menu === b.uuid){ const c = sydCat(b), acts = [];
+      if (c === 'planet' || c === 'moon') acts.push(['addmoon', 'Add moon']); if (['planet', 'moon', 'star'].includes(c)) acts.push(['addring', 'Add ring']);
+      if (c !== 'belt' && c !== 'ring' && c !== 'halo') acts.push(['addstation', 'Add station']);
+      acts.push(['dup', 'Duplicate'], ['rename', 'Rename'], ['del', 'Delete']);
+      h += `<div class="ymenu" style="margin-left:${20 + dep*14}px">${acts.map(([k, t]) => `<button class="ibtn" data-y="${k}" data-u="${b.uuid}">${t}</button>`).join('')}</div>`; }
+  }
+  h += `<button class="ibtn sadd2" data-y="palette">+ Add</button>`;
+  if (SYD.palette){ h += `<div class="ypal sbox">`;
+    for (const [g, gn] of SYD_GROUPS){ h += `<div class="sl">${gn}</div><div class="ypg"${g === 'art' ? ` title="${esc(SYD_ART_TIP)}"` : ''}>`;
+      for (const [k, K] of Object.entries(SYD_KINDS)) if (K.g === g) h += `<button class="ibtn" data-y="add" data-k="${k}"${K.tip ? ` title="${esc(K.tip)}"` : ''}>${esc(K.n)}</button>`;
+      h += `</div>`; }
+    h += `</div>`; }
+  el.innerHTML = h; sydClockUI();
+}
+function sydClockUI(){
+  const el = document.getElementById('sydClock'); if (!el) return; const C = SYD.clock, r = SYD_RATES[C.idx];
+  el.innerHTML = `<button class="ibtn" data-y="clk" data-v="${C.paused ? 'play' : 'pause'}">${C.paused ? 'Play' : 'Pause'}</button><button class="ibtn" data-y="clk" data-v="slow">Slower</button><button class="ibtn" data-y="clk" data-v="fast">Faster</button>`
+    + `<span class="crd">${r ? r.toLocaleString('en-GB') + ' days per second' : 'Real time'}</span><button class="ibtn" data-y="clk" data-v="now" title="Back to today's date">Now</button>`;
+}
+
+// ---------- the inspector (right) ----------
+const sydFmt = v => { if (v == null || !isFinite(v)) return ''; const a = Math.abs(v); if (a === 0) return '0'; if (a >= 1e6 || a < 1e-4) return (+v.toPrecision(5)).toExponential().replace('e+', 'e');
+  return (+v.toPrecision(6)).toLocaleString('en-GB', { maximumFractionDigits:6, useGrouping:a >= 10000 }); };
+const sydParse = s => { s = String(s == null ? '' : s).replace(/,/g, '').replace('−', '-').trim(); if (!s) return NaN; return Number(s); };
+function sydUnitOf(b, f, D0){
+  if (b.units && b.units[f]) return b.units[f]; const c = sydCat(b), K = sydK(b), D = D0 || sydCur();
+  const p = D ? sydParentOf(D, b) : null, around = p && sydCat(p) !== 'star';
+  if (f === 'a') return c === 'moon' || (around && c === 'art') ? 'km' : 'AU';
+  if (f === 'R') return c === 'star' ? (b.kind === 'ns' || b.kind === 'wd' ? 'km' : 'R☉') : 'km';
+  if (f === 'M') return c === 'star' ? 'M☉' : K.giant || b.kind === 'minineptune' ? 'M♃' : 'M⊕';
+  if (f === 'P') return (+b.place.P || 0) > 2000 ? 'years' : 'days';
+  if (f === 'rot') return 'hours';
+  if (f === 'r0' || f === 'r1' || f === 'h') return around ? 'km' : 'AU';
+  return null;
+}
+const SYD_DIM = { a:'dist', x:'dist', y:'dist', z:'dist', r0:'dist', r1:'dist', h:'dist', R:'rad', rin:'rad', rout:'rad', M:'mass', P:'time', rot:'rot' };
+function sydNum(b, path, lab, tip, opt){ opt = opt || {}; const f = path.split('.').pop(), dim = opt.dim === undefined ? SYD_DIM[f] : opt.dim, u = dim ? sydUnitOf(b, f) || SYD_U[dim][0][0] : null;
+  const raw = path.split('.').reduce((x, k) => x == null ? x : x[k], b), v = raw == null || raw === '' ? '' : sydFmt(dim ? +raw/sydUF(dim, u) : +raw);
+  const comp = opt.comp, real = sydCur().mode !== 'free', over = b.over && b.over[opt.ok || f];
+  const badge = comp && (real || f === 'P') && !over ? `<span class="ybadge" title="Computed. Type a value to override it.">${comp}</span>` : comp && over && (real || f === 'P') ? `<button class="ylink" data-y="reset" data-f="${opt.ok || f}">Use the computed value</button>` : '';
+  return `<label class="sl"${tip ? ` title="${esc(tip)}"` : ''}>${lab}${opt.suffix ? ' (' + opt.suffix + ')' : ''}</label><div class="yin"><input type="text" data-yf="${path}" data-dim="${dim || ''}" data-u="${u || ''}" value="${esc(v)}"${tip ? ` title="${esc(tip)}"` : ''}>`
+    + (dim ? `<select data-yu="${f}" aria-label="Unit">${SYD_U[dim].map(x => `<option${x[0] === u ? ' selected' : ''}>${x[0]}</option>`).join('')}</select>` : '') + `</div>${badge}`; }
+function sydSel(path, lab, opts, cur, tip){ return `<label class="sl"${tip ? ` title="${esc(tip)}"` : ''}>${lab}</label><select data-ys="${path}">${opts.map(([v, t, tt]) => `<option value="${esc(v)}"${String(v) === String(cur) ? ' selected' : ''}${tt ? ` title="${esc(tt)}"` : ''}>${esc(t)}</option>`).join('')}</select>`; }
+function sydRenderInsp(){
+  const el = $('#sydiBody'), D = sydCur(); if (!el || !D) return; const b = sydSelBody();
+  if (!b){ $('#sydiTitle').textContent = D.name; $('#sydiSub').textContent = 'System designer'; el.innerHTML = `<p class="sempty">Select a body, or add one.</p>`; return; }
+  const K = sydK(b), c = K.cat, pl = b.place, P = b.phys, real = D.mode !== 'free';
+  $('#sydiTitle').textContent = b.name || K.n; $('#sydiSub').textContent = K.n;
+  let h = SYD.err ? `<p class="serr">${esc(SYD.err)}</p>` : '';
+  h += `<div class="grp">Identity</div><div class="sform"><label class="sl">Name</label><input type="text" data-yf="name" data-dim="" value="${esc(b.name || '')}" id="sydName">`;
+  if (c !== 'halo') h += sydSel('kind', 'Kind', Object.entries(SYD_KINDS).filter(([k, x]) => x.g === K.g).map(([k, x]) => [k, x.n, x.tip]), b.kind);
+  h += `<label class="sl">Notes</label>` + notesEditor('data-yn', 'notes', b.notes || '', 6) + `</div>`;
+  // placement
+  h += `<div class="grp">Placement</div><div class="sform">`;
+  const modes = c === 'star' ? (!b.parent ? [['centre', 'At the system centre'], ['orbit', 'Orbit'], ['free', 'Free position']] : [['orbit', 'Orbit'], ['free', 'Free position']])
+    : ['planet', 'moon', 'comet', 'art'].includes(c) ? [['orbit', 'Orbit'], ['free', 'Free position'], ['attached', 'Attached to a body']] : null;
+  if (modes) h += sydSel('place.mode', 'Placement', modes, pl.mode);
+  if (c !== 'halo'){ const bad = new Set([b.uuid, ...sydDesc(D, b.uuid)]), opts = [['', 'The system centre']].concat(sydOrder(D).filter(x => !bad.has(x.uuid) && !['belt', 'ring', 'halo'].includes(sydCat(x))).map(x => [x.uuid, x.name || sydK(x).n]));
+    h += sydSel('parent', pl.mode === 'attached' ? 'Body' : 'Orbits', opts, b.parent || ''); }
+  if (pl.mode === 'orbit'){
+    h += sydNum(b, 'place.a', 'Semi-major axis', 'Average distance from what it orbits.') + sydNum(b, 'place.e', 'Eccentricity', '0 is a circle; towards 1 is a long ellipse.', { dim:null })
+      + sydNum(b, 'place.i', 'Inclination', 'Tilt of the orbit against the system\'s plane (a moon\'s: against its planet\'s equator).', { dim:null, suffix:'°' })
+      + sydNum(b, 'place.node', 'Ascending node', 'Where the orbit crosses the plane going upwards.', { dim:null, suffix:'°' })
+      + sydNum(b, 'place.argp', 'Argument of periapsis', 'Where along the orbit the closest point lies.', { dim:null, suffix:'°' })
+      + sydNum(b, 'place.phase', 'Phase', 'Where the body is on its orbit today.', { dim:null, suffix:'°' })
+      + `<label class="schk2" title="Orbits the wrong way round."><input type="checkbox" data-yc="place.retro"${pl.retro ? ' checked' : ''}> Retrograde</label>`
+      + sydNum(b, 'place.P', 'Period', 'Worked out from the masses. Type a value to fix it.', { comp:'From the masses' }); }
+  if (pl.mode === 'free') h += sydNum(b, 'place.x', 'X') + sydNum(b, 'place.y', 'Y') + sydNum(b, 'place.z', 'Z') + `<p class="shint">Fixed in place. No orbit, no physics.</p>`;
+  if (pl.mode === 'attached') h += sydNum(b, 'place.lat', 'Latitude', null, { dim:null, suffix:'°' }) + sydNum(b, 'place.lon', 'Longitude', null, { dim:null, suffix:'°' }) + sydNum(b, 'place.h', 'Height', null, { dim:null, suffix:'km' })
+    + `<p class="shint">Moves with the body: for elevators, orbital rings, surface stations.</p>`;
+  h += `</div>`;
+  // physical
+  h += `<div class="grp">Physical</div><div class="sform">`;
+  if (c === 'star'){ const sc = b._src === 'typical' ? 'Typical for its class' : 'From the spectral type';
+    h += `<label class="sl">Spectral type</label><input type="text" data-yf="phys.spec" data-dim="" value="${esc(P.spec || '')}" placeholder="G2V">`
+      + sydNum(b, 'phys.teff', 'Temperature (K)', null, { dim:null, comp:sc, ok:'teff' }) + sydNum(b, 'phys.lum', 'Luminosity (L☉)', null, { dim:null, comp:sc, ok:'lum' })
+      + sydNum(b, 'phys.M', 'Mass', null, { comp:b._noMass ? null : sc }) + sydNum(b, 'phys.R', 'Radius', null, { comp:sc }) + sydNum(b, 'phys.rot', 'Rotation period');
+    if (real && b._src === 'typical') h += `<p class="shint">Typical values for this class. Approximate.</p>`; }
+  if (c === 'planet' || c === 'moon' || c === 'comet'){
+    h += sydNum(b, 'phys.R', 'Radius') + sydNum(b, 'phys.M', 'Mass', null, { comp:K.giant ? null : 'From the radius' }) + sydNum(b, 'phys.rot', 'Rotation period')
+      + sydNum(b, 'phys.tilt', 'Axial tilt', null, { dim:null, suffix:'°' }) + sydNum(b, 'phys.A', 'Albedo', null, { dim:null })
+      + sydSel('phys.atm', 'Atmosphere', SYD_ATM, P.atm || 'none')
+      + sydNum(b, 'phys.cloud', 'Cloud cover', null, { dim:null, suffix:'0 to 1' }) + sydNum(b, 'phys.ocean', 'Ocean cover', null, { dim:null, suffix:'0 to 1' })
+      + `<label class="schk2"><input type="checkbox" data-yc="phys.lights"${P.lights ? ' checked' : ''}> Night lights</label>`;
+    if ((b.look && b.look.preset) === 'gas' || K.look === 'gas') h += sydSel('phys.sud', 'Cloud class', SYD_SUD.map(s => [s[0], s[1] + ' · ' + s[2], s[2]]), P.sud || 1);
+    if (c === 'comet') h += sydNum(b, 'phys.tail', 'Tail length', null, { dim:null }); }
+  if (c === 'belt') h += sydNum(b, 'phys.r0', 'Inner edge') + sydNum(b, 'phys.r1', 'Outer edge') + sydNum(b, 'phys.h', 'Thickness')
+    + sydNum(b, 'phys.es', 'Eccentricity spread', null, { dim:null }) + sydNum(b, 'phys.is', 'Inclination spread', null, { dim:null, suffix:'°' })
+    + sydNum(b, 'phys.pts', 'Points drawn', null, { dim:null }) + `<p class="shint">Only what's drawn. Lower it on a weaker graphics card.</p>`
+    + (sydK(b).cloud || (+P.is || 0) > 60 ? `<p class="shint">The view switches to the galaxy map ${SYS_LEAVE} ly from the star. Beyond that the cloud is shown as a faint shell on the map.</p>` : '');
+  if (c === 'ring') h += sydNum(b, 'phys.rin', 'Inner radius') + sydNum(b, 'phys.rout', 'Outer radius') + sydNum(b, 'phys.op', 'Opacity', null, { dim:null });
+  if (c === 'art') h += sydNum(b, 'phys.S', 'Size', null, { dim:null, suffix:'km' }) + sydSel('kind', 'Model', Object.entries(SYD_KINDS).filter(([k, x]) => x.g === 'art').map(([k, x]) => [k, x.n]), b.kind);
+  h += `</div>`;
+  // look
+  if (c === 'planet' || c === 'moon' || c === 'comet' || c === 'star' || c === 'belt' || c === 'ring' || c === 'art'){
+    h += `<div class="grp">Look</div><div class="sform">`;
+    if (c === 'planet' || c === 'moon' || c === 'comet'){ const L = SYD_LOOKS.concat(b.look && b.look.tex ? [['tex', 'Texture (built-in)']] : []); h += sydSel('look.preset', 'Preset', L, (b.look && b.look.preset) || K.look); }
+    if (c !== 'star') h += `<div class="s2col"><div><label class="sl">Main colour</label><input type="color" data-yk="look.c1" value="${esc(sydColHex(b.look.c1))}"></div>`
+      + (c === 'belt' || c === 'ring' || c === 'art' ? '' : `<div><label class="sl">Second colour</label><input type="color" data-yk="look.c2" value="${esc(sydColHex(b.look.c2))}"></div>`) + `</div>`;
+    h += `<label class="sl">Seed</label><div class="yin"><input type="text" data-yf="look.seed" data-dim="" value="${esc(b.look.seed || '')}"><button class="ibtn" data-y="reroll" title="Same type, different surface">Reroll</button></div></div>`; }
+  // readouts and warnings
+  h += sydReadoutHtml(D, b);
+  h += `<div class="sbtns2"><button class="btn ghost" data-y="del" data-u="${b.uuid}">Delete</button></div>`;
+  const sc = el.scrollTop; el.innerHTML = h; el.scrollTop = sc;
+}
+const sydColHex = c => { try { return '#' + new THREE.Color(c || '#888888').getHexString(); } catch(e){ return '#888888'; } };
+function sydDesc(D, u){ const out = []; const walk = p => { for (const b of D.bodies) if (b.parent === p){ out.push(b.uuid); walk(b.uuid); } }; walk(u); return out; }
+
+// ---------- realistic-mode readouts and warnings ----------
+function sydReadouts(D, b){
+  const r = {}, c = sydCat(b), st = sydStarOf(D, b), pl = b.place, P = b.phys;
+  if (pl.mode === 'orbit') r.P = +pl.P || null;
+  if ((c === 'planet' || c === 'moon' || c === 'comet') && st){ const d = sydStarDist(D, b); if (d){ r.teq = sydTeq(+st.phys.teff, +st.phys.R, d, +P.A);
+    const z = sydHZ(+st.phys.teff, +st.phys.lum); if (z){ r.hz = d < z[0] ? 'inside' : d < z[1] ? 'in the optimistic zone' : d <= z[2] ? 'in the conservative zone' : d <= z[3] ? 'in the optimistic zone' : 'beyond';
+      r.hzM = (+P.M > 0) && (+P.M < 0.1 || +P.M > 5); r.hzT = +st.phys.teff < 2600 || +st.phys.teff > 7200; } } }
+  const p = sydParentOf(D, b);
+  if (pl.mode === 'orbit' && (c === 'planet' || c === 'moon')){ const M = p ? +p.phys.M : sydCentralMass(D, b); r.hill = sydHill(+pl.a, +pl.e, +P.M, M); }
+  if (c === 'moon' && p && pl.mode === 'orbit'){ const pd = sydDens(+p.phys.M, +p.phys.R), md = sydDens(+P.M, +P.R); if (pd && md) r.roche = 2.44*(+p.phys.R)*Math.cbrt(pd/md); }
+  return r;
+}
+function sydChecks(D){
+  const out = new Map(), add = (b, t) => { if (!out.has(b.uuid)) out.set(b.uuid, []); out.get(b.uuid).push(t); };
+  if (D.mode === 'free') return out;
+  const nm = b => b.name || sydK(b).n;
+  for (const b of D.bodies){ const c = sydCat(b), pl = b.place, p = sydParentOf(D, b); if (pl.mode !== 'orbit') continue;
+    const a = +pl.a, e = +pl.e || 0;
+    if (p && +p.phys.R > 0 && a*(1 - e)*AU_KM < +p.phys.R && c !== 'belt') add(b, sydCat(p) === 'star' ? `${nm(b)} is inside its star.` : `${nm(b)} is inside ${nm(p)}.`);
+    if (c === 'moon' && p){ const r = sydReadouts(D, b);
+      if (r.roche && a*(1 - e)*AU_KM < r.roche) add(b, `${nm(b)} is inside ${nm(p)}'s Roche limit and would be torn apart.`);
+      const gp = sydParentOf(D, p), M = gp ? +gp.phys.M : sydCentralMass(D, p);
+      if (p.place.mode === 'orbit' && +p.phys.M > 0 && M > 0){ const rH = (+p.place.a)*Math.cbrt((+p.phys.M)/(3*M)), ep = +p.place.e || 0;
+        const lim = pl.retro ? 0.9309*rH*(1 - 1.0764*ep - 0.9812*e) : 0.4895*rH*(1 - 1.0305*ep - 0.2738*e);
+        if (a > lim) add(b, `${nm(b)} orbits beyond the stable part of ${nm(p)}'s Hill sphere and would drift away.`); } }
+  }
+  // neighbours under the same body: orbit spacing and crossings
+  const groups = new Map(); for (const b of D.bodies){ if (b.place.mode !== 'orbit' || !['planet', 'star'].includes(sydCat(b))) continue; const k = b.parent || ''; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(b); }
+  for (const [k, L] of groups){ L.sort((x, y) => +x.place.a - +y.place.a); const p = k ? sydBodyOf(D, k) : null, M = p ? +p.phys.M : sydCentralMass(D, L[0]);
+    for (let i = 1; i < L.length; i++){ const x = L[i - 1], y = L[i], ax = +x.place.a, ay = +y.place.a, ex = +x.place.e || 0, ey = +y.place.e || 0;
+      if (ay*(1 - ey) < ax*(1 + ex)) add(y, `${nm(y)} crosses the orbit of ${nm(x)}.`);
+      else if (M > 0 && +x.phys.M > 0 && +y.phys.M > 0){ const RH = Math.cbrt((+x.phys.M + +y.phys.M)/(3*M))*(ax + ay)/2, dl = (ay - ax)/RH;
+        if (dl < 10) add(y, `${nm(x)} and ${nm(y)} are ${dl.toFixed(1)} mutual Hill radii apart. Orbits closer than about 10 tend not to last.`); } } }
+  return out;
+}
+function sydReadoutHtml(D, b){
+  if (D.mode === 'free') return `<p class="shint">Free mode: no checks.</p>`;
+  const r = sydReadouts(D, b), W = sydChecks(D).get(b.uuid) || [], lines = [];
+  if (r.P) lines.push('Period ' + (r.P > 2000 ? sydFmt(r.P/365.25) + ' years' : sydFmt(r.P) + ' days'));
+  if (r.teq) lines.push('Equilibrium temperature ' + Math.round(r.teq) + ' K');
+  if (r.hz) lines.push('Habitable zone: ' + r.hz);
+  if (r.hill) lines.push('Hill radius ' + (r.hill < 0.01 ? sydFmt(r.hill*AU_KM) + ' km' : sydFmt(r.hill) + ' AU'));
+  if (r.roche) lines.push('Roche limit ' + sydFmt(r.roche) + ' km');
+  let h = lines.length || W.length ? `<div class="grp">Checks</div>` : '';
+  if (lines.length) h += `<div class="sread">${lines.map(esc).join('<br>')}</div>`;
+  if (r.hz && r.hzM) h += `<p class="shint">The habitable zone model covers planets of 0.1 to 5 Earth masses. Shown as a guide only.</p>`;
+  if (r.hz && r.hzT) h += `<p class="shint">The habitable zone model covers stars of 2,600 to 7,200 K. Shown as a guide only.</p>`;
+  for (const w of W) h += `<div class="swarn">${esc(w)}</div>`;
+  return h;
+}
+
+// ---------- events ----------
+function sydBodyIn(D, u){ return D && u ? sydBodyOf(D, u) : null; }
+document.addEventListener('click', async e => {
+  const t = e.target.closest('[data-y]'); if (!t || !t.closest('#syd, #sydi')) return; const a = t.dataset.y, u = t.dataset.u, D = sydCur(); if (!D) return;
+  if (a === 'done') return sydClose();
+  if (a === 'undo') return scenUndo(); if (a === 'redo') return scenRedo();
+  if (a === 'mode') return sydEdit(X => { X.mode = t.dataset.v; });
+  if (a === 'scale'){ SYD.scale = t.dataset.v; for (const s of SYD.list) s.json = ''; sydRebuild(); sydAfter(); return; }
+  if (a === 'clk'){ const v = t.dataset.v, C = SYD.clock; if (v === 'pause') sydClockSet(null, true); else if (v === 'play') sydClockSet(null, false);
+    else if (v === 'slow') sydClockSet(C.idx - 1, null); else if (v === 'fast') sydClockSet(C.idx + 1, null); else if (v === 'now') sydClockReset(); return; }
+  if (a === 'sel'){ const o = SYD.sys.bodies.find(x => x.def.uuid === u); SYD.menu = null; if (o) sydSelect(o); else { SYD.sel = u; sydRender(); } return; }
+  if (a === 'menu'){ SYD.menu = SYD.menu === u ? null : u; sydRenderDock(); return; }
+  if (a === 'palette'){ SYD.palette = !SYD.palette; sydRenderDock(); return; }
+  if (a === 'hide') return sydEdit(X => { const b = sydBodyOf(X, u); if (b) b.hidden = !b.hidden; });
+  if (a === 'add' || a === 'addmoon' || a === 'addring' || a === 'addstation'){
+    const kind = a === 'add' ? t.dataset.k : a === 'addmoon' ? 'moon' : a === 'addring' ? 'ring' : 'station';
+    const par = a === 'add' ? sydParentFor(D, kind) : u; let nu = null; SYD.palette = false; SYD.menu = null;
+    sydEdit(X => { const b = sydNewBody(X, kind, par); X.bodies.push(b); nu = b.uuid; }); sydSelectU(nu); return; }
+  if (a === 'dup'){ let nu = null; SYD.menu = null; sydEdit(X => { const map = new Map(), src = [u, ...sydDesc(X, u)].map(id => sydBodyOf(X, id));
+      for (const s of src) map.set(s.uuid, scenUUID());
+      for (const s of src){ const c = JSON.parse(JSON.stringify(s)); c.uuid = map.get(s.uuid); if (s.uuid === u){ c.name = (s.name || '') + ' (copy)'; if (c.place.mode === 'orbit') c.place.phase = ((+c.place.phase || 0) + 60) % 360; } else c.parent = map.get(s.parent); X.bodies.push(c); }
+      nu = map.get(u); }); sydSelectU(nu); return; }
+  if (a === 'rename'){ SYD.menu = null; const o = SYD.sys.bodies.find(x => x.def.uuid === u); if (o) sydSelect(o); const n = document.getElementById('sydName'); if (n){ n.focus(); n.select(); } return; }
+  if (a === 'del'){ const b = sydBodyOf(D, u); if (!b) return; const ds = sydDesc(D, u); SYD.menu = null;
+    if (ds.length){ const r = await scenModal({ title:'Delete', html:`<p>Delete ${esc(b.name || sydK(b).n)} and the ${ds.length} bodies that orbit it? You can undo this.</p>`, buttons:[['go', 'Delete', true], ['cancel', 'Cancel']] }); if (r !== 'go') return; }
+    if (SYD.sel === u || ds.includes(SYD.sel)) SYD.sel = null; sydEdit(X => { const gone = new Set([u, ...ds]); X.bodies = X.bodies.filter(x => !gone.has(x.uuid)); }); return; }
+  if (a === 'reset'){ const f = t.dataset.f, b = sydSelBody(); if (!b) return; sydEdit(X => { const x = sydBodyOf(X, b.uuid); if (x && x.over) delete x.over[f]; }); return; }
+  if (a === 'reroll'){ const b = sydSelBody(); if (!b) return; sydEdit(X => { const x = sydBodyOf(X, b.uuid); x.look.seed = Math.floor(Math.random()*9000) + 1000; }); return; }
+});
+function sydParentFor(D, kind){
+  const K = SYD_KINDS[kind], sel = sydSelBody(), centre = D.bodies.find(x => sydIsCentre(x) && sydCat(x) === 'star');
+  const starUp = b => { let p = b; for (let i = 0; i < 20 && p; i++){ if (sydCat(p) === 'star') return p; p = sydParentOf(D, p); } return null; };
+  if (K.cat === 'star') return null;
+  if (K.cat === 'planet' || K.cat === 'comet'){ if (K.free) return null; const s = sel ? starUp(sel) : null; return (s || centre || {}).uuid || null; }
+  if (K.cat === 'moon' || K.cat === 'ring'){ if (sel && ['planet', 'moon'].includes(sydCat(sel))) return sel.uuid; if (K.cat === 'ring' && sel && sydCat(sel) === 'star') return sel.uuid;
+    const p = D.bodies.find(x => sydCat(x) === 'planet'); return (p || centre || {}).uuid || null; }
+  if (K.cat === 'belt'){ const s = sel ? starUp(sel) : null; return (s || centre || {}).uuid || null; }
+  if (K.cat === 'art'){ if (sel && !['belt', 'ring', 'halo'].includes(sydCat(sel))) return sel.uuid; return (centre || {}).uuid || null; }
+  return null;
+}
+function sydSelectU(u){ if (!u || !SYD.sys) return; const o = SYD.sys.bodies.find(x => x.def.uuid === u); if (o) sydSelect(o); else { SYD.sel = u; sydRender(); } }
+function sydAfter(){ if (SYD.open){ const o = sydSelObj(); if (o){ selected = o; setChip(o); } sydRender(); } }
+// field edits: numbers (with units), text, selects, checkboxes, colours, units and notes
+document.addEventListener('change', e => {
+  const t = e.target; if (!t.closest || !t.closest('#sydi')) return; const b = sydSelBody(), D = sydCur(); if (!b || !D) return;
+  if (t.dataset.yu){ const f = t.dataset.yu, v = t.value; sydEdit(X => { const x = sydBodyOf(X, b.uuid); x.units = x.units || {}; x.units[f] = v; }); return; }
+  if (t.dataset.yf){ const path = t.dataset.yf, dim = t.dataset.dim, f = path.split('.').pop(); let v;
+    if (path === 'name' || path === 'phys.spec'){ v = t.value.trim(); if (path === 'name' && !v){ SYD.err = 'A body needs a name.'; sydRenderInsp(); return; } }
+    else { const n = sydParse(t.value); if (t.value.trim() === '' && (f === 'P' || f === 'M' || f === 'teff' || f === 'lum' || f === 'R')){ v = null; } else { if (!isFinite(n)){ sydRenderInsp(); return; } v = dim ? n*sydUF(dim, t.dataset.u) : n; } }
+    if (f === 'e' && !(v >= 0 && v < 1)){ SYD.err = 'Eccentricity must be at least 0 and below 1.'; sydRenderInsp(); return; }
+    if (f === 'a' && path === 'place.a' && !(v > 0)){ SYD.err = 'Semi-major axis must be above zero.'; sydRenderInsp(); return; }
+    SYD.err = '';
+    sydEdit(X => { const x = sydBodyOf(X, b.uuid); const ks = path.split('.'); let o = x; for (let i = 0; i < ks.length - 1; i++){ o[ks[i]] = o[ks[i]] || {}; o = o[ks[i]]; } o[ks[ks.length - 1]] = v;
+      x.over = x.over || {}; if (['teff', 'lum', 'R', 'M', 'P'].includes(f)){ if (v == null) delete x.over[f]; else x.over[f] = true; }
+      if (path === 'phys.spec'){ delete x.over.teff; delete x.over.lum; if (!X.builtin){ delete x.over.R; delete x.over.M; } }
+      if (path.startsWith('place.') && x.place.ephem && ['a', 'e', 'i', 'node', 'argp', 'phase'].includes(f)) delete x.place.ephem;
+      if (f === 'R' && sydCat(x) !== 'star') delete x.over.M; });
+    return; }
+  if (t.dataset.ys){ const path = t.dataset.ys, v = t.value;
+    if (path === 'parent'){ const nv = v || null; if (nv && (nv === b.uuid || sydDesc(D, b.uuid).includes(nv))){ SYD.err = 'A body can\'t orbit itself or one of its own moons.'; sydRenderInsp(); return; } }
+    SYD.err = '';
+    sydEdit(X => { const x = sydBodyOf(X, b.uuid);
+      if (path === 'parent'){ x.parent = v || null; if (x.place.mode === 'centre' && x.parent) x.place.mode = 'orbit'; if (x.place.mode === 'orbit' && !(+x.place.a > 0)) Object.assign(x.place, { a:1, e:0, i:0, node:0, argp:0, phase:0 }); return; }
+      if (path === 'kind'){ const K = SYD_KINDS[v]; x.kind = v; if (K.cat === 'star'){ x.phys.spec = K.spec; delete x.over.teff; delete x.over.lum; delete x.over.R; delete x.over.M; }
+        else if (K.look){ if (x.look.preset !== 'tex' && x.look.preset !== 'holo') x.look.preset = K.look; x.look.c1 = K.c1 || x.look.c1; x.look.c2 = K.c2 || x.look.c2; if (K.R && !x.over.R) x.phys.R = K.R; if (K.sud) x.phys.sud = K.sud; } return; }
+      if (path === 'place.mode'){ x.place.mode = v; if (v === 'centre') x.parent = null;
+        if (v === 'orbit' && !(+x.place.a > 0)) Object.assign(x.place, { a:1, e:0, i:0, node:0, argp:0, phase:0 });
+        if (v === 'free' && x.place.x == null){ const o = SYD.sys.bodies.find(q => q.def.uuid === x.uuid), p = o && o.parent ? o.parent.posAU : new THREE.Vector3(), d = o ? o.posAU.clone().sub(p) : new THREE.Vector3(1, 0, 0), F = o ? o.frame : FLAT_BASIS;
+          Object.assign(x.place, { x:+d.dot(F.X).toPrecision(6), y:+d.dot(F.Y).toPrecision(6), z:+d.dot(F.Z).toPrecision(6) }); }
+        if (v === 'attached'){ x.place.lat = x.place.lat || 0; x.place.lon = x.place.lon || 0; x.place.h = x.place.h || 1000; if (!x.parent){ const c = X.bodies.find(q => sydIsCentre(q)); x.parent = c ? c.uuid : null; } } return; }
+      const ks = path.split('.'); x[ks[0]][ks[1]] = /^(phys\.sud)$/.test(path) ? +v : v;
+      if (path === 'phys.sud'){ delete x.over.c1; delete x.over.c2; } });
+    return; }
+  if (t.dataset.yc){ const path = t.dataset.yc, v = t.checked; sydEdit(X => { const x = sydBodyOf(X, b.uuid), ks = path.split('.'); x[ks[0]][ks[1]] = v; }); return; }
+  if (t.dataset.yk){ const path = t.dataset.yk, v = t.value; sydEdit(X => { const x = sydBodyOf(X, b.uuid), ks = path.split('.'); x[ks[0]][ks[1]] = v; x.over = x.over || {}; x.over[ks[1]] = true; }); return; }
+  if (t.dataset.yn){ sydNotesCommit(t); return; }
+});
+document.addEventListener('change', e => { const t = e.target; if (t.dataset && t.dataset.y === 'ovl'){ SYD.ovl[t.dataset.v] = t.checked; for (const s of SYD.list) s.json = ''; sydRebuild(); sydAfter(); } });
+
+// ---------- dragging in the view: along the orbit, the orbit's size, or a free position ----------
+function sydRayPlane(e, P0, n){ const r = canvas.getBoundingClientRect(), v = new THREE.Vector2((e.clientX - r.left)/r.width*2 - 1, -(e.clientY - r.top)/r.height*2 + 1), rc = new THREE.Raycaster();
+  rc.setFromCamera(v, sysCam); const d = rc.ray.direction, o = rc.ray.origin, den = d.dot(n); if (Math.abs(den) < 1e-9) return null; const t = P0.clone().sub(o).dot(n)/den; return t > 0 ? o.clone().addScaledVector(d, t) : null; }
+function sydScr(pAU){ _sv.copy(pAU).project(sysCam); return [(_sv.x + 1)/2*innerWidth, (1 - _sv.y)/2*innerHeight, _sv.z]; }
+canvas.addEventListener('pointerdown', e => {
+  if (!SYD.open || !sysActive || activeSys !== SYD.sys || e.button !== 0) return; const o = sydSelObj(); if (!o) return;
+  const pl = o.def.place, sch = sydSchem(); if (sch || !(pl.mode === 'orbit' || pl.mode === 'free')) return;
+  const [x, y, z] = sydScr(o.posAU); let mode = null;
+  if (z < 1 && Math.hypot(x - e.clientX, y - e.clientY) < 14) mode = pl.mode === 'orbit' ? 'phase' : 'move';
+  else if (pl.mode === 'orbit' && o.line){ const ps = o.line.geometry.attributes.position, base = o.line.position;
+    for (let i = 0; i < ps.count; i += 2){ _sv2.set(ps.getX(i), ps.getY(i), ps.getZ(i)).add(base); const q = sydScr(_sv2); if (q[2] < 1 && Math.hypot(q[0] - e.clientX, q[1] - e.clientY) < 7){ mode = 'size'; break; } } }
+  if (!mode) return;
+  e.stopImmediatePropagation(); e.preventDefault(); controls.enabled = false; canvas._pd = null;
+  SYD.drag = { mode, u:o.def.uuid, snap:JSON.stringify(SCEN.doc), moved:false };
+  try { canvas.setPointerCapture(e.pointerId); } catch(err){}
+}, true);
+canvas.addEventListener('pointermove', e => {
+  const G = SYD.drag; if (!G) return; const o = sydSelObj(); if (!o){ SYD.drag = null; controls.enabled = true; return; }
+  const b = o.def, pl = b.place, P0 = o.parent ? o.parent.posAU.clone() : new THREE.Vector3();
+  if (G.mode === 'move'){ const n = o.frame.Z, hit = sydRayPlane(e, o.posAU, n); if (!hit) return; const d = hit.sub(P0); pl.x = +d.dot(o.frame.X).toPrecision(7); pl.y = +d.dot(o.frame.Y).toPrecision(7); }
+  else { const n = sydOrbNormal(o.frame, pl), hit = sydRayPlane(e, P0, n); if (!hit) return; const rel = hit.sub(P0);
+    if (pl.ephem){ Object.assign(pl, sydElOfEphem(pl.ephem.el)); delete pl.ephem; }
+    const e0 = Math.min(0.99, +pl.e || 0), pe = sydOrbXYZ(Object.assign({}, pl, { a:1 }), 0), peri = sydW(o.frame, pe[0], pe[1], pe[2]).normalize(), Q = new THREE.Vector3().crossVectors(n, peri).normalize();
+    const nu = Math.atan2(rel.dot(Q), rel.dot(peri));
+    if (G.mode === 'phase'){ const E = 2*Math.atan(Math.sqrt((1 - e0)/(1 + e0))*Math.tan(nu/2)), M = E - e0*Math.sin(E), base = pl.P > 0 ? 2*Math.PI*(sysJD() - J2000)/pl.P : 0;
+      pl.phase = +((((M - base)/D2R) % 360 + 360) % 360).toFixed(3); }
+    else { const r = rel.length(), a = r*(1 + e0*Math.cos(nu))/(1 - e0*e0); if (a > 0) pl.a = +a.toPrecision(7); } }
+  G.moved = true; sydDerive(o.sys.design); o.sys.json = '';
+  if (G.mode === 'size' && o.line){ const pts = []; for (let k = 0; k <= 360; k++){ const q = sydOrbXYZ(pl, k/360*2*Math.PI); pts.push(sydW(o.frame, q[0], q[1], q[2])); } o.line.geometry.dispose(); o.line.geometry = new THREE.BufferGeometry().setFromPoints(pts); }
+  stepDesign(o.sys, sysJD(), 0);
+});
+const sydDragEnd = e => { const G = SYD.drag; if (!G) return; SYD.drag = null; controls.enabled = true;
+  if (G.moved){ SCEN.undo.push(G.snap); if (SCEN.undo.length > 200) SCEN.undo.shift(); SCEN.redo.length = 0; SCEN.doc.modified = scenNow(); const D = SCEN.doc.systems.find(x => x.uuid === SYD.sys.uuid); if (D) D.modified = scenNow();
+    scenDirty(); scenRebuild(); } };
+canvas.addEventListener('pointerup', sydDragEnd, true); canvas.addEventListener('pointercancel', sydDragEnd, true);
+
+// ---------- the scenario panel, Browse and the export ----------
+function sydScenSection(){ const d = SCEN.doc; if (!d) return ''; const L = d.systems || [];
+  let h = `<div class="sgrp">Designed systems (${L.length})</div>`;
+  for (const D of L) h += `<button class="srow2" data-sydhost="${esc(D.uuid)}" title="Select on the map"><span>${esc(D.name)}</span><span class="t">${D.bodies.length} bodies${D.builtin ? ' · copy of the built-in model' : ''}</span></button>`;
+  return h; }
+document.addEventListener('click', e => { const t = e.target.closest('[data-sydhost]'); if (!t) return; const s = SYD.list.find(x => x.uuid === t.dataset.sydhost); if (!s) return;
+  const o = s.hostObj || (s.design.builtin && SYSTEMS.find(x => x.id === s.design.builtin) || {}).anchorObj || s.star; if (o) showObject(o); });
+function sydNavBody(){ return SYD.list.map(s => { const o = s.hostObj || s.anchorObj || s.star; const n = s.design.bodies.length;
+  return `<button class="row" data-sydhost="${esc(s.uuid)}">${icDot('#8de9ff', 8)}<span class="nm">${esc(s.name)}<small>${n} bodies${s.design.builtin ? ' · copy of the built-in model' : ''}</small></span><span class="d">${o && o.pos ? dFromSol(o) : ''}</span><span class="chev"></span></button>`; }).join(''); }
+function sydExportRows(scope){
+  const L = (SCEN.doc.systems || []).filter(D => scope !== 'this' || (SYD.sys && D.uuid === SYD.sys.uuid) || (!SYD.sys && activeSys && activeSys.design && D.uuid === activeSys.uuid)), rows = [];
+  for (const D of L){ const host = (D.host && D.host.name) || '';
+    for (const b of sydOrder(D)){ const K = sydK(b), pl = b.place || {}, P = b.phys || {}, p = sydParentOf(D, b), r = sydReadouts(D, b), au = sydUnitOf(b, 'a', D) || 'AU', f = sydUF('dist', au);
+      const n = v => v == null || v === '' || !isFinite(+v) ? '' : +(+v).toPrecision(8);
+      rows.push([D.name, host, b.name || K.n, K.n, p ? p.name || sydK(p).n : 'system centre', pl.mode || '', pl.mode === 'orbit' ? n(+pl.a/f) : '', pl.mode === 'orbit' ? au : '',
+        pl.mode === 'orbit' ? n(pl.e) : '', pl.mode === 'orbit' ? n(pl.i) : '', pl.mode === 'orbit' ? n(pl.node) : '', pl.mode === 'orbit' ? n(pl.argp) : '', pl.mode === 'orbit' ? n(pl.phase) : '',
+        pl.mode === 'orbit' ? (pl.retro ? 1 : 0) : '', pl.mode === 'orbit' ? n(pl.P) : '', K.cat === 'art' ? n(P.S) : n(P.R), n(P.M), K.cat === 'star' ? n(P.teff) : '', K.cat === 'star' ? n(P.lum) : '',
+        K.cat === 'star' ? P.spec || '' : '', n(P.rot), n(P.tilt), n(P.A), r.teq ? Math.round(r.teq) : '', r.hz || '', pl.mode === 'free' ? n(pl.x) : '', pl.mode === 'free' ? n(pl.y) : '', pl.mode === 'free' ? n(pl.z) : '',
+        (b.look && b.look.preset) || K.look || '', b.notes || '', D.author || '']); } }
+  return rows; }
+const SYD_COLS = ['system','host','body','kind','parent','placement','a','a_unit','e','i_deg','node_deg','argp_deg','phase_deg','retrograde','period_days','radius_km','mass_earth','temp_k','luminosity_sun',
+  'spectral_type','rotation_h','axial_tilt_deg','albedo','eq_temp_k','hz_status','free_x_au','free_y_au','free_z_au','look_preset','notes','scenario_author'];
+
+// notes change nothing in the scene, so they are saved quietly (one undo step, no rebuild) as you type
+function sydNotesCommit(t){ clearTimeout(SYD.noteT); const b = sydSelBody(), D = SCEN.doc && SYD.sys ? SCEN.doc.systems.find(x => x.uuid === SYD.sys.uuid) : null; if (!b || !D) return;
+  const x = sydBodyOf(D, b.uuid); if (!x || (x.notes || '') === t.value) return;
+  SCEN.undo.push(JSON.stringify(SCEN.doc)); if (SCEN.undo.length > 200) SCEN.undo.shift(); SCEN.redo.length = 0; x.notes = t.value; D.modified = SCEN.doc.modified = scenNow(); scenDirty(); }
+document.addEventListener('input', e => { const t = e.target; if (!t.dataset || !t.dataset.yn || !t.closest('#sydi')) return; clearTimeout(SYD.noteT); SYD.noteT = setTimeout(() => sydNotesCommit(t), 900); });
+$('#sydClose').onclick = () => sydClose();
+
 scenStartup();
 
 buildRefPlane(); buildGalPlane(); applyRefLabels();
@@ -11621,6 +12856,8 @@ window.DAYBREAK_MAP = { GAIA_SHELL, setGaiaShell, CLS, CLSF, applyClassFilter, c
   get ark(){ return ark; }, get arkLocal(){ return arkLocal; }, labelled, labelOrder, LGRID, lgFree, lgMark, SLAB, regionHit, notesHtml, NOTE_SECTIONS, haloShow, covShow, covPick, haloPick, isCharted, get SCALE_LY(){ return SCALE_LY; }, get SCALE_K(){ return SCALE_K; }, IDLE, TIER_LY, COV_TIER_LY, viewOf, gc, sol, COV_REF_IDS,
   SCEN, SFS, SCEN_COLS, SCEN_STATUS, scenEdit, scenRebuild, scenLoad, scenCheck, scenBlankDoc, scenStartNew, scenSave, scenUndo, scenRedo, scenKeyOf, scenResolve, scenGalToEq, scenGalOf, scenWorldOf,
   scenExportText, scenExportRows, scenRowValues, scenNearestMap, scenImportText, scenCsvParse, scenNearest, setScen, scenFacVis, scenWriteRecovery, scenReadRecovery, scenClearRecovery, scenStartup, slipPickables, scenNfPos, scenNfSync, scenParseRA, scenParseDec, scenModal, fieldObjOrNamed };
+Object.assign(window.DAYBREAK_MAP, { SYD, sydRebuild, sydFromBuiltin, sydDerive, sydStarProps, sydMassFromR, sydHZ, sydFrost, sydChecks, sydReadouts, sydOpen, sydClose, sydStart,
+  sydExportRows, SYD_COLS, SYD_KINDS, stepDesign, sysJD, sydClockSet, sydClockReset, sydCands, sydNewBody, sydDesignOf, sydHostObj, sydEdit, sydSelect, sydSpec, sydPeriod, sydHill, sydTeq });   // v1.3.0
 function route(){ const m = location.hash.match(/#\/obj\/([a-z0-9-]+)/); if (m){ const o=objById(m[1]); if (o){ showObject(o); return true; } } return false; }
 showCatalogue();
 if (!route()){ camera.position.copy(home.pos).multiplyScalar(1.6); flyTo(home.target, home.pos, 3200); }

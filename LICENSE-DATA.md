@@ -1,6 +1,6 @@
 # Data licence
 
-Daybreak Star Map, version 1.2.2.
+Daybreak Star Map, version 1.3.0.
 
 The Daybreak placement data embedded in `app/index.html` (the `window.STARS`, `window.DAYBREAK`, `window.DATA`, Covenant, route, region and Halo Array records, and the CSV and JSON exports derived from them) is released under the Creative Commons Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0): https://creativecommons.org/licenses/by-sa/4.0/
 
@@ -8,6 +8,6 @@ It derives from the Project Daybreak Wiki (https://daybreak.miraheze.org/, CC BY
 
 Attribution: "Daybreak Star Map by Faber, from the Project Daybreak Wiki and charts by Tacitus, AT-HYG, the Gaia Catalogue of Nearby Stars, Gaia DR3 and SIMBAD, CC BY-SA 4.0".
 
-Scenario files made with the map carry a licence field, CC BY-SA 4.0 by default, so contributed scenarios can be merged into the Daybreak data on the same terms.
+Scenario files made with the map carry a licence field, CC BY-SA 4.0 by default, so contributed scenarios can be merged into the Daybreak data on the same terms. Systems designed with the map are part of the scenario file and carry its licence.
 
 The map's code is separately licensed under MIT (see LICENSE). Third-party images and catalogues keep their own terms, listed in CREDITS.md.
