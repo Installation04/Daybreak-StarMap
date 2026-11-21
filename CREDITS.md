@@ -1,6 +1,6 @@
 # Credits and sources
 
-Daybreak Star Map, version 1.3.0.
+Daybreak Star Map, version 1.4.0.
 
 This file mirrors the app's About sheet (the ⓘ button). If the two differ, the About sheet in the shipped page is the one to fix.
 
@@ -48,6 +48,9 @@ Halo © Microsoft Corporation. The Daybreak Star Map was created under Microsoft
 - **Orbit spacing**: Chambers, J. E., Wetherill, G. W. & Boss, A. P. 1996, Icarus, 119, 261.
 - **Stable moon orbits**: Domingos, R. C., Winter, O. C. & Yokoyama, T. 2006, MNRAS, 373, 1227.
 - **Frost line**: Hayashi, C. 1981, Progress of Theoretical Physics Supplement, 70, 35.
+- **Stable orbits in binaries**: Holman, M. J. & Wiegert, P. A. 1999, AJ, 117, 621 (doi:10.1086/300695).
+- **Black holes**: the Schwarzschild and Kerr solutions as given in any general relativity text, and Bardeen, J. M., Press, W. H. & Teukolsky, S. A. 1972, ApJ, 178, 347 (doi:10.1086/151796), for the innermost stable orbit.
+- **Forerunner presets**: the Project Daybreak Wiki, https://daybreak.miraheze.org/, CC BY-SA 4.0; the pages are named in each preset's panel.
 - Subgiants, giants, supergiants, white dwarfs, neutron stars, Wolf-Rayet and carbon stars and protostars use typical values for their class, marked as approximate. Every surface in the designer is procedural, made for this project.
 
 ## Art
